@@ -18,78 +18,93 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: '#26a69a' }}>
-      {/* Logo */}
-      <div className="mb-6 flex flex-col items-center">
-        <div className="bg-white p-2 rounded-lg shadow-lg">
-          <img
-            src="/custom-logo.png"
-            alt="Logo"
-            className="h-20 object-contain"
-          />
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-['Open_Sans']" style={{ backgroundColor: '#87cec1' }}>
+      {/* Logo and Title Section */}
+      <div className="mb-8 flex flex-col items-center text-center">
+        <div className="relative mb-2">
+          <div className="w-[84px] h-[84px] rounded-full flex items-center justify-center overflow-hidden shadow-sm" style={{ backgroundColor: '#ffa100' }}>
+            <img
+              src="/amrita-icon.png"
+              alt="Amrita Icon"
+              className="w-16 h-16 object-contain brightness-0 invert"
+            />
+          </div>
         </div>
+        <h1 className="text-[21px] font-medium leading-tight" style={{ color: '#ffa100' }}>
+          Amrita University<br /> Management System
+        </h1>
       </div>
 
       {/* Login Card */}
-      <div className="bg-white rounded-lg shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
-        <div className="px-8 py-10">
-          <h2 className="text-3xl font-extrabold text-center mb-8 uppercase tracking-tighter" style={{ color: '#ffa100' }}>
-            Sign In
-          </h2>
+      <div className="rounded-[12px] w-full max-w-[480px] overflow-hidden p-10 pt-8" style={{ backgroundColor: '#e9edf2' }}>
+        <h2 className="text-[44px] font-normal text-center mb-8" style={{ color: '#ffa100' }}>
+          Sign In
+        </h2>
 
-          <form onSubmit={handleLogin} className="space-y-5">
-            {error && <p className="text-red-600 text-xs text-center font-bold">{error}</p>}
-            <div>
-              <input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                required
-                className="w-full px-4 py-3 border border-gray-200 rounded-md text-[13px] text-gray-700 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#26a69a]/50 focus:bg-white transition-all"
-              />
-            </div>
+        <form onSubmit={handleLogin} className="space-y-6">
+          {error && <p className="text-red-600 text-[14px] text-center font-bold">{error}</p>}
 
-            <div>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-                className="w-full px-4 py-3 border border-gray-200 rounded-md text-[13px] text-gray-700 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#26a69a]/50 focus:bg-white transition-all"
-              />
-            </div>
+          <div className="relative">
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
+              required
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[19px] placeholder-gray-500 focus:outline-none transition-all"
+              style={{ backgroundColor: '#dee3e9' }}
+            />
+          </div>
 
-            <div className="flex items-center justify-between pt-4">
+          <div className="relative">
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[19px] placeholder-gray-500 focus:outline-none transition-all"
+              style={{ backgroundColor: '#dee3e9' }}
+            />
+          </div>
+
+          <div className="flex flex-col pt-2">
+            <div className="flex items-center justify-between">
               <button
                 type="submit"
-                className="px-8 py-2.5 text-white text-[13px] font-extrabold rounded-full uppercase tracking-widest shadow-lg hover:brightness-110 active:scale-95 transition-all"
+                className="px-8 py-2.5 text-white text-[17px] font-bold rounded-[4px] uppercase tracking-wide hover:brightness-110 active:scale-95 transition-all"
                 style={{ backgroundColor: '#ffa100' }}
               >
-                Login
+                LOGIN
               </button>
-              <div className="flex flex-col items-end gap-1.5">
-                <a href="#" className="text-[11px] font-bold hover:underline" style={{ color: '#26a69a' }}>OPAC Search</a>
-                <a href="#" className="text-[11px] font-bold hover:underline" style={{ color: '#26a69a' }}>Forgot Password?</a>
-              </div>
+
+              <a href="#" className="text-[15px] hover:underline" style={{ color: '#2c7ba0' }}>
+                OPAC Search
+              </a>
             </div>
-          </form>
-        </div>
+
+            <div className="flex justify-end pt-3">
+              <a href="#" className="text-[15px] hover:underline" style={{ color: '#2c7ba0' }}>
+                Can't access your account?
+              </a>
+            </div>
+          </div>
+        </form>
       </div>
 
       {/* Footer */}
-      <p className="mt-10 text-white/80 text-[10px] font-medium tracking-widest uppercase">
-        Copyright © 2021 Amrita Technologies.
-      </p>
+      <div className="mt-14 text-center">
+        <p className="text-[19px] font-normal" style={{ color: '#7a9ea1' }}>
+          Copyright © 2021 Amrita Technologies.
+        </p>
+      </div>
 
-      {/* Sign Up Link */}
-      <p className="mt-3 text-white/80 text-[11px] font-medium">
-        New student?{' '}
-        <Link to="/signup" className="text-white font-bold underline hover:text-white/90">Create account</Link>
-      </p>
+      {/* Hidden Sign Up Link for maintenance */}
+      <div className="mt-4 opacity-0 pointer-events-none">
+        <Link to="/signup">Signup</Link>
+      </div>
     </div>
   );
 }
