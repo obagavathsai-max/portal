@@ -4,12 +4,12 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     name: 'ORUGANTI BAGAVATH SAI',
-    rollNo: 'AV.SC.U4AIE21132',
-    email: 'av.sc.u4aie21132@av.students.amrita.edu',
-    phone: '+91 98765 43210',
+    rollNo: 'AV.SC.U4AIE23132',
+    email: 'av.sc.u4aie23132@av.students.amrita.edu',
+    phone: '+91 81067 36469',
     department: 'Artificial Intelligence and Data Science',
-    program: 'B.Tech 2021 AIE',
-    batch: '2021-2025'
+    program: 'B.Tech 2023 AIE',
+    batch: '2023-2027'
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
