@@ -21,22 +21,15 @@ export default function Login() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 font-['Open_Sans']" style={{ backgroundColor: '#87cec1' }}>
       {/* Logo and Title Section */}
       <div className="mb-8 flex flex-col items-center text-center">
-        <div className="relative mb-2">
-          <div className="w-[84px] h-[84px] rounded-full flex items-center justify-center overflow-hidden shadow-sm" style={{ backgroundColor: '#ffa100' }}>
-            <img
-              src="/amrita-icon.png"
-              alt="Amrita Icon"
-              className="w-16 h-16 object-contain brightness-0 invert"
-            />
-          </div>
-        </div>
-        <h1 className="text-[21px] font-medium leading-tight" style={{ color: '#ffa100' }}>
-          Amrita University<br /> Management System
-        </h1>
+        <img
+          src="/exact-logo.png"
+          alt="Amrita University Management System"
+          className="w-full max-w-[320px] object-contain"
+        />
       </div>
 
       {/* Login Card */}
-      <div className="rounded-[12px] w-full max-w-[480px] overflow-hidden p-10 pt-8" style={{ backgroundColor: '#e9edf2' }}>
+      <div className="rounded-[12px] w-full max-w-[480px] overflow-hidden p-10 pt-8 shadow-sm" style={{ backgroundColor: '#e9edf2' }}>
         <h2 className="text-[44px] font-normal text-center mb-8" style={{ color: '#ffa100' }}>
           Sign In
         </h2>
