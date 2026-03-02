@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function UpdateAccount() {
-  const [email, setEmail] = useState('obagavathsai@gmail.com');
-  const [phone, setPhone] = useState('8106736469');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+
+  useEffect(() => {
+    const savedEmail = localStorage.getItem('userEmail');
+    const savedPhone = localStorage.getItem('userPhone');
+    if (savedEmail) setEmail(savedEmail);
+    else setEmail('obagavathsai@gmail.com');
+    if (savedPhone) setPhone(savedPhone);
+    else setPhone('8106736469');
+  }, []);
+
+  const handleUpdate = () => {
+    localStorage.setItem('userEmail', email);
+    localStorage.setItem('userPhone', phone);
+    alert('Account details updated successfully!');
+  };
 
   return (
     <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
       <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#17a2b8' }}>
+          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
             UPDATE ACCOUNT
           </h1>
         </div>
@@ -25,13 +40,13 @@ export default function UpdateAccount() {
             </div>
 
             <div className="flex">
-              <span className="font-semibold text-gray-900">ORUGANTI BAGAVATH SAI</span>
+              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
             </div>
             <div className="flex">
               <span className="text-gray-700 w-40">Academic Program</span>
             </div>
             <div className="flex">
-              <span className="font-semibold text-gray-900">B.Tech2023</span>
+              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
             </div>
 
             <div className="flex">
@@ -72,8 +87,9 @@ export default function UpdateAccount() {
 
           <div>
             <button
-              className="px-6 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#f57c00' }}
+              onClick={handleUpdate}
+              className="px-6 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity shadow-sm"
+              style={{ backgroundColor: '#ffa100' }}
             >
               Update Account
             </button>

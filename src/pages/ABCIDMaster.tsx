@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function ABCIDMaster() {
+  const [abcId, setAbcId] = useState('');
+  const [aadhaarName, setAadhaarName] = useState('');
+
+  useEffect(() => {
+    const savedAbcId = localStorage.getItem('abcId');
+    const savedAadhaarName = localStorage.getItem('aadhaarName');
+    if (savedAbcId) setAbcId(savedAbcId);
+    else setAbcId('740923811437');
+    if (savedAadhaarName) setAadhaarName(savedAadhaarName);
+    else setAadhaarName('Oruganti bagavath Sai');
+  }, []);
+
+  const handleSave = () => {
+    localStorage.setItem('abcId', abcId);
+    localStorage.setItem('aadhaarName', aadhaarName);
+    alert('ABCId details saved permanently!');
+  };
+
   return (
     <div className="space-y-4">
       <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
@@ -15,7 +33,7 @@ export default function ABCIDMaster() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-12 mb-10">
             <div>
               <p className="text-[13px] text-gray-600 mb-1">Roll No</p>
-              <p className="text-[14px] font-medium text-gray-800">AV.SC.U4AIE21132</p>
+              <p className="text-[14px] font-medium text-gray-800">AV.SC.U4AIE23132</p>
             </div>
             <div>
               <p className="text-[13px] text-gray-600 mb-1">Name</p>
@@ -23,7 +41,7 @@ export default function ABCIDMaster() {
             </div>
             <div>
               <p className="text-[13px] text-gray-600 mb-1">Academic Program</p>
-              <p className="text-[14px] font-medium text-gray-800">B.Tech 2021</p>
+              <p className="text-[14px] font-medium text-gray-800 uppercase">B.Tech 2023</p>
             </div>
             <div>
               <p className="text-[13px] text-gray-600 mb-1">Branch</p>
@@ -31,11 +49,11 @@ export default function ABCIDMaster() {
             </div>
             <div>
               <p className="text-[13px] text-gray-600 mb-1">ABCId</p>
-              <p className="text-[14px] font-medium text-gray-800">740923811437</p>
+              <p className="text-[14px] font-medium text-gray-800">{abcId}</p>
             </div>
             <div>
               <p className="text-[13px] text-gray-600 mb-1">Name same as in Aadhaar</p>
-              <p className="text-[14px] font-medium text-gray-800">Oruganti bagavath Sai</p>
+              <p className="text-[14px] font-medium text-gray-800">{aadhaarName}</p>
             </div>
           </div>
 
@@ -48,7 +66,8 @@ export default function ABCIDMaster() {
                 </label>
                 <input
                   type="text"
-                  defaultValue="740923811437"
+                  value={abcId}
+                  onChange={(e) => setAbcId(e.target.value)}
                   className="w-full bg-transparent outline-none py-1.5 text-[14px] text-gray-800"
                 />
               </div>
@@ -61,13 +80,17 @@ export default function ABCIDMaster() {
                 </label>
                 <input
                   type="text"
-                  defaultValue="Oruganti bagavath Sai"
+                  value={aadhaarName}
+                  onChange={(e) => setAadhaarName(e.target.value)}
                   className="w-full bg-transparent outline-none py-1.5 text-[14px] text-gray-800"
                 />
               </div>
             </div>
 
-            <button className="bg-[#26a69a] hover:bg-[#1f8a80] text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5">
+            <button
+              onClick={handleSave}
+              className="bg-[#26a69a] hover:bg-[#1f8a80] text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5"
+            >
               Save
             </button>
           </div>

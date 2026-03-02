@@ -41,7 +41,7 @@ export default function Marks() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 mb-6 text-[13px]">
             <div className="flex flex-col gap-1">
               <span className="text-gray-500">Roll No</span>
-              <span className="font-semibold text-gray-800">AV.SC.U4AIE21132</span>
+              <span className="font-semibold text-gray-800">AV.SC.U4AIE23132</span>
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-gray-500">Name</span>
@@ -49,7 +49,7 @@ export default function Marks() {
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-gray-500">Academic Program & Branch</span>
-              <span className="font-semibold text-gray-800">B.Tech 2021 AIE</span>
+              <span className="font-semibold text-gray-800 uppercase">B.Tech 2023 AIE</span>
             </div>
           </div>
 

@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, Link as LinkIcon, HelpCircle, Maximize2, Star, Home, Menu } from 'lucide-react';
 
 const courseTabs = [
-  'B.Tech..2021.R.AIE.16...',
-  'B.Tech..2021.R.AIE.16...',
-  'B.Tech..2021.R.AIE.16...',
-  'B.Tech..2021.R.AIE.16...',
-  'B.Tech..2021.R.AIE.16...',
-  'B.Tech..2021.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
   'B.Tech..Re.AIE.1...',
-  'B.Tech..2021.R.AIE.16...',
-  'B.Tech..2021.R.AIE.16...',
-  'B.Tech..2021.R.AIE.16...',
-  'B.Tech..2021.R.AIE.16...',
-  'B.Tech..2021.R.AIE.16...',
-  'B.Tech..2021.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
+  'B.Tech..2023.R.AIE.16...',
 ];
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
