@@ -17,7 +17,7 @@ import {
   Library as LibraryIcon,
   ClipboardList,
   ShoppingCart,
-  Rocket,
+  Sprout,
   Gem,
   Briefcase,
   Send
@@ -49,7 +49,7 @@ const menuItems: MenuItem[] = [
   },
   {
     name: 'Fee',
-    icon: Rocket,
+    icon: Sprout,
     children: [
       { name: 'View Fee Details', path: '/fee-details' },
     ]
@@ -221,7 +221,7 @@ export default function Layout() {
                 <div key={item.name} className="relative">
                   <button
                     onClick={() => toggleMenu(item.name)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 text-[13px] font-medium transition-colors text-white ${isExpanded ? 'bg-[#A4123F]' : 'hover:bg-[#d06900]'}`}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 text-[13px] font-medium transition-colors text-white ${isExpanded ? 'bg-[#e91e63]' : 'hover:bg-[#d06900]'}`}
                   >
                     <span className="flex items-center gap-3">
                       <item.icon size={15} className="text-white" />
@@ -233,17 +233,18 @@ export default function Layout() {
                   </button>
 
                   {isExpanded && item.children && (
-                    <div className={`${item.name === 'Personal' ? 'bg-[#A4123F]' : 'bg-[#d06900]'} py-0.5`}>
+                    <div className="bg-[#e91e63] py-0.5">
                       {item.children.map((child) => (
                         <NavLink
                           key={child.name}
                           to={child.path}
                           className={({ isActive }) =>
-                            `flex items-center gap-3 pl-10 pr-3 py-2 text-[12px] font-normal transition-colors ${isActive ? (item.name === 'Personal' ? 'bg-[#A4123F] text-white font-bold' : 'bg-[#A4123F] text-white') : 'text-white hover:bg-[#b85a00]'
+                            `flex items-center gap-3 pl-3 pr-3 py-2.5 text-[12px] font-medium transition-colors ${isActive ? 'text-white' : 'text-white hover:bg-black/10'
                             }`
                           }
                           onClick={() => setSidebarOpen(false)}
                         >
+                          <Heart size={14} className="fill-white text-white" />
                           {child.name}
                         </NavLink>
                       ))}
