@@ -17,12 +17,13 @@ export default function Signup() {
     <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: '#26a69a' }}>
       {/* Logo */}
       <div className="mb-6 flex flex-col items-center">
-        <img
-          src="/amrita-icon.png"
-          alt="Amrita Vishwa Vidyapeetham"
-          className="h-20 object-contain"
-        />
-        <p className="mt-2 text-white text-sm font-semibold tracking-wide">Amrita University Management System</p>
+        <div className="bg-white p-2 rounded-lg shadow-lg">
+          <img
+            src="/custom-logo.png"
+            alt="Logo"
+            className="h-20 object-contain"
+          />
+        </div>
       </div>
 
       {/* Card */}

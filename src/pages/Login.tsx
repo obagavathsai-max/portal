@@ -21,14 +21,13 @@ export default function Login() {
     <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: '#26a69a' }}>
       {/* Logo */}
       <div className="mb-6 flex flex-col items-center">
-        <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center p-2 shadow-inner">
+        <div className="bg-white p-2 rounded-lg shadow-lg">
           <img
-            src="/amrita-icon.png"
-            alt="Amrita Vishwa Vidyapeetham"
-            className="h-16 object-contain"
+            src="/custom-logo.png"
+            alt="Logo"
+            className="h-20 object-contain"
           />
         </div>
-        <p className="mt-3 text-white text-[15px] font-bold tracking-wide text-center drop-shadow-sm uppercase">Amrita University Management System</p>
       </div>
 
       {/* Login Card */}
