@@ -4,12 +4,12 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     name: 'ORUGANTI BAGAVATH SAI',
-    rollNo: 'AV.SC.U4AIE23132',
-    email: 'av.sc.u4aie23132@av.students.amrita.edu',
+    rollNo: 'AV.SC.U4AIE21132',
+    email: 'av.sc.u4aie21132@av.students.amrita.edu',
     phone: '+91 98765 43210',
-    department: 'Artificial Intelligence and Engineering',
-    program: 'B.Tech 2023 AIE',
-    batch: '2023-2027'
+    department: 'Artificial Intelligence and Data Science',
+    program: 'B.Tech 2021 AIE',
+    batch: '2021-2025'
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,8 +94,8 @@ export default function Profile() {
         <div className="p-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: 'Current CGPA', value: '8.42' },
-              { label: 'Credits Earned', value: '86' },
+              { label: 'Current CGPA', value: '9.53' },
+              { label: 'Credits Earned', value: '105' },
               { label: 'Current Semester', value: '5' },
               { label: 'Program', value: 'B.Tech AIE' },
             ].map(item => (
