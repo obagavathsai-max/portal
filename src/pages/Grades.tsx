@@ -19,7 +19,7 @@ const semesters = [
   {
     id: 4,
     name: '4',
-    sgpa: 9.2,
+    sgpa: 9.42,
     term: '2024-2025Even Semester',
     subjects: [
       { code: '22AIE211', name: 'Design and Analysis of Algorithms', credits: 4, type: 'Regular', grade: 'O' },
@@ -48,7 +48,7 @@ const semesters = [
   {
     id: 2,
     name: '2',
-    sgpa: 9.25,
+    sgpa: 9.34,
     term: '2023-2024Even Semester',
     subjects: [
       { code: '22MAT111', name: 'Mathematics for Computing 2', credits: 4, type: 'Regular', grade: 'A+' },
@@ -120,7 +120,7 @@ export default function Grades() {
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-gray-500">Current CGPA</span>
-              <span className="font-semibold text-gray-800">9.35</span>
+              <span className="font-semibold text-gray-800">9.41</span>
             </div>
           </div>
 
