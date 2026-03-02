@@ -9,7 +9,7 @@ export default function Login() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === 'av.sc.u4aie23132' && password === 'niyathi@0125') {
+    if (username.toLowerCase() === 'av.sc.u4aie23132' && password === 'niyathi@0125') {
       localStorage.setItem('isAuthenticated', 'true');
       navigate('/dashboard');
     } else {
