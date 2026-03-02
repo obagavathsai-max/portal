@@ -1,0 +1,5 @@
+{
+  "name": "Amrita Student Portal",
+  "description": "A comprehensive student portal for Amrita Vishwa Vidyapeetham featuring attendance tracking, semester grades, and dashboard.",
+  "requestFramePermissions": []
+}

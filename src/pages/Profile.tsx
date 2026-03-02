@@ -1,0 +1,112 @@
+import React, { useState } from 'react';
+
+export default function Profile() {
+  const [isEditing, setIsEditing] = useState(false);
+  const [profile, setProfile] = useState({
+    name: 'ORUGANTI BAGAVATH SAI',
+    rollNo: 'AV.SC.U4AIE23132',
+    email: 'av.sc.u4aie23132@av.students.amrita.edu',
+    phone: '+91 98765 43210',
+    department: 'Artificial Intelligence and Engineering',
+    program: 'B.Tech 2023 AIE',
+    batch: '2023-2027'
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProfile({ ...profile, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
+          <h1 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>
+            Personal Information
+          </h1>
+        </div>
+
+        <div className="p-6">
+          {/* Profile header */}
+          <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
+            <div
+              className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold"
+              style={{ backgroundColor: '#26a69a' }}
+            >
+              OB
+            </div>
+            <div>
+              <p className="text-base font-bold text-gray-800">{profile.name}</p>
+              <p className="text-sm text-gray-500">{profile.rollNo}</p>
+              <p className="text-xs mt-1" style={{ color: '#f57c00' }}>{profile.program}</p>
+            </div>
+            <div className="ml-auto">
+              {!isEditing ? (
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
+                  style={{ backgroundColor: '#26a69a' }}
+                >
+                  Edit Profile
+                </button>
+              ) : (
+                <button
+                  onClick={() => setIsEditing(false)}
+                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
+                  style={{ backgroundColor: '#f57c00' }}
+                >
+                  Save Changes
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            {[
+              { label: 'Full Name', key: 'name', type: 'text' },
+              { label: 'Roll Number', key: 'rollNo', type: 'text' },
+              { label: 'University Email', key: 'email', type: 'email' },
+              { label: 'Phone Number', key: 'phone', type: 'tel' },
+              { label: 'Department', key: 'department', type: 'text' },
+              { label: 'Batch', key: 'batch', type: 'text' },
+            ].map(field => (
+              <div key={field.key}>
+                <label className="block text-xs font-semibold text-gray-500 mb-1">{field.label}</label>
+                <input
+                  type={field.type}
+                  name={field.key}
+                  value={profile[field.key as keyof typeof profile]}
+                  onChange={handleChange}
+                  disabled={!isEditing}
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 disabled:opacity-80 focus:outline-none"
+                  style={isEditing ? { borderColor: '#26a69a' } : {}}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Academic Summary */}
+      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
+          <h2 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>Academic Summary</h2>
+        </div>
+        <div className="p-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {[
+              { label: 'Current CGPA', value: '8.42' },
+              { label: 'Credits Earned', value: '86' },
+              { label: 'Current Semester', value: '5' },
+              { label: 'Program', value: 'B.Tech AIE' },
+            ].map(item => (
+              <div key={item.label} className="text-center p-3 border border-gray-100 rounded bg-gray-50">
+                <p className="text-xl font-bold" style={{ color: '#26a69a' }}>{item.value}</p>
+                <p className="text-xs text-gray-500 mt-1">{item.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
