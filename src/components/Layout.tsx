@@ -14,24 +14,33 @@ import {
   Search,
   Heart,
   Calendar,
-  Library as LibraryIcon
+  Library as LibraryIcon,
+  ClipboardList,
+  ShoppingCart,
+  Rocket,
+  Gem,
+  Briefcase,
+  Send
 } from 'lucide-react';
 
 interface MenuItem {
   name: string;
   path?: string;
+  icon: React.ElementType;
   children?: { name: string; path: string }[];
 }
 
 const menuItems: MenuItem[] = [
   {
     name: 'Registration',
+    icon: ClipboardList,
     children: [
       { name: 'Registered Courses', path: '/dashboard' },
     ]
   },
   {
     name: 'Exam Scores',
+    icon: ShoppingCart,
     children: [
       { name: 'View Attendance', path: '/attendance' },
       { name: 'View Marks', path: '/marks' },
@@ -40,32 +49,37 @@ const menuItems: MenuItem[] = [
   },
   {
     name: 'Fee',
+    icon: Rocket,
     children: [
       { name: 'View Fee Details', path: '/fee-details' },
     ]
   },
   {
     name: 'Dues',
+    icon: Gem,
     children: [
       { name: 'Dues Details', path: '/dashboard' },
     ]
   },
   {
     name: 'Personal',
+    icon: Briefcase,
     children: [
       { name: 'Update Account', path: '/update-account' },
       { name: 'Student Profile', path: '/profile' },
-      { name: 'ABCID Master', path: '/dashboard' },
+      { name: 'ABCID Master', path: '/abcid-master' },
     ]
   },
   {
     name: 'Library',
+    icon: Send,
     children: [
       { name: 'Library Search', path: '/dashboard' },
     ]
   },
   {
     name: 'OPAC',
+    icon: Briefcase,
     children: [
       { name: 'OPAC Search', path: '/dashboard' },
     ]
@@ -74,7 +88,7 @@ const menuItems: MenuItem[] = [
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [expandedMenus, setExpandedMenus] = useState<string[]>(['Exam Scores']);
+  const [expandedMenus, setExpandedMenus] = useState<string[]>(['Personal']);
   const [currentTime, setCurrentTime] = useState(new Date());
   const navigate = useNavigate();
   const location = useLocation();
@@ -109,7 +123,7 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: '#f5f5f5' }}>
       {/* TOP HEADER BAR */}
-      <header style={{ backgroundColor: '#17a2b8' }} className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0">
+      <header style={{ backgroundColor: '#26a69a' }} className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0">
         {/* Left: hamburger + logo */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
@@ -162,7 +176,7 @@ export default function Layout() {
             ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
             lg:translate-x-0 lg:static lg:top-0 lg:h-auto
           `}
-          style={{ backgroundColor: '#f57c00' }}
+          style={{ backgroundColor: '#ffa100' }}
         >
           <div className="flex items-center justify-end p-2 px-3">
             <button className="bg-[#cca300] p-1 rounded-sm shadow-inner" onClick={() => setSidebarOpen(false)}>
@@ -207,10 +221,10 @@ export default function Layout() {
                 <div key={item.name} className="relative">
                   <button
                     onClick={() => toggleMenu(item.name)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 text-[13px] font-medium transition-colors text-white hover:bg-[#d06900]`}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 text-[13px] font-medium transition-colors text-white ${isExpanded ? 'bg-[#A4123F]' : 'hover:bg-[#d06900]'}`}
                   >
                     <span className="flex items-center gap-3">
-                      <Heart size={15} className="text-white" fill="white" strokeWidth={0} />
+                      <item.icon size={15} className="text-white" />
                       {item.name}
                     </span>
                     <span className={`text-[11px] transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}>
@@ -219,18 +233,17 @@ export default function Layout() {
                   </button>
 
                   {isExpanded && item.children && (
-                    <div className="bg-[#d06900] py-0.5">
+                    <div className={`${item.name === 'Personal' ? 'bg-[#A4123F]' : 'bg-[#d06900]'} py-0.5`}>
                       {item.children.map((child) => (
                         <NavLink
                           key={child.name}
                           to={child.path}
                           className={({ isActive }) =>
-                            `flex items-center gap-3 pl-10 pr-3 py-2 text-[12px] font-normal transition-colors ${isActive ? 'bg-[#A4123F] text-white' : 'text-white hover:bg-[#b85a00]'
+                            `flex items-center gap-3 pl-10 pr-3 py-2 text-[12px] font-normal transition-colors ${isActive ? (item.name === 'Personal' ? 'bg-[#A4123F] text-white font-bold' : 'bg-[#A4123F] text-white') : 'text-white hover:bg-[#b85a00]'
                             }`
                           }
                           onClick={() => setSidebarOpen(false)}
                         >
-                          <Heart size={11} className="text-white shrink-0" fill="white" strokeWidth={0} />
                           {child.name}
                         </NavLink>
                       ))}
@@ -247,7 +260,7 @@ export default function Layout() {
           </nav>
 
           {/* Search bar at bottom */}
-          <div className="p-4 bg-[#f57c00] mt-auto">
+          <div className="p-4 bg-[#ffa100] mt-auto">
             <div className="flex items-center gap-2 border-b border-white/50 pb-1">
               <input
                 type="text"

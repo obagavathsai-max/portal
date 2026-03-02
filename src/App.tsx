@@ -14,6 +14,7 @@ import Grades from './pages/Grades';
 import FeeDetails from './pages/FeeDetails';
 import UpdateAccount from './pages/UpdateAccount';
 import Profile from './pages/Profile';
+import ABCIDMaster from './pages/ABCIDMaster';
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="fee-details" element={<FeeDetails />} />
           <Route path="update-account" element={<UpdateAccount />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="abcid-master" element={<ABCIDMaster />} />
         </Route>
       </Routes>
     </Router>
