@@ -15,15 +15,15 @@ export default function ABCIDMaster() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-12 mb-10">
             <div>
               <p className="text-[13px] text-gray-600 mb-1">Roll No</p>
-              <p className="text-[14px] font-medium text-gray-800">AV.SC.U4AIE23132</p>
+              <p className="text-[14px] font-medium text-gray-800">AV.SC.U4AIE21132</p>
             </div>
             <div>
               <p className="text-[13px] text-gray-600 mb-1">Name</p>
-              <p className="text-[14px] font-medium text-gray-800">ORUGANTI BAGAVATH SAI</p>
+              <p className="text-[14px] font-medium text-gray-800 uppercase">ORUGANTI BAGAVATH SAI</p>
             </div>
             <div>
               <p className="text-[13px] text-gray-600 mb-1">Academic Program</p>
-              <p className="text-[14px] font-medium text-gray-800">B.Tech2023</p>
+              <p className="text-[14px] font-medium text-gray-800">B.Tech 2021</p>
             </div>
             <div>
               <p className="text-[13px] text-gray-600 mb-1">Branch</p>
@@ -67,7 +67,7 @@ export default function ABCIDMaster() {
               </div>
             </div>
 
-            <button className="bg-[#f57c00] hover:bg-[#e67300] text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5">
+            <button className="bg-[#26a69a] hover:bg-[#1f8a80] text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5">
               Save
             </button>
           </div>
