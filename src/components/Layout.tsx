@@ -124,17 +124,9 @@ export default function Layout() {
     <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: '#f5f5f5' }}>
       {/* TOP HEADER BAR */}
       <header style={{ backgroundColor: '#26a69a' }} className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0">
-        {/* Left: hamburger + logo */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center overflow-hidden bg-white">
-              <img src="/amrita-icon.png" alt="Amrita" className="w-9 h-9 object-contain" />
-            </div>
-            <div className="hidden sm:block leading-[1.1]">
-              <div className="text-white font-semibold text-[13px] tracking-tight">Amrita University</div>
-              <div className="text-white font-semibold text-[12px] tracking-tight">Management System</div>
-            </div>
-          </div>
+        {/* Left: Logo */}
+        <div className="flex items-center h-full py-2">
+          <img src="/custom-logo.png" alt="Logo" className="h-full object-contain" />
         </div>
 
         {/* Center/Right: welcome + datetime + icons */}
