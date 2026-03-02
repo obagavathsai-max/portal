@@ -94,7 +94,7 @@ export default function Profile() {
         <div className="p-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: 'Current CGPA', value: '9.53' },
+              { label: 'Current CGPA', value: '9.41' },
               { label: 'Credits Earned', value: '105' },
               { label: 'Current Semester', value: '5' },
               { label: 'Program', value: 'B.Tech AIE' },

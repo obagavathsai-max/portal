@@ -4,14 +4,14 @@ const semesters = [
   {
     id: 5,
     name: '5',
-    sgpa: 9.55,
+    sgpa: 9.54,
     term: '2025-2026Odd Semester',
     subjects: [
       { code: '22AIE301', name: 'Probabilistic Reasoning', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '22AIE302', name: 'Formal language and Automata', credits: 3, type: 'Regular', grade: 'A+' },
+      { code: '22AIE302', name: 'Formal language and Automata', credits: 3, type: 'Regular', grade: 'A' },
       { code: '22AIE303', name: 'Database Management Systems', credits: 4, type: 'Regular', grade: 'O' },
       { code: '22AIE304', name: 'Deep Learning', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '22AIE305', name: 'Introduction to Cloud Computing', credits: 3, type: 'Regular', grade: 'A+' },
+      { code: '22AIE305', name: 'Introduction to Cloud Computing', credits: 3, type: 'Regular', grade: 'A' },
       { code: '22AIE458', name: 'Mobile Application Development', credits: 3, type: 'Regular', grade: 'A+' },
       { code: '23LSE301', name: 'Life Skills for Engineers III', credits: 1, type: 'Regular', grade: 'O' },
     ]
@@ -19,28 +19,28 @@ const semesters = [
   {
     id: 4,
     name: '4',
-    sgpa: 9.60,
+    sgpa: 9.42,
     term: '2024-2025Even Semester',
     subjects: [
       { code: '22AIE211', name: 'Design and Analysis of Algorithms', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '22AIE212', name: 'Operating Systems', credits: 4, type: 'Regular', grade: 'O' },
+      { code: '22AIE212', name: 'Operating Systems', credits: 4, type: 'Regular', grade: 'A' },
       { code: '22AIE213', name: 'Machine Learning', credits: 4, type: 'Regular', grade: 'A+' },
       { code: '22MAT211', name: 'Optimization Techniques', credits: 3, type: 'Regular', grade: 'O' },
-      { code: '22AIE214', name: 'Computer Networks', credits: 3, type: 'Regular', grade: 'A+' },
+      { code: '22AIE214', name: 'Computer Networks', credits: 3, type: 'Regular', grade: 'A' },
       { code: '23LSE211', name: 'Life Skills for Engineers II', credits: 2, type: 'Regular', grade: 'O' },
     ]
   },
   {
     id: 3,
     name: '3',
-    sgpa: 9.50,
+    sgpa: 9.34,
     term: '2024-2025Odd Semester',
     subjects: [
-      { code: '22MAT220', name: 'Mathematics for Computing 3', credits: 4, type: 'Regular', grade: 'A+' },
+      { code: '22MAT220', name: 'Mathematics for Computing 3', credits: 4, type: 'Regular', grade: 'A' },
       { code: '22AIE201', name: 'Fundamentals of AI', credits: 3, type: 'Regular', grade: 'O' },
       { code: '22AIE202', name: 'Operating Systems', credits: 3, type: 'Regular', grade: 'A+' },
       { code: '22AIE203', name: 'Data Structures & Algorithms 2', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '22AIE204', name: 'Introduction to Computer Networks', credits: 3, type: 'Regular', grade: 'A+' },
+      { code: '22AIE204', name: 'Introduction to Computer Networks', credits: 3, type: 'Regular', grade: 'A' },
       { code: '22AIE205', name: 'Introduction to Python', credits: 3, type: 'Regular', grade: 'O' },
       { code: '22BIO201', name: 'Intelligence of Biological Systems - 1', credits: 2, type: 'Regular', grade: 'A+' },
     ]
@@ -48,11 +48,11 @@ const semesters = [
   {
     id: 2,
     name: '2',
-    sgpa: 9.40,
+    sgpa: 9.34,
     term: '2023-2024Even Semester',
     subjects: [
       { code: '22MAT111', name: 'Mathematics for Computing 2', credits: 4, type: 'Regular', grade: 'A+' },
-      { code: '22AIE111', name: 'Data Structures & Algorithms 1', credits: 4, type: 'Regular', grade: 'A+' },
+      { code: '22AIE111', name: 'Data Structures & Algorithms 1', credits: 4, type: 'Regular', grade: 'A' },
       { code: '22AIE112', name: 'Object Oriented Programming', credits: 3, type: 'Regular', grade: 'O' },
       { code: '22PHY111', name: 'Physics for AI', credits: 3, type: 'Regular', grade: 'A+' },
       { code: '22AIE113', name: 'Digital Electronics', credits: 4, type: 'Regular', grade: 'A' },
@@ -62,13 +62,13 @@ const semesters = [
   {
     id: 1,
     name: '1',
-    sgpa: 9.60,
+    sgpa: 9.4,
     term: '2023-2024Odd Semester',
     subjects: [
       { code: '22MAT101', name: 'Mathematics for Computing 1', credits: 4, type: 'Regular', grade: 'O' },
       { code: '22AIE101', name: 'Problem Solving and Algorithmic Thinking', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '22AIE102', name: 'Introduction to AI', credits: 3, type: 'Regular', grade: 'O' },
-      { code: '22CSE101', name: 'Computer Programming', credits: 4, type: 'Regular', grade: 'A+' },
+      { code: '22AIE102', name: 'Introduction to AI', credits: 3, type: 'Regular', grade: 'A' },
+      { code: '22CSE101', name: 'Computer Programming', credits: 4, type: 'Regular', grade: 'A' },
       { code: '22ENG101', name: 'Communicative English', credits: 2, type: 'Regular', grade: 'O' },
       { code: '22AIE181', name: 'AI Lab', credits: 2, type: 'Regular', grade: 'O' },
     ]
@@ -120,7 +120,7 @@ export default function Grades() {
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-gray-500">Current CGPA</span>
-              <span className="font-semibold text-gray-800">9.53</span>
+              <span className="font-semibold text-gray-800">9.41</span>
             </div>
           </div>
 
