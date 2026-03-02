@@ -18,19 +18,19 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-['Open_Sans']" style={{ backgroundColor: '#87cec1' }}>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-['Open_Sans']" style={{ backgroundColor: '#81ccc4' }}>
       {/* Logo and Title Section */}
-      <div className="mb-8 flex flex-col items-center text-center">
+      <div className="mb-4 flex flex-col items-center text-center">
         <img
           src="/exact-logo.png"
           alt="Amrita University Management System"
-          className="w-full max-w-[320px] object-contain"
+          className="w-full max-w-[400px] object-contain"
         />
       </div>
 
       {/* Login Card */}
-      <div className="rounded-[12px] w-full max-w-[480px] overflow-hidden p-10 pt-8 shadow-sm" style={{ backgroundColor: '#e9edf2' }}>
-        <h2 className="text-[44px] font-normal text-center mb-8" style={{ color: '#ffa100' }}>
+      <div className="rounded-[10px] w-full max-w-[450px] overflow-hidden p-10 pt-8 shadow-lg" style={{ backgroundColor: '#e9edf2' }}>
+        <h2 className="text-[48px] font-normal text-center mb-10" style={{ color: '#ffa100' }}>
           Sign In
         </h2>
 
@@ -45,7 +45,7 @@ export default function Login() {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
               required
-              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[19px] placeholder-gray-500 focus:outline-none transition-all"
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all"
               style={{ backgroundColor: '#dee3e9' }}
             />
           </div>
@@ -58,7 +58,7 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               required
-              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[19px] placeholder-gray-500 focus:outline-none transition-all"
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all"
               style={{ backgroundColor: '#dee3e9' }}
             />
           </div>
@@ -67,19 +67,19 @@ export default function Login() {
             <div className="flex items-center justify-between">
               <button
                 type="submit"
-                className="px-8 py-2.5 text-white text-[17px] font-bold rounded-[4px] uppercase tracking-wide hover:brightness-110 active:scale-95 transition-all"
+                className="px-10 py-3 text-white text-[18px] font-bold rounded-[6px] uppercase tracking-wide hover:brightness-110 active:scale-95 transition-all"
                 style={{ backgroundColor: '#ffa100' }}
               >
                 LOGIN
               </button>
 
-              <a href="#" className="text-[15px] hover:underline" style={{ color: '#2c7ba0' }}>
+              <a href="#" className="text-[16px] hover:underline" style={{ color: '#337ab7' }}>
                 OPAC Search
               </a>
             </div>
 
-            <div className="flex justify-end pt-3">
-              <a href="#" className="text-[15px] hover:underline" style={{ color: '#2c7ba0' }}>
+            <div className="flex justify-end pt-4">
+              <a href="#" className="text-[16px] hover:underline" style={{ color: '#337ab7' }}>
                 Can't access your account?
               </a>
             </div>
@@ -89,7 +89,7 @@ export default function Login() {
 
       {/* Footer */}
       <div className="mt-14 text-center">
-        <p className="text-[19px] font-normal" style={{ color: '#7a9ea1' }}>
+        <p className="text-[20px] font-normal" style={{ color: '#7a9ea1' }}>
           Copyright © 2021 Amrita Technologies.
         </p>
       </div>
