@@ -11,6 +11,9 @@ import {
   Globe,
   User,
   LogOut,
+  Lock,
+  Info,
+  Power,
   Search,
   Heart,
   Calendar,
@@ -88,6 +91,7 @@ const menuItems: MenuItem[] = [
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [expandedMenus, setExpandedMenus] = useState<string[]>(['Personal']);
   const [currentTime, setCurrentTime] = useState(new Date());
   const navigate = useNavigate();
@@ -105,6 +109,7 @@ export default function Layout() {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
     navigate('/login');
   };
 
@@ -143,9 +148,47 @@ export default function Layout() {
                 <Icon size={16} strokeWidth={2} />
               </button>
             ))}
-            <div className="relative group ml-1 flex items-center gap-1 text-white hover:bg-white/10 px-2 py-1 rounded cursor-pointer">
-              <User size={18} strokeWidth={2} />
-              <ChevronDown size={14} className="text-white" />
+            <div className="relative ml-1">
+              <div
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center gap-1 text-white hover:bg-white/10 px-2 py-1 rounded cursor-pointer"
+              >
+                <User size={18} strokeWidth={2} />
+                <ChevronDown size={14} className={`text-white transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
+              </div>
+
+              {/* User Dropdown */}
+              {userMenuOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setUserMenuOpen(false)}
+                  />
+                  <div className="absolute right-0 mt-1 w-48 bg-white rounded shadow-xl z-50 py-1 overflow-hidden">
+                    <button
+                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => { navigate('/update-account'); setUserMenuOpen(false); }}
+                    >
+                      <Lock size={16} className="text-gray-500" />
+                      <span>Password</span>
+                    </button>
+                    <button
+                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => { setUserMenuOpen(false); }}
+                    >
+                      <Info size={16} className="text-gray-500" />
+                      <span>About Us</span>
+                    </button>
+                    <button
+                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={handleLogout}
+                    >
+                      <Power size={16} className="text-gray-500" />
+                      <span>Log Out</span>
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
