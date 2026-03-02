@@ -9,7 +9,10 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Attendance from './pages/Attendance';
+import Marks from './pages/Marks';
 import Grades from './pages/Grades';
+import FeeDetails from './pages/FeeDetails';
+import UpdateAccount from './pages/UpdateAccount';
 import Profile from './pages/Profile';
 
 export default function App() {
@@ -18,12 +21,15 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        
+
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="attendance" element={<Attendance />} />
+          <Route path="marks" element={<Marks />} />
           <Route path="grades" element={<Grades />} />
+          <Route path="fee-details" element={<FeeDetails />} />
+          <Route path="update-account" element={<UpdateAccount />} />
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>

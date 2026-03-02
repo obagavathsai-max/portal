@@ -55,90 +55,83 @@ export default function Grades() {
   };
 
   return (
-    <div className="space-y-4">
-      {/* Page Title */}
-      <div className="bg-white border border-gray-200 rounded shadow-sm p-6">
-        <h1 className="text-base font-bold mb-6" style={{ color: '#26a69a' }}>
-          STUDENTS PERFORMANCE REPORTS
-        </h1>
-
-        {/* Student Info Grid */}
-        <div className="grid grid-cols-3 gap-4 mb-4 text-sm">
-          <div>
-            <span className="text-gray-500">Roll No</span>
-          </div>
-          <div>
-            <span className="font-medium text-gray-800">AV.SC.U4AIE23132</span>
-          </div>
-          <div>
-            <span className="text-gray-500">Name</span>
-          </div>
+    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
+      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
+        <div className="px-5 py-3 border-b border-gray-200">
+          <h1 className="text-base font-bold uppercase" style={{ color: '#17a2b8' }}>
+            STUDENTS PERFORMANCE REPORTS
+          </h1>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mb-4 text-sm">
-          <div>
-            <span className="font-medium text-gray-800">ORUGANTI BAGAVATH SAI</span>
-          </div>
-          <div>
-            <span className="text-gray-500">Academic Program &amp; Branch</span>
-          </div>
-          <div>
-            <span className="font-medium text-gray-800">B.Tech 2023 AIE</span>
-          </div>
-        </div>
+        <div className="p-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
+            <div className="flex">
+              <span className="text-gray-700 w-32">Roll No</span>
+              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
+            </div>
+            <div></div>
+            <div className="flex">
+              <span className="text-gray-700 w-32">Name</span>
+            </div>
 
-        <div className="grid grid-cols-3 gap-4 mb-4 text-sm">
-          <div>
-            <span className="text-gray-500">Current CGPA</span>
-          </div>
-          <div>
-            <span className="font-medium text-gray-800">8.42</span>
-          </div>
-          <div></div>
-        </div>
+            <div className="flex">
+              <span className="font-semibold text-gray-900">ORUGANTI BAGAVATH SAI</span>
+            </div>
+            <div className="flex">
+              <span className="text-gray-700 w-48">Academic Program & Branch</span>
+            </div>
+            <div className="flex">
+              <span className="font-semibold text-gray-900">B.Tech 2023 AIE</span>
+            </div>
 
-        {/* NOTE */}
-        <p className="text-xs text-gray-600 mb-6">
-          <span className="font-semibold">NOTE:</span> CGPA value will be shown ONLY AFTER all the courses that the student has registered in the term has been Published from Registrar's office
-        </p>
-
-        {/* Semester Selector */}
-        <div className="border border-gray-300 rounded inline-block" style={{ minWidth: '260px' }}>
-          <div className="px-2 pt-1">
-            <label className="text-xs text-gray-500">Semester</label>
+            <div className="flex">
+              <span className="text-gray-700 w-32">Current CGPA</span>
+              <span className="font-semibold text-gray-900">6.47</span>
+            </div>
           </div>
-          <select
-            value={selectedSemester}
-            onChange={handleSemesterChange}
-            className="w-full px-2 pb-2 pr-8 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-          >
-            <option value="Select">Select</option>
-            {semesters.map(s => (
-              <option key={s.id} value={s.id}>{s.name}</option>
-            ))}
-          </select>
+
+          <p className="text-xs text-gray-700 mb-6">
+            <span className="font-semibold">NOTE:</span> CGPA value will be shown ONLY AFTER all the courses that the student has registered in the term has been Published from Registrar's office
+          </p>
+
+          <div className="mb-4">
+            <div className="inline-flex items-baseline border border-gray-300 rounded-sm" style={{ minWidth: '260px' }}>
+              <div className="px-3 pt-1">
+                <label className="text-xs text-gray-500">Semester</label>
+              </div>
+              <select
+                value={selectedSemester}
+                onChange={handleSemesterChange}
+                className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
+              >
+                <option value="Select">Select</option>
+                {semesters.map(s => (
+                  <option key={s.id} value={s.id}>{s.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Results Table */}
       {showTable && (
-        <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
-          <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between" style={{ backgroundColor: '#e0f2f1' }}>
-            <h2 className="font-bold text-sm text-gray-700">
+        <div className="bg-white border border-gray-300 rounded-sm shadow-sm overflow-hidden">
+          <div className="px-5 py-3 border-b border-gray-200">
+            <h2 className="font-semibold text-sm text-gray-700">
               {currentSem.name} — SGPA: <span style={{ color: '#f57c00' }}>{currentSem.sgpa}</span> | Credits: {currentSem.credits}
             </h2>
           </div>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 text-sm">
+            <table className="min-w-full text-sm">
               <thead>
                 <tr style={{ backgroundColor: '#f5f5f5' }}>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Course Code</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Course Name</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Credits</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Grade</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase border-b border-gray-300">Course Code</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase border-b border-gray-300">Course Name</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase border-b border-gray-300">Credits</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase border-b border-gray-300">Grade</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100 bg-white">
+              <tbody>
                 {currentSem.subjects.map((subject, i) => (
                   <tr key={subject.code} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                     <td className="px-4 py-3 text-gray-800 font-medium">{subject.code}</td>

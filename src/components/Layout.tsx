@@ -6,26 +6,19 @@ import {
   Menu,
   X,
   Mail,
-  Home,
+  Home as HomeIcon,
   Bell,
   Globe,
   User,
   LogOut,
   Search,
-  Star,
-  BookOpen,
-  GraduationCap,
+  Heart,
   Calendar,
-  Library,
-  Settings,
-  FileText,
-  CreditCard,
-  BookMarked
+  Library as LibraryIcon
 } from 'lucide-react';
 
 interface MenuItem {
   name: string;
-  icon: React.ElementType;
   path?: string;
   children?: { name: string; path: string }[];
 }
@@ -33,51 +26,46 @@ interface MenuItem {
 const menuItems: MenuItem[] = [
   {
     name: 'Registration',
-    icon: FileText,
     children: [
       { name: 'Registered Courses', path: '/dashboard' },
     ]
   },
   {
     name: 'Exam Scores',
-    icon: GraduationCap,
     children: [
       { name: 'View Attendance', path: '/attendance' },
-      { name: 'View Marks', path: '/grades' },
+      { name: 'View Marks', path: '/marks' },
       { name: 'View Grades', path: '/grades' },
     ]
   },
   {
     name: 'Fee',
-    icon: CreditCard,
     children: [
-      { name: 'Fee Details', path: '/dashboard' },
+      { name: 'View Fee Details', path: '/fee-details' },
     ]
   },
   {
     name: 'Dues',
-    icon: BookMarked,
     children: [
       { name: 'Dues Details', path: '/dashboard' },
     ]
   },
   {
     name: 'Personal',
-    icon: User,
     children: [
-      { name: 'Profile', path: '/profile' },
+      { name: 'Update Account', path: '/update-account' },
+      { name: 'Student Profile', path: '/profile' },
+      { name: 'ABCID Master', path: '/dashboard' },
     ]
   },
   {
     name: 'Library',
-    icon: Library,
     children: [
       { name: 'Library Search', path: '/dashboard' },
     ]
   },
   {
     name: 'OPAC',
-    icon: Globe,
     children: [
       { name: 'OPAC Search', path: '/dashboard' },
     ]
@@ -121,37 +109,37 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: '#f5f5f5' }}>
       {/* TOP HEADER BAR */}
-      <header style={{ backgroundColor: '#26a69a' }} className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0">
+      <header style={{ backgroundColor: '#17a2b8' }} className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0">
         {/* Left: hamburger + logo */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center overflow-hidden bg-white/5">
+            <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center overflow-hidden bg-white">
               <img src="/amrita-icon.png" alt="Amrita" className="w-9 h-9 object-contain" />
             </div>
-            <div className="hidden sm:block leading-[1.1] uppercase">
-              <div className="text-white font-bold text-[11px] tracking-tight">Amrita University</div>
-              <div className="text-white font-bold text-[13px] tracking-tight">Management System</div>
+            <div className="hidden sm:block leading-[1.1]">
+              <div className="text-white font-semibold text-[13px] tracking-tight">Amrita University</div>
+              <div className="text-white font-semibold text-[12px] tracking-tight">Management System</div>
             </div>
           </div>
         </div>
 
         {/* Center/Right: welcome + datetime + icons */}
         <div className="flex items-center gap-4">
-          <div className="hidden md:flex flex-col items-end text-white pr-2 border-r border-white/20">
-            <span className="text-[11px] font-bold">Welcome ORUGANTI BAGAVATH SAI</span>
-            <span className="text-[10px] font-medium text-white/90">{formatDate(currentTime)} {formatTime(currentTime)}</span>
+          <div className="hidden md:flex flex-col items-end text-white pr-3 border-r border-white/30">
+            <span className="text-[11px] font-semibold">Welcome ORUGANTI BAGAVATH SAI</span>
+            <span className="text-[10px] font-normal text-white/95">{formatDate(currentTime)} {formatTime(currentTime)}</span>
           </div>
 
           {/* Right: action icons */}
           <div className="flex items-center gap-0">
-            {[Mail, Home, Library, Calendar, Bell, Globe].map((Icon, i) => (
-              <button key={i} className="w-8 h-8 rounded flex items-center justify-center text-white/90 hover:text-white hover:bg-white/10 transition-colors">
-                <Icon size={16} />
+            {[Mail, HomeIcon, LibraryIcon, Calendar, Bell, Globe].map((Icon, i) => (
+              <button key={i} className="w-8 h-8 rounded flex items-center justify-center text-white hover:bg-white/10 transition-colors">
+                <Icon size={16} strokeWidth={2} />
               </button>
             ))}
-            <div className="relative group ml-1 flex items-center gap-1 text-white/90 hover:text-white hover:bg-white/10 px-2 py-1 rounded cursor-pointer">
-              <User size={18} />
-              <ChevronDown size={14} className="text-white/60" />
+            <div className="relative group ml-1 flex items-center gap-1 text-white hover:bg-white/10 px-2 py-1 rounded cursor-pointer">
+              <User size={18} strokeWidth={2} />
+              <ChevronDown size={14} className="text-white" />
             </div>
           </div>
         </div>
@@ -212,7 +200,6 @@ export default function Layout() {
           {/* Nav items */}
           <nav className="flex-1 overflow-y-auto mt-2">
             {menuItems.map((item) => {
-              const Icon = item.icon;
               const isExpanded = expandedMenus.includes(item.name);
               const childActive = isChildActive(item);
 
@@ -220,30 +207,30 @@ export default function Layout() {
                 <div key={item.name} className="relative">
                   <button
                     onClick={() => toggleMenu(item.name)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 text-[14px] font-medium transition-colors ${childActive ? 'text-white' : 'text-white hover:bg-white/10'
-                      }`}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 text-[13px] font-medium transition-colors text-white hover:bg-[#d06900]`}
                   >
                     <span className="flex items-center gap-3">
-                      <Icon size={18} className="text-white" strokeWidth={1.5} />
+                      <Heart size={15} className="text-white" fill="white" strokeWidth={0} />
                       {item.name}
                     </span>
-                    <span className={`text-[12px] opacity-70 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}>
+                    <span className={`text-[11px] transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}>
                       &lt;
                     </span>
                   </button>
 
                   {isExpanded && item.children && (
-                    <div className="bg-black/10 py-0.5">
+                    <div className="bg-[#d06900] py-0.5">
                       {item.children.map((child) => (
                         <NavLink
                           key={child.name}
                           to={child.path}
                           className={({ isActive }) =>
-                            `flex items-center gap-3 pl-12 pr-3 py-2 text-[12px] font-medium transition-colors ${isActive ? 'bg-[#A4123F] text-white border-l-4 border-white' : 'text-white hover:bg-white/10'
+                            `flex items-center gap-3 pl-10 pr-3 py-2 text-[12px] font-normal transition-colors ${isActive ? 'bg-[#A4123F] text-white' : 'text-white hover:bg-[#b85a00]'
                             }`
                           }
                           onClick={() => setSidebarOpen(false)}
                         >
+                          <Heart size={11} className="text-white shrink-0" fill="white" strokeWidth={0} />
                           {child.name}
                         </NavLink>
                       ))}
