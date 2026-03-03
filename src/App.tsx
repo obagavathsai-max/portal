@@ -13,6 +13,7 @@ import Marks from './pages/Marks';
 import Grades from './pages/Grades';
 import FeeDetails from './pages/FeeDetails';
 import UpdateAccount from './pages/UpdateAccount';
+import ChangePassword from './pages/ChangePassword';
 import Profile from './pages/Profile';
 import ABCIDMaster from './pages/ABCIDMaster';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="grades" element={<Grades />} />
             <Route path="fee-details" element={<FeeDetails />} />
             <Route path="update-account" element={<UpdateAccount />} />
+            <Route path="change-password" element={<ChangePassword />} />
             <Route path="profile" element={<Profile />} />
             <Route path="abcid-master" element={<ABCIDMaster />} />
           </Route>
