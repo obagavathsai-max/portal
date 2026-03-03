@@ -75,13 +75,13 @@ export default function Login() {
                 LOGIN
               </button>
 
-              <a href="#" className="text-[16px] hover:underline" style={{ color: '#337ab7' }}>
+              <a href="#" className="text-[16px] hover:underline" style={{ color: '#2c7ba0' }}>
                 OPAC Search
               </a>
             </div>
 
             <div className="flex justify-end pt-4">
-              <a href="#" className="text-[16px] hover:underline" style={{ color: '#337ab7' }}>
+              <a href="#" className="text-[16px] hover:underline" style={{ color: '#2c7ba0' }}>
                 Can't access your account?
               </a>
             </div>
