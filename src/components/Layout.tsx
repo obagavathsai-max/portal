@@ -131,7 +131,7 @@ export default function Layout() {
       <header style={{ backgroundColor: '#26a69a' }} className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0">
         {/* Left: Logo */}
         <div className="flex items-center h-full py-2">
-          <img src="/custom-logo.png" alt="Logo" className="h-full object-contain" />
+          <img src="/custom-logo.png" alt="Logo" className="h-[40px] object-contain ml-2" />
         </div>
 
         {/* Center/Right: welcome + datetime + icons */}
