@@ -167,7 +167,7 @@ export default function Layout() {
                   <div className="absolute right-0 mt-1 w-48 bg-white rounded shadow-xl z-50 py-1 overflow-hidden">
                     <button
                       className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      onClick={() => { navigate('/update-account'); setUserMenuOpen(false); }}
+                      onClick={() => { navigate('/change-password'); setUserMenuOpen(false); }}
                     >
                       <Lock size={16} className="text-gray-500" />
                       <span>Password</span>

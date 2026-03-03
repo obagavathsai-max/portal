@@ -3,10 +3,6 @@ import React, { useState, useEffect } from 'react';
 export default function UpdateAccount() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
 
   useEffect(() => {
     const savedEmail = localStorage.getItem('userEmail');
@@ -18,33 +14,6 @@ export default function UpdateAccount() {
   }, []);
 
   const handleUpdate = () => {
-    setError('');
-
-    // If user is trying to change password
-    if (oldPassword || newPassword || confirmPassword) {
-      const currentPassword = localStorage.getItem('userPassword') || 'niyathi@0125';
-
-      if (oldPassword !== currentPassword) {
-        setError('Incorrect old password');
-        return;
-      }
-
-      if (newPassword !== confirmPassword) {
-        setError('New passwords do not match');
-        return;
-      }
-
-      if (newPassword.length < 6) {
-        setError('New password must be at least 6 characters');
-        return;
-      }
-
-      localStorage.setItem('userPassword', newPassword);
-      setOldPassword('');
-      setNewPassword('');
-      setConfirmPassword('');
-    }
-
     localStorage.setItem('userEmail', email);
     localStorage.setItem('userPhone', phone);
     alert('Account details updated successfully!');
@@ -86,13 +55,7 @@ export default function UpdateAccount() {
             </div>
           </div>
 
-          {error && (
-            <div className="mb-4 p-3 bg-red-100 text-red-700 text-sm rounded border border-red-200 font-semibold">
-              {error}
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <div className="border border-gray-300 rounded-sm bg-white">
                 <div className="px-3 pt-1">
@@ -118,56 +81,6 @@ export default function UpdateAccount() {
                   onChange={(e) => setPhone(e.target.value)}
                   className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
                 />
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-200 pt-6 mb-6">
-            <h2 className="text-sm font-bold text-gray-700 uppercase mb-4">Change Password</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
-                  <div className="px-3 pt-1">
-                    <label className="text-xs text-gray-500">Old Password</label>
-                  </div>
-                  <input
-                    type="password"
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                    className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
-                    placeholder="Enter current password"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
-                  <div className="px-3 pt-1">
-                    <label className="text-xs text-gray-500">New Password</label>
-                  </div>
-                  <input
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
-                    placeholder="Min. 6 characters"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
-                  <div className="px-3 pt-1">
-                    <label className="text-xs text-gray-500">Confirm New Password</label>
-                  </div>
-                  <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
-                    placeholder="Repeat new password"
-                  />
-                </div>
               </div>
             </div>
           </div>
