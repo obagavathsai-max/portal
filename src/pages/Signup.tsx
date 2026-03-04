@@ -14,78 +14,95 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: '#26a69a' }}>
-      {/* Logo */}
-      <div className="mb-6 flex flex-col items-center">
-        <div className="bg-white p-2 rounded-lg shadow-lg">
-          <img
-            src="/custom-logo.png"
-            alt="Logo"
-            className="h-20 object-contain"
-          />
-        </div>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-['Open_Sans']" style={{ backgroundColor: '#81ccc4' }}>
+      {/* Logo and Title Section */}
+      <div className="mb-4 flex flex-col items-center text-center">
+        <img
+          src="/exact-logo.png"
+          alt="Amrita University Management System"
+          className="w-full max-w-[400px] object-contain"
+        />
       </div>
 
-      {/* Card */}
-      <div className="bg-white rounded shadow-lg w-full max-w-sm mx-4">
-        <div className="px-8 py-8">
-          <h2 className="text-2xl font-semibold text-center mb-6" style={{ color: '#f57c00' }}>
-            Create Account
-          </h2>
+      {/* Signup Card */}
+      <div className="rounded-[10px] w-full max-w-[450px] overflow-hidden p-10 pt-8 shadow-lg" style={{ backgroundColor: '#e9edf2' }}>
+        <h2 className="text-[48px] font-normal text-center mb-10" style={{ color: '#ffa100' }}>
+          Create Account
+        </h2>
 
-          <form onSubmit={handleSignup} className="space-y-4">
+        <form onSubmit={handleSignup} className="space-y-6">
+          <div className="relative">
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Full Name"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all"
+              style={{ backgroundColor: '#dee3e9' }}
             />
+          </div>
+
+          <div className="relative">
             <input
               type="text"
               value={rollNo}
               onChange={(e) => setRollNo(e.target.value)}
               placeholder="Roll Number (e.g. AV.SC.U4AIE23132)"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all"
+              style={{ backgroundColor: '#dee3e9' }}
             />
+          </div>
+
+          <div className="relative">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="University Email"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all"
+              style={{ backgroundColor: '#dee3e9' }}
             />
+          </div>
+
+          <div className="relative">
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all"
+              style={{ backgroundColor: '#dee3e9' }}
             />
+          </div>
 
-            <div className="flex items-center justify-between pt-2">
+          <div className="flex flex-col pt-2">
+            <div className="flex items-center justify-between">
               <button
                 type="submit"
-                className="px-6 py-2 text-white text-sm font-bold rounded uppercase tracking-wide"
-                style={{ backgroundColor: '#f57c00' }}
+                className="px-10 py-3 text-white text-[18px] font-bold rounded-[6px] uppercase tracking-wide hover:brightness-110 active:scale-95 transition-all"
+                style={{ backgroundColor: '#ffa100' }}
               >
-                Sign Up
+                SIGN UP
               </button>
-              <Link to="/login" className="text-xs" style={{ color: '#26a69a' }}>
+
+              <Link to="/login" className="text-[16px] hover:underline" style={{ color: '#2c7ba0' }}>
                 Already have an account?
               </Link>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
 
-      <p className="mt-8 text-white/70 text-xs">
-        Copyright © 2021 Amrita Technologies.
-      </p>
+      {/* Footer */}
+      <div className="mt-14 text-center">
+        <p className="text-[20px] font-normal" style={{ color: '#7a9ea1' }}>
+          Copyright © 2021 Amrita Technologies.
+        </p>
+      </div>
     </div>
   );
 }
