@@ -20,7 +20,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-['Open_Sans']" style={{ backgroundColor: '#81ccc4' }}>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-['Open_Sans']" style={{ backgroundColor: '#89d1c2' }}>
       {/* Logo and Title Section */}
       <div className="mb-4 flex flex-col items-center text-center">
         <img
@@ -75,13 +75,13 @@ export default function Login() {
                 LOGIN
               </button>
 
-              <a href="#" className="text-[16px] hover:underline" style={{ color: '#337ab7' }}>
+              <a href="#" className="text-[16px] hover:underline" style={{ color: '#2c7ba0' }}>
                 OPAC Search
               </a>
             </div>
 
             <div className="flex justify-end pt-4">
-              <a href="#" className="text-[16px] hover:underline" style={{ color: '#337ab7' }}>
+              <a href="#" className="text-[16px] hover:underline" style={{ color: '#2c7ba0' }}>
                 Can't access your account?
               </a>
             </div>
