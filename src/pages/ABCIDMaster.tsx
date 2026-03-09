@@ -20,7 +20,7 @@ export default function ABCIDMaster() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" style={{ backgroundColor: '#f5f5f5', minHeight: 'calc(100vh - 120px)', padding: '20px' }}>
       <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-100 bg-white">
           <h1 className="text-[14px] font-bold text-[#26a69a] uppercase tracking-wide">

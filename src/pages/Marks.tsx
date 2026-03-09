@@ -29,7 +29,7 @@ export default function Marks() {
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#fff', minHeight: 'calc(100vh - 120px)' }}>
+    <div className="space-y-4" style={{ backgroundColor: '#f5f5f5', minHeight: 'calc(100vh - 120px)' }}>
       <div className="bg-white border border-gray-200 rounded-sm">
         <div className="px-4 py-3 border-b border-gray-100">
           <h1 className="text-[15px] font-bold uppercase" style={{ color: '#26a69a' }}>
