@@ -17,7 +17,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" style={{ backgroundColor: '#f5f5f5', minHeight: 'calc(100vh - 120px)', padding: '20px' }}>
       <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
         <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
           <h1 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>
@@ -37,7 +37,7 @@ export default function Profile() {
             <div>
               <p className="text-base font-bold text-gray-800">{profile.name}</p>
               <p className="text-sm text-gray-500">{profile.rollNo}</p>
-              <p className="text-xs mt-1" style={{ color: '#f57c00' }}>{profile.program}</p>
+              <p className="text-xs mt-1" style={{ color: '#ffa100' }}>{profile.program}</p>
             </div>
             <div className="ml-auto">
               {!isEditing ? (
@@ -52,7 +52,7 @@ export default function Profile() {
                 <button
                   onClick={() => setIsEditing(false)}
                   className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#f57c00' }}
+                  style={{ backgroundColor: '#ffa100' }}
                 >
                   Save Changes
                 </button>

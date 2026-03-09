@@ -122,7 +122,7 @@ export default function Attendance() {
   const data = getAttendanceData();
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)', padding: '20px' }}>
+    <div className="space-y-4" style={{ backgroundColor: '#f5f5f5', minHeight: 'calc(100vh - 120px)', padding: '20px' }}>
       <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
         <div className="px-5 py-3 border-b border-gray-200">
           <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
