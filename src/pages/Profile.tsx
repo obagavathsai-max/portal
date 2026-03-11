@@ -37,22 +37,20 @@ export default function Profile() {
             <div>
               <p className="text-base font-bold text-gray-800">{profile.name}</p>
               <p className="text-sm text-gray-500">{profile.rollNo}</p>
-              <p className="text-xs mt-1" style={{ color: '#f57c00' }}>{profile.program}</p>
+              <p className="text-xs mt-1 text-[var(--color-aums-orange)]">{profile.program}</p>
             </div>
             <div className="ml-auto">
               {!isEditing ? (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#26a69a' }}
+                  className="px-4 py-1.5 text-xs font-semibold text-white rounded bg-[var(--color-aums-teal)]"
                 >
                   Edit Profile
                 </button>
               ) : (
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#f57c00' }}
+                  className="px-4 py-1.5 text-xs font-semibold text-white rounded bg-[var(--color-aums-orange)]"
                 >
                   Save Changes
                 </button>

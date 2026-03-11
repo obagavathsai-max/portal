@@ -171,15 +171,15 @@ export default function Dashboard() {
             </div>
 
             <div className="space-y-4">
-              <p className="font-bold text-[18px] text-[#A4123F]">Om Amriteswaryai Namah</p>
+              <p className="font-bold text-[18px] text-[var(--color-amrita-maroon)]">Om Amriteswaryai Namah</p>
 
               <p className="text-[15px] font-bold text-gray-800 leading-relaxed max-w-2xl">
                 Everything happens spontaneously when you distance yourself from your mind.
               </p>
 
               <div className="pt-2">
-                <p className="text-[14px] font-bold text-[#A4123F]">Chancellor,</p>
-                <p className="text-[14px] font-bold text-[#A4123F]">Sri Mata Amritanandamayi Devi</p>
+                <p className="text-[14px] font-bold text-[var(--color-amrita-maroon)]">Chancellor,</p>
+                <p className="text-[14px] font-bold text-[var(--color-amrita-maroon)]">Sri Mata Amritanandamayi Devi</p>
               </div>
             </div>
           </div>
