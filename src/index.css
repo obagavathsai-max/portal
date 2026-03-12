@@ -8,7 +8,12 @@
   --color-aums-orange: #ffa100;
   --color-aums-orange-light: #ffa100;
   --color-aums-sidebar-active: #FFA100;
-  --color-amrita-maroon: #A4123F;
+  --color-amrita-maroon: #e91e63;
+  --color-aums-bg-login: #89d1c2;
+  --color-aums-card-login: #e9edf2;
+  --color-aums-input-login: #dee3e9;
+  --color-aums-link-login: #2c7ba0;
+  --color-aums-footer-login: #7a9ea1;
 }
 
 body {
