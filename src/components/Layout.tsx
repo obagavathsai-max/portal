@@ -126,12 +126,12 @@ export default function Layout() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: '#f5f5f5' }}>
+    <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: 'var(--color-aums-bg-main)' }}>
       {/* TOP HEADER BAR */}
-      <header style={{ backgroundColor: '#26a69a' }} className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0">
+      <header style={{ backgroundColor: 'var(--color-aums-teal)' }} className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0">
         {/* Left: Logo */}
         <div className="flex items-center h-full py-2">
-          <img src="/custom-logo.png" alt="Logo" className="h-[40px] object-contain ml-2" />
+          <img src="/exact-logo.png" alt="Logo" className="h-[40px] object-contain ml-2" />
         </div>
 
         {/* Center/Right: welcome + datetime + icons */}
@@ -211,10 +211,10 @@ export default function Layout() {
             ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
             lg:translate-x-0 lg:static lg:top-0 lg:h-auto
           `}
-          style={{ backgroundColor: '#ffa100' }}
+          style={{ backgroundColor: 'var(--color-aums-orange)' }}
         >
-          <div className="flex items-center justify-end p-2 px-3">
-            <button className="bg-[#cca300] p-1 rounded-sm shadow-inner" onClick={() => setSidebarOpen(false)}>
+        <div className="flex items-center gap-4 bg-[var(--color-aums-orange)] h-[50px] px-2 shadow-md">
+          <button className="bg-[var(--color-aums-orange-dark,var(--color-aums-orange))] p-1 rounded-sm shadow-inner" style={{ filter: 'brightness(0.8)' }} onClick={() => setSidebarOpen(false)}>
               <Menu size={16} className="text-white" />
             </button>
           </div>
@@ -256,7 +256,7 @@ export default function Layout() {
                 <div key={item.name} className="relative">
                   <button
                     onClick={() => toggleMenu(item.name)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 text-[13px] font-medium transition-colors text-white ${isExpanded ? 'bg-[#e91e63]' : 'hover:bg-[#d06900]'}`}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 text-[13px] font-medium transition-colors text-white ${isExpanded ? 'bg-[var(--color-aums-pink-red)]' : 'hover:bg-black/10'}`}
                   >
                     <span className="flex items-center gap-3">
                       <item.icon size={15} className="text-white" />
@@ -268,7 +268,7 @@ export default function Layout() {
                   </button>
 
                   {isExpanded && item.children && (
-                    <div className="bg-[#e91e63] py-0.5">
+                    <div className="bg-[var(--color-aums-pink-red)] py-0.5">
                       {item.children.map((child) => (
                         <NavLink
                           key={child.name}
@@ -296,7 +296,7 @@ export default function Layout() {
           </nav>
 
           {/* Search bar at bottom */}
-          <div className="p-4 bg-[#ffa100] mt-auto">
+          <div className="p-4 bg-[var(--color-aums-orange)] mt-auto">
             <div className="flex items-center gap-2 border-b border-white/50 pb-1">
               <input
                 type="text"
