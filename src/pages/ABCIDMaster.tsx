@@ -61,7 +61,7 @@ export default function ABCIDMaster() {
           <div className="flex flex-col md:flex-row items-end gap-4 max-w-4xl">
             <div className="flex-1 w-full">
               <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
+                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-[#26a69a] font-medium">
                   Save ABCId <span className="text-red-600">*</span>
                 </label>
                 <input
@@ -75,7 +75,7 @@ export default function ABCIDMaster() {
 
             <div className="flex-1 w-full">
               <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
+                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-[#26a69a] font-medium">
                   Name same as in Aadhaar <span className="text-red-600">*</span>
                 </label>
                 <input
