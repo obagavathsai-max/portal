@@ -4,10 +4,10 @@ export default function FeeDetails() {
   const [selectedFeeTerm, setSelectedFeeTerm] = useState<string>('Select');
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
+    <div className="space-y-4 bg-aums-bg-main min-h-screen">
       <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
+          <h1 className="text-base font-bold uppercase text-aums-teal">
             STUDENTS FEE DETAILS
           </h1>
         </div>
