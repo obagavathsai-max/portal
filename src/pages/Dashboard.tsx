@@ -47,7 +47,7 @@ function MiniCalendar() {
   return (
     <div className="text-xs">
       <div className="flex items-center justify-between mb-2">
-        <span className="font-bold text-sm" style={{ color: '#26a69a' }}>{monthName}</span>
+        <span className="font-bold text-sm text-[var(--color-aums-teal)]">{monthName}</span>
         <div className="flex gap-1">
           <button
             onClick={() => setViewDate(new Date(year, month - 1, 1))}
@@ -83,13 +83,12 @@ function MiniCalendar() {
                       <span
                         className={`inline-flex items-center justify-center w-6 h-6 rounded-sm text-xs cursor-pointer
                           ${isToday(cell) ? 'font-bold' : ''}
-                          ${isFri || isSat ? '' : ''}
                         `}
                         style={
                           isToday(cell)
-                            ? { backgroundColor: '#ffe082', border: '1px solid #ffd54f' }
+                            ? { backgroundColor: 'var(--color-aums-yellow-highlight)', border: '1px solid var(--color-aums-yellow-border)' }
                             : isFri || isSat
-                              ? { color: '#26a69a' }
+                              ? { color: 'var(--color-aums-teal)' }
                               : { color: '#333' }
                         }
                       >
@@ -116,8 +115,7 @@ export default function Dashboard() {
       <div className="flex flex-wrap gap-2 pt-2">
         {/* Home tab */}
         <button
-          className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-bold text-white shadow-sm transition-opacity hover:opacity-90 active:scale-95"
-          style={{ backgroundColor: '#26a69a' }}
+          className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-bold text-white shadow-sm transition-opacity hover:opacity-90 active:scale-95 bg-[var(--color-aums-teal)]"
         >
           <Home size={13} className="text-white" /> Home <ChevronDown size={14} className="text-white/70" />
         </button>
@@ -126,10 +124,9 @@ export default function Dashboard() {
         {courseTabs.map((tab, i) => (
           <button
             key={i}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-semibold shadow-sm text-gray-700 transition-colors hover:bg-[#b2dfdb] group active:scale-95"
-            style={{ backgroundColor: '#e0f2f1' }}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-semibold shadow-sm text-gray-700 transition-colors hover:bg-[#b2dfdb] group active:scale-95 bg-[#e0f2f1]"
           >
-            <Star size={13} className="shrink-0 text-[#26a69a] fill-[#26a69a]" />
+            <Star size={13} className="shrink-0 text-[var(--color-aums-teal)] fill-[var(--color-aums-teal)]" />
             <span className="truncate max-w-[200px]">{tab}</span>
             <ChevronDown size={14} className="shrink-0 text-[#26a69a]/60 group-hover:text-[#26a69a]" />
           </button>
@@ -139,20 +136,20 @@ export default function Dashboard() {
       {/* OVERVIEW heading */}
       <div className="flex items-center gap-2 mt-6 mb-3">
         <div className="grid grid-cols-2 gap-[2px]">
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
+          <div className="w-1.5 h-1.5 bg-[var(--color-aums-teal)]"></div>
+          <div className="w-1.5 h-1.5 bg-[var(--color-aums-teal)]"></div>
+          <div className="w-1.5 h-1.5 bg-[var(--color-aums-teal)]"></div>
+          <div className="w-1.5 h-1.5 bg-[var(--color-aums-teal)]"></div>
         </div>
-        <h2 className="text-[14px] font-bold text-[#26a69a] uppercase tracking-wide">Overview</h2>
+        <h2 className="text-[14px] font-bold text-[var(--color-aums-teal)] uppercase tracking-wide">Overview</h2>
       </div>
 
       {/* Grid: Message + Calendar */}
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-5">
         {/* Message of the Day */}
         <div className="xl:col-span-8 bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-            <span className="text-[13px] font-semibold text-[#26a69a]">Message Of The Day</span>
+          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-[#e0f2f1]">
+            <span className="text-[13px] font-semibold text-[var(--color-aums-teal)]">Message Of The Day</span>
             <div className="flex gap-1.5">
               <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
                 <LinkIcon size={12} strokeWidth={2.5} /> Link
@@ -171,15 +168,15 @@ export default function Dashboard() {
             </div>
 
             <div className="space-y-4">
-              <p className="font-bold text-[18px] text-[#A4123F]">Om Amriteswaryai Namah</p>
+              <p className="font-bold text-[18px] text-[var(--color-aums-pink-red)]">Om Amriteswaryai Namah</p>
 
               <p className="text-[15px] font-bold text-gray-800 leading-relaxed max-w-2xl">
                 Everything happens spontaneously when you distance yourself from your mind.
               </p>
 
               <div className="pt-2">
-                <p className="text-[14px] font-bold text-[#A4123F]">Chancellor,</p>
-                <p className="text-[14px] font-bold text-[#A4123F]">Sri Mata Amritanandamayi Devi</p>
+                <p className="text-[14px] font-bold text-[var(--color-aums-pink-red)]">Chancellor,</p>
+                <p className="text-[14px] font-bold text-[var(--color-aums-pink-red)]">Sri Mata Amritanandamayi Devi</p>
               </div>
             </div>
           </div>
@@ -187,8 +184,8 @@ export default function Dashboard() {
 
         {/* Calendar */}
         <div className="xl:col-span-4 bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-            <span className="text-[13px] font-semibold text-[#26a69a]">Calendar</span>
+          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-[#e0f2f1]">
+            <span className="text-[13px] font-semibold text-[var(--color-aums-teal)]">Calendar</span>
             <div className="flex gap-1.5">
               <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
                 <LinkIcon size={12} strokeWidth={2.5} /> Link
@@ -206,8 +203,8 @@ export default function Dashboard() {
 
       {/* Home Information Display */}
       <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden mt-2">
-        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <span className="text-[13px] font-semibold text-[#26a69a]">Home Information Display</span>
+        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-[#e0f2f1]">
+          <span className="text-[13px] font-semibold text-[var(--color-aums-teal)]">Home Information Display</span>
           <div className="flex gap-1.5">
             <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
               ✏️ Edit
