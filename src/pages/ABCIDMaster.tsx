@@ -23,7 +23,7 @@ export default function ABCIDMaster() {
     <div className="space-y-4">
       <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-100 bg-white">
-          <h1 className="text-[14px] font-bold text-[#26a69a] uppercase tracking-wide">
+          <h1 className="text-[14px] font-bold text-[var(--color-aums-teal)] uppercase tracking-wide">
             ABCID MASTER UI
           </h1>
         </div>
@@ -61,8 +61,8 @@ export default function ABCIDMaster() {
           <div className="flex flex-col md:flex-row items-end gap-4 max-w-4xl">
             <div className="flex-1 w-full">
               <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
-                  Save ABCId <span className="text-red-600">*</span>
+                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-[var(--color-aums-red-error)] font-medium">
+                  Save ABCId <span className="text-[var(--color-aums-red-error)]">*</span>
                 </label>
                 <input
                   type="text"
@@ -75,8 +75,8 @@ export default function ABCIDMaster() {
 
             <div className="flex-1 w-full">
               <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
-                  Name same as in Aadhaar <span className="text-red-600">*</span>
+                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-[var(--color-aums-red-error)] font-medium">
+                  Name same as in Aadhaar <span className="text-[var(--color-aums-red-error)]">*</span>
                 </label>
                 <input
                   type="text"
@@ -89,7 +89,7 @@ export default function ABCIDMaster() {
 
             <button
               onClick={handleSave}
-              className="bg-[#26a69a] hover:bg-[#1f8a80] text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5"
+              className="bg-[var(--color-aums-teal)] hover:bg-[var(--color-aums-teal-dark)] text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5"
             >
               Save
             </button>
