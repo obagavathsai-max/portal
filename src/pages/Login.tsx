@@ -20,7 +20,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-['Open_Sans']" style={{ backgroundColor: '#81ccc4' }}>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-sans" style={{ backgroundColor: 'var(--color-aums-bg-login)' }}>
       {/* Logo and Title Section */}
       <div className="mb-4 flex flex-col items-center text-center">
         <img
@@ -31,8 +31,8 @@ export default function Login() {
       </div>
 
       {/* Login Card */}
-      <div className="rounded-[10px] w-full max-w-[450px] overflow-hidden p-10 pt-8 shadow-lg" style={{ backgroundColor: '#e9edf2' }}>
-        <h2 className="text-[48px] font-normal text-center mb-10" style={{ color: '#ffa100' }}>
+      <div className="rounded-[10px] w-full max-w-[450px] overflow-hidden p-10 pt-8 shadow-lg" style={{ backgroundColor: 'var(--color-aums-card-login)' }}>
+        <h2 className="text-[48px] font-normal text-center mb-10" style={{ color: 'var(--color-aums-orange)' }}>
           Sign In
         </h2>
 
@@ -48,7 +48,7 @@ export default function Login() {
               placeholder="Username"
               required
               className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all"
-              style={{ backgroundColor: '#dee3e9' }}
+              style={{ backgroundColor: 'var(--color-aums-input-login)' }}
             />
           </div>
 
@@ -61,7 +61,7 @@ export default function Login() {
               placeholder="Password"
               required
               className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all"
-              style={{ backgroundColor: '#dee3e9' }}
+              style={{ backgroundColor: 'var(--color-aums-input-login)' }}
             />
           </div>
 
@@ -70,18 +70,18 @@ export default function Login() {
               <button
                 type="submit"
                 className="px-10 py-3 text-white text-[18px] font-bold rounded-[6px] uppercase tracking-wide hover:brightness-110 active:scale-95 transition-all"
-                style={{ backgroundColor: '#ffa100' }}
+                style={{ backgroundColor: 'var(--color-aums-orange)' }}
               >
                 LOGIN
               </button>
 
-              <a href="#" className="text-[16px] hover:underline" style={{ color: '#337ab7' }}>
+              <a href="#" className="text-[16px] hover:underline" style={{ color: 'var(--color-aums-link-login)' }}>
                 OPAC Search
               </a>
             </div>
 
             <div className="flex justify-end pt-4">
-              <a href="#" className="text-[16px] hover:underline" style={{ color: '#337ab7' }}>
+              <a href="#" className="text-[16px] hover:underline" style={{ color: 'var(--color-aums-link-login)' }}>
                 Can't access your account?
               </a>
             </div>
@@ -91,7 +91,7 @@ export default function Login() {
 
       {/* Footer */}
       <div className="mt-14 text-center">
-        <p className="text-[20px] font-normal" style={{ color: '#7a9ea1' }}>
+        <p className="text-[20px] font-normal" style={{ color: 'var(--color-aums-footer-login)' }}>
           Copyright © 2021 Amrita Technologies.
         </p>
       </div>
