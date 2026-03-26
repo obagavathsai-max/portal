@@ -1,279 +1,105 @@
 import React, { useState } from 'react';
+import { ChevronDown, Search, Printer, FileDown } from 'lucide-react';
 
-interface AttendanceRecord {
-  slNo: number;
-  className: string;
-  course: string;
-  faculty: string;
-  total: number;
-  present: number;
-  dutyLeave: number;
-  absent: number;
-  percentage: string;
-  medical: number;
-}
-
-const semester6Data: AttendanceRecord[] = [
-  {
-    slNo: 1,
-    className: 'B.Tech..2023.R.AIE.16.22AIE311',
-    course: '22AIE311 Software Engineering (Project-Based)',
-    faculty: 'Parvathaneni Naga Srinivasu',
-    total: 40,
-    present: 16,
-    dutyLeave: 0,
-    absent: 24,
-    percentage: '40',
-    medical: 0
-  },
-  {
-    slNo: 2,
-    className: 'B.Tech..2023.R.AIE.16.22AIE312',
-    course: '22AIE312 Big Data Analytics',
-    faculty: 'V Lakshmi Chetana',
-    total: 45,
-    present: 25,
-    dutyLeave: 0,
-    absent: 20,
-    percentage: '55.56',
-    medical: 0
-  },
-  {
-    slNo: 3,
-    className: 'B.Tech..2023.R.AIE.16.22AIE313',
-    course: '22AIE313 Computer Vision and Image Processing',
-    faculty: 'RAVI SANKAR PUPPALA',
-    total: 55,
-    present: 40,
-    dutyLeave: 0,
-    absent: 15,
-    percentage: '72.73',
-    medical: 0
-  },
-  {
-    slNo: 4,
-    className: 'B.Tech..2023.R.AIE.16.22AIE314',
-    course: '22AIE314 Computer Security',
-    faculty: 'Venkata Ramana Gupta Nallagattla',
-    total: 56,
-    present: 23,
-    dutyLeave: 0,
-    absent: 33,
-    percentage: '41.07',
-    medical: 0
-  },
-  {
-    slNo: 5,
-    className: 'B.Tech..2023.R.AIE.16.22AIE315',
-    course: '22AIE315 Natural Language Processing',
-    faculty: 'korrapati sindhu',
-    total: 68,
-    present: 27,
-    dutyLeave: 0,
-    absent: 41,
-    percentage: '39.71',
-    medical: 0
-  },
-  {
-    slNo: 6,
-    className: 'B.Tech..2023.R.AIE.16.22AIE457',
-    course: '22AIE457 Full Stack Development',
-    faculty: 'Budati Jaya Lakshmi Narayana',
-    total: 51,
-    present: 23,
-    dutyLeave: 0,
-    absent: 28,
-    percentage: '45.1',
-    medical: 0
-  },
-  {
-    slNo: 7,
-    className: 'B.Tech..2023.R.AIE.16.23LSE311',
-    course: '23LSE311 Life Skills for Engineers IV',
-    faculty: 'Swati K Karthikeyan S Kanchustambam Satya Savithri',
-    total: 15,
-    present: 6,
-    dutyLeave: 0,
-    absent: 9,
-    percentage: '40',
-    medical: 0
-  }
+const attendanceData = [
+  { slNo: 1, className: 'B.Tech..2023.R.AIE.16', course: '19AIE311 - Software Engineering', faculty: 'Dr. Rahul M', total: 45, present: 42, dutyLeave: 0, absent: 3, percentage: 93.33, medical: 0 },
+  { slNo: 2, className: 'B.Tech..2023.R.AIE.16', course: '19AIE312 - Big Data Analytics', faculty: 'Prof. Sangeetha K', total: 42, present: 38, dutyLeave: 2, absent: 2, percentage: 95.24, medical: 0 },
+  { slNo: 3, className: 'B.Tech..2023.R.AIE.16', course: '19AIE313 - Computer Vision', faculty: 'Dr. Anand V', total: 40, present: 35, dutyLeave: 1, absent: 4, percentage: 90.00, medical: 0 },
+  { slNo: 4, className: 'B.Tech..2023.R.AIE.16', course: '19AIE314 - Computer Security', faculty: 'Ms. Priya S', total: 38, present: 36, dutyLeave: 0, absent: 2, percentage: 94.74, medical: 0 },
+  { slNo: 5, className: 'B.Tech..2023.R.AIE.16', course: '19AIE315 - Natural Language Processing', faculty: 'Dr. Rajesh N', total: 44, present: 40, dutyLeave: 0, absent: 4, percentage: 90.91, medical: 0 },
+  { slNo: 6, className: 'B.Tech..2023.R.AIE.16', course: '19CSE305 - Full Stack Development', faculty: 'Mr. Vignesh R', total: 48, present: 45, dutyLeave: 1, absent: 2, percentage: 95.83, medical: 0 },
+  { slNo: 7, className: 'B.Tech..2023.R.AIE.16', course: '19AVP211 - Life Skills III', faculty: 'Ms. Lakshmi P', total: 15, present: 14, dutyLeave: 0, absent: 1, percentage: 93.33, medical: 0 },
+  { slNo: 8, className: 'B.Tech..2023.R.AIE.16', course: '19HUM239 - Principles of Economics', faculty: 'Dr. Meera G', total: 30, present: 28, dutyLeave: 0, absent: 2, percentage: 93.33, medical: 0 },
 ];
 
 export default function Attendance() {
-  const [selectedSemester, setSelectedSemester] = useState<string>('Select');
-  const [selectedCourse, setSelectedCourse] = useState<string>('');
-  const [attendanceType, setAttendanceType] = useState<string>('Regular');
-  const [showReport, setShowReport] = useState<boolean>(false);
-
-  const handleShowReport = () => {
-    if (selectedSemester !== 'Select') {
-      setShowReport(true);
-    }
-  };
-
-  const getAttendanceData = () => {
-    if (selectedSemester === '6') {
-      return semester6Data;
-    }
-    return [];
-  };
-
-  const data = getAttendanceData();
+  const [semester, setSemester] = useState('6');
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)', padding: '20px' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
-        <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            COMPREHENSIVE ATTENDANCE REPORT
+    <div className="space-y-4 p-5 min-h-[calc(100vh-120px)] bg-aums-bg-main">
+      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200 bg-teal-50">
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            View Attendance
           </h1>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-32">Roll No</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-32">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-48">Academic Program & Branch</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div>
-              <div className="border border-gray-300 rounded-sm">
-                <div className="px-3 pt-1">
-                  <label className="text-xs text-gray-500">Semester</label>
-                </div>
-                <select
-                  value={selectedSemester}
-                  onChange={(e) => {
-                    setSelectedSemester(e.target.value);
-                    setShowReport(false);
-                  }}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-                >
-                  <option value="Select">Select</option>
-                  <option value="1">Semester 1</option>
-                  <option value="2">Semester 2</option>
-                  <option value="3">Semester 3</option>
-                  <option value="4">Semester 4</option>
-                  <option value="5">Semester 5</option>
-                  <option value="6">Semester 6</option>
-                </select>
-              </div>
+        <div className="p-4 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <select
+                value={semester}
+                onChange={(e) => setSemester(e.target.value)}
+                className="appearance-none bg-white border border-gray-300 rounded px-4 py-1.5 pr-10 text-sm focus:outline-none focus:border-aums-teal"
+              >
+                <option value="6">Semester 6</option>
+                <option value="5">Semester 5</option>
+                <option value="4">Semester 4</option>
+                <option value="3">Semester 3</option>
+                <option value="2">Semester 2</option>
+                <option value="1">Semester 1</option>
+              </select>
+              <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
             </div>
 
-            <div>
-              <div className="border border-gray-300 rounded-sm">
-                <div className="px-3 pt-1">
-                  <label className="text-xs text-gray-500">Course</label>
-                </div>
-                <select
-                  value={selectedCourse}
-                  onChange={(e) => setSelectedCourse(e.target.value)}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-                >
-                  <option value="">All Courses</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <div className="border border-gray-300 rounded-sm">
-                <div className="px-3 pt-1">
-                  <label className="text-xs text-gray-500">Attendance Type</label>
-                </div>
-                <select
-                  value={attendanceType}
-                  onChange={(e) => setAttendanceType(e.target.value)}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-                >
-                  <option value="Regular">Regular</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex gap-3 mb-6">
-            <button
-              onClick={handleShowReport}
-              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#26a69a' }}
-            >
-              Attendance Summary
-            </button>
-            <button
-              onClick={handleShowReport}
-              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#26a69a' }}
-            >
-              Show Course Wise Report
+            <button className="px-6 py-1.5 text-white text-sm font-bold rounded shadow-sm bg-aums-teal">
+              VIEW
             </button>
           </div>
 
-          {showReport && (
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse border border-gray-200 text-xs">
-                <thead>
-                  <tr style={{ backgroundColor: '#26a69a', color: 'white' }}>
-                    <th className="border border-gray-300 p-2 font-semibold">Sl No</th>
-                    <th className="border border-gray-300 p-2 font-semibold text-left">Class Name</th>
-                    <th className="border border-gray-300 p-2 font-semibold text-left">Course</th>
-                    <th className="border border-gray-300 p-2 font-semibold text-left">Faculty</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Total</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Present</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Duty Leave</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Absent</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Percentage</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Medical</th>
+          <div className="flex items-center gap-2">
+            <button className="p-1.5 border border-gray-300 rounded text-gray-600 hover:bg-gray-50">
+              <Printer size={16} />
+            </button>
+            <button className="p-1.5 border border-gray-300 rounded text-gray-600 hover:bg-gray-50">
+              <FileDown size={16} />
+            </button>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="text-white bg-aums-teal">
+                <th className="px-4 py-2 text-xs font-bold uppercase border-r border-teal-600/30">Sl No</th>
+                <th className="px-4 py-2 text-xs font-bold uppercase border-r border-teal-600/30">Class Name</th>
+                <th className="px-4 py-2 text-xs font-bold uppercase border-r border-teal-600/30">Course</th>
+                <th className="px-4 py-2 text-xs font-bold uppercase border-r border-teal-600/30">Faculty</th>
+                <th className="px-4 py-2 text-xs font-bold uppercase border-r border-teal-600/30 text-center">Total</th>
+                <th className="px-4 py-2 text-xs font-bold uppercase border-r border-teal-600/30 text-center">Present</th>
+                <th className="px-4 py-2 text-xs font-bold uppercase border-r border-teal-600/30 text-center">Duty Leave</th>
+                <th className="px-4 py-2 text-xs font-bold uppercase border-r border-teal-600/30 text-center">Absent</th>
+                <th className="px-4 py-2 text-xs font-bold uppercase border-r border-teal-600/30 text-center">Percentage</th>
+                <th className="px-4 py-2 text-xs font-bold uppercase text-center">Medical</th>
+              </tr>
+            </thead>
+            <tbody>
+              {semester === '6' ? (
+                attendanceData.map((row, idx) => (
+                  <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td className="px-4 py-2.5 text-xs text-gray-700 border-r border-gray-100">{row.slNo}</td>
+                    <td className="px-4 py-2.5 text-xs text-gray-700 border-r border-gray-100">{row.className}</td>
+                    <td className="px-4 py-2.5 text-xs font-medium text-gray-800 border-r border-gray-100">{row.course}</td>
+                    <td className="px-4 py-2.5 text-xs text-gray-600 border-r border-gray-100">{row.faculty}</td>
+                    <td className="px-4 py-2.5 text-xs text-center border-r border-gray-100">{row.total}</td>
+                    <td className="px-4 py-2.5 text-xs text-center border-r border-gray-100">{row.present}</td>
+                    <td className="px-4 py-2.5 text-xs text-center border-r border-gray-100">{row.dutyLeave}</td>
+                    <td className="px-4 py-2.5 text-xs text-center border-r border-gray-100">{row.absent}</td>
+                    <td className="px-4 py-2.5 text-xs font-bold text-center text-white border-r border-gray-100 bg-aums-red-error">
+                      {row.percentage.toFixed(2)}
+                    </td>
+                    <td className="px-4 py-2.5 text-xs text-center">{row.medical}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {data.length > 0 ? (
-                    data.map((row) => (
-                      <tr key={row.slNo} className="bg-white">
-                        <td className="border border-gray-300 p-2 text-center">{row.slNo}</td>
-                        <td className="border border-gray-300 p-2">{row.className}</td>
-                        <td className="border border-gray-300 p-2">{row.course}</td>
-                        <td className="border border-gray-300 p-2">{row.faculty}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.total}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.present}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.dutyLeave}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.absent}</td>
-                        <td
-                          className="border border-gray-300 p-2 text-center font-semibold text-white"
-                          style={{ backgroundColor: '#f05050' }}
-                        >
-                          {row.percentage}
-                        </td>
-                        <td className="border border-gray-300 p-2 text-center">{row.medical}</td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={10} className="border border-gray-300 p-4 text-center text-gray-500 italic">
-                        No attendance data available for Semester {selectedSemester}
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          )}
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={10} className="px-4 py-10 text-center text-gray-500 italic">
+                    No data available for this semester.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
