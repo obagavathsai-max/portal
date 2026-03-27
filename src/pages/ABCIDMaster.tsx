@@ -20,10 +20,10 @@ export default function ABCIDMaster() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 bg-aums-bg-main min-h-[calc(100vh-120px)]">
       <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-100 bg-white">
-          <h1 className="text-[14px] font-bold text-[#26a69a] uppercase tracking-wide">
+          <h1 className="text-[14px] font-bold text-aums-teal uppercase tracking-wide">
             ABCID MASTER UI
           </h1>
         </div>
@@ -89,7 +89,7 @@ export default function ABCIDMaster() {
 
             <button
               onClick={handleSave}
-              className="bg-[#26a69a] hover:bg-[#1f8a80] text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5"
+              className="bg-aums-teal hover:bg-aums-teal-dark text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5"
             >
               Save
             </button>
