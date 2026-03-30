@@ -102,10 +102,10 @@ export default function Grades() {
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#fff', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-200 rounded-sm">
+    <div className="space-y-4 min-h-full bg-white">
+      <div className="bg-white border border-gray-200 rounded-sm overflow-hidden">
         <div className="px-4 py-3 border-b border-gray-100">
-          <h1 className="text-[15px] font-bold uppercase" style={{ color: '#26a69a' }}>
+          <h1 className="text-[15px] font-bold uppercase text-aums-teal">
             STUDENTS PERFORMANCE REPORTS
           </h1>
         </div>
@@ -113,30 +113,30 @@ export default function Grades() {
         <div className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 mb-6 text-[13px]">
             <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Roll No</span>
+              <span className="text-gray-500 font-medium">Roll No</span>
               <span className="font-semibold text-gray-800">AV.SC.U4AIE23132</span>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Name</span>
+              <span className="text-gray-500 font-medium">Name</span>
               <span className="font-semibold text-gray-800 uppercase">ORUGANTI BAGAVATH SAI</span>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Academic Program & Branch</span>
+              <span className="text-gray-500 font-medium">Academic Program & Branch</span>
               <span className="font-semibold text-gray-800 uppercase">B.Tech 2023 AIE</span>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Current CGPA</span>
+              <span className="text-gray-500 font-medium">Current CGPA</span>
               <span className="font-semibold text-gray-800">9.41</span>
             </div>
           </div>
 
-          <p className="text-[11px] text-gray-600 mb-6 italic">
+          <p className="text-[11px] text-gray-600 mb-6 italic leading-relaxed">
             <span className="font-bold not-italic">NOTE:</span> CGPA value will be shown ONLY AFTER all the courses that the student has registered in the term has been Published from Registrar's office
           </p>
 
           <div className="mb-4">
             <div className="relative inline-block border border-gray-300 rounded px-3 py-1.5 min-w-[300px]">
-              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-[#26a69a] font-medium">Semester</label>
+              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-aums-teal font-medium">Semester</label>
               <select
                 value={selectedSemester}
                 onChange={handleSemesterChange}

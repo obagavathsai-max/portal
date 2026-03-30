@@ -122,10 +122,10 @@ export default function Attendance() {
   const data = getAttendanceData();
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)', padding: '20px' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
+    <div className="space-y-4 p-5 min-h-full bg-aums-bg-main">
+      <div className="bg-white border border-gray-300 rounded-sm shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
+          <h1 className="text-base font-bold uppercase text-aums-teal">
             COMPREHENSIVE ATTENDANCE REPORT
           </h1>
         </div>
@@ -133,19 +133,19 @@ export default function Attendance() {
         <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
             <div className="flex">
-              <span className="text-gray-700 w-32">Roll No</span>
+              <span className="text-gray-700 w-32 font-medium">Roll No</span>
               <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
             </div>
             <div></div>
             <div className="flex">
-              <span className="text-gray-700 w-32">Name</span>
+              <span className="text-gray-700 w-32 font-medium">Name</span>
             </div>
 
             <div className="flex">
               <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
             </div>
             <div className="flex">
-              <span className="text-gray-700 w-48">Academic Program & Branch</span>
+              <span className="text-gray-700 w-48 font-medium">Academic Program & Branch</span>
             </div>
             <div className="flex">
               <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
@@ -211,15 +211,13 @@ export default function Attendance() {
           <div className="flex gap-3 mb-6">
             <button
               onClick={handleShowReport}
-              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#26a69a' }}
+              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity bg-aums-teal"
             >
               Attendance Summary
             </button>
             <button
               onClick={handleShowReport}
-              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#26a69a' }}
+              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity bg-aums-teal"
             >
               Show Course Wise Report
             </button>
@@ -229,7 +227,7 @@ export default function Attendance() {
             <div className="overflow-x-auto">
               <table className="w-full border-collapse border border-gray-200 text-xs">
                 <thead>
-                  <tr style={{ backgroundColor: '#26a69a', color: 'white' }}>
+                  <tr className="bg-aums-teal text-white">
                     <th className="border border-gray-300 p-2 font-semibold">Sl No</th>
                     <th className="border border-gray-300 p-2 font-semibold text-left">Class Name</th>
                     <th className="border border-gray-300 p-2 font-semibold text-left">Course</th>
@@ -255,8 +253,7 @@ export default function Attendance() {
                         <td className="border border-gray-300 p-2 text-center">{row.dutyLeave}</td>
                         <td className="border border-gray-300 p-2 text-center">{row.absent}</td>
                         <td
-                          className="border border-gray-300 p-2 text-center font-semibold text-white"
-                          style={{ backgroundColor: '#f05050' }}
+                          className="border border-gray-300 p-2 text-center font-semibold text-white bg-aums-red-error"
                         >
                           {row.percentage}
                         </td>
