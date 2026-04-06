@@ -14,12 +14,12 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: '#26a69a' }}>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-aums-bg-login">
       {/* Logo */}
       <div className="mb-6 flex flex-col items-center">
         <div className="bg-white p-2 rounded-lg shadow-lg">
           <img
-            src="/custom-logo.png"
+            src="/exact-logo.png"
             alt="Logo"
             className="h-20 object-contain"
           />
@@ -27,20 +27,20 @@ export default function Signup() {
       </div>
 
       {/* Card */}
-      <div className="bg-white rounded shadow-lg w-full max-w-sm mx-4">
-        <div className="px-8 py-8">
-          <h2 className="text-2xl font-semibold text-center mb-6" style={{ color: '#f57c00' }}>
+      <div className="bg-aums-card-login rounded-[10px] shadow-lg w-full max-w-[450px] mx-4 overflow-hidden p-10">
+        <div className="">
+          <h2 className="text-[48px] font-normal text-center mb-10 text-aums-orange">
             Create Account
           </h2>
 
-          <form onSubmit={handleSignup} className="space-y-4">
+          <form onSubmit={handleSignup} className="space-y-6">
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Full Name"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all bg-aums-input-login"
             />
             <input
               type="text"
@@ -48,7 +48,7 @@ export default function Signup() {
               onChange={(e) => setRollNo(e.target.value)}
               placeholder="Roll Number (e.g. AV.SC.U4AIE23132)"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all bg-aums-input-login"
             />
             <input
               type="email"
@@ -56,7 +56,7 @@ export default function Signup() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="University Email"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all bg-aums-input-login"
             />
             <input
               type="password"
@@ -64,26 +64,27 @@ export default function Signup() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all bg-aums-input-login"
             />
 
-            <div className="flex items-center justify-between pt-2">
-              <button
-                type="submit"
-                className="px-6 py-2 text-white text-sm font-bold rounded uppercase tracking-wide"
-                style={{ backgroundColor: '#f57c00' }}
-              >
-                Sign Up
-              </button>
-              <Link to="/login" className="text-xs" style={{ color: '#26a69a' }}>
-                Already have an account?
-              </Link>
+            <div className="flex flex-col pt-2">
+              <div className="flex items-center justify-between">
+                <button
+                  type="submit"
+                  className="px-10 py-3 text-white text-[18px] font-bold rounded-[6px] uppercase tracking-wide hover:bg-aums-orange-dark active:scale-95 transition-all bg-aums-orange"
+                >
+                  Sign Up
+                </button>
+                <Link to="/login" className="text-[16px] hover:underline text-aums-link-login">
+                  Already have an account?
+                </Link>
+              </div>
             </div>
           </form>
         </div>
       </div>
 
-      <p className="mt-8 text-white/70 text-xs">
+      <p className="mt-14 text-center text-[20px] font-normal text-aums-footer-login">
         Copyright © 2021 Amrita Technologies.
       </p>
     </div>
