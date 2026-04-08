@@ -4,10 +4,10 @@ export default function FeeDetails() {
   const [selectedFeeTerm, setSelectedFeeTerm] = useState<string>('Select');
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
+    <div className="space-y-4 min-h-full bg-aums-bg-main p-5">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
+          <h1 className="text-base font-bold uppercase text-aums-teal">
             STUDENTS FEE DETAILS
           </h1>
         </div>
@@ -30,7 +30,7 @@ export default function FeeDetails() {
               <span className="text-gray-700 w-48">Academic Program & Branch</span>
             </div>
             <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
+              <span className="font-semibold text-gray-900 uppercase text-aums-orange">B.Tech 2023 AIE</span>
             </div>
           </div>
 
@@ -52,18 +52,18 @@ export default function FeeDetails() {
           <div className="overflow-x-auto border border-gray-300 rounded-sm">
             <table className="min-w-full text-sm">
               <thead>
-                <tr style={{ backgroundColor: '#f5f5f5' }}>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Select</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Fee Section</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">currency</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Assigned Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Paid Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700">Amount To Pay</th>
+                <tr className="bg-gray-50">
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300 uppercase">Select</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300 uppercase">Fee Section</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300 uppercase">currency</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300 uppercase">Assigned Amount</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300 uppercase">Paid Amount</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase">Amount To Pay</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500 text-sm">
+                <tr className="bg-white">
+                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500 text-sm italic">
                     No data available in table
                   </td>
                 </tr>

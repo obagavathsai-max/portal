@@ -18,9 +18,9 @@ export default function Profile() {
 
   return (
     <div className="space-y-4">
-      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <h1 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h1 className="font-bold text-sm uppercase tracking-wide text-aums-teal">
             Personal Information
           </h1>
         </div>
@@ -29,30 +29,27 @@ export default function Profile() {
           {/* Profile header */}
           <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
             <div
-              className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold"
-              style={{ backgroundColor: '#26a69a' }}
+              className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold bg-aums-teal"
             >
               OB
             </div>
             <div>
               <p className="text-base font-bold text-gray-800">{profile.name}</p>
               <p className="text-sm text-gray-500">{profile.rollNo}</p>
-              <p className="text-xs mt-1" style={{ color: '#f57c00' }}>{profile.program}</p>
+              <p className="text-xs mt-1 text-aums-orange">{profile.program}</p>
             </div>
             <div className="ml-auto">
               {!isEditing ? (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#26a69a' }}
+                  className="px-4 py-1.5 text-xs font-semibold text-white rounded-sm hover:bg-aums-teal-dark transition-colors bg-aums-teal"
                 >
                   Edit Profile
                 </button>
               ) : (
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#f57c00' }}
+                  className="px-4 py-1.5 text-xs font-semibold text-white rounded-sm hover:bg-aums-orange-dark transition-colors bg-aums-orange"
                 >
                   Save Changes
                 </button>
@@ -77,8 +74,7 @@ export default function Profile() {
                   value={profile[field.key as keyof typeof profile]}
                   onChange={handleChange}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 disabled:opacity-80 focus:outline-none"
-                  style={isEditing ? { borderColor: '#26a69a' } : {}}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-sm text-sm text-gray-700 bg-gray-50 disabled:opacity-80 focus:outline-none ${isEditing ? 'border-aums-teal' : ''}`}
                 />
               </div>
             ))}
@@ -87,9 +83,9 @@ export default function Profile() {
       </div>
 
       {/* Academic Summary */}
-      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <h2 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>Academic Summary</h2>
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h2 className="font-bold text-sm uppercase tracking-wide text-aums-teal">Academic Summary</h2>
         </div>
         <div className="p-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -99,8 +95,8 @@ export default function Profile() {
               { label: 'Current Semester', value: '5' },
               { label: 'Program', value: 'B.Tech AIE' },
             ].map(item => (
-              <div key={item.label} className="text-center p-3 border border-gray-100 rounded bg-gray-50">
-                <p className="text-xl font-bold" style={{ color: '#26a69a' }}>{item.value}</p>
+              <div key={item.label} className="text-center p-3 border border-gray-100 rounded-sm bg-gray-50">
+                <p className="text-xl font-bold text-aums-teal">{item.value}</p>
                 <p className="text-xs text-gray-500 mt-1">{item.label}</p>
               </div>
             ))}
