@@ -29,10 +29,10 @@ export default function Marks() {
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#fff', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-200 rounded-sm">
-        <div className="px-4 py-3 border-b border-gray-100">
-          <h1 className="text-[15px] font-bold uppercase" style={{ color: '#26a69a' }}>
+    <div className="space-y-4 min-h-full bg-aums-bg-main p-5">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200">
+          <h1 className="text-[15px] font-bold uppercase text-aums-teal">
             STUDENT MARK REPORT
           </h1>
         </div>
@@ -49,13 +49,13 @@ export default function Marks() {
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-gray-500">Academic Program & Branch</span>
-              <span className="font-semibold text-gray-800 uppercase">B.Tech 2023 AIE</span>
+              <span className="font-semibold text-gray-800 uppercase text-aums-orange">B.Tech 2023 AIE</span>
             </div>
           </div>
 
           <div className="mb-4">
-            <div className="relative inline-block border border-gray-300 rounded px-3 py-1.5 min-w-[300px]">
-              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-[#26a69a] font-medium">Semester</label>
+            <div className="relative inline-block border border-gray-300 rounded px-3 py-1.5 min-w-[300px] bg-white">
+              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-aums-teal font-medium">Semester</label>
               <select
                 value={selectedSemester}
                 onChange={handleSemesterChange}
@@ -76,7 +76,7 @@ export default function Marks() {
             <div className="mt-6 overflow-x-auto border border-gray-300 rounded-sm">
               <table className="min-w-full text-[12px] border-collapse">
                 <thead>
-                  <tr className="bg-white border-b border-gray-300">
+                  <tr className="bg-gray-50 border-b border-gray-300 uppercase">
                     <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Course Code</th>
                     <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Course Name</th>
                     <th className="px-3 py-2 text-center font-bold border-r border-gray-300">Internal</th>
@@ -86,17 +86,17 @@ export default function Marks() {
                 </thead>
                 <tbody>
                   {mockMarks.map((mark, i) => (
-                    <tr key={mark.code} className="border-b border-gray-300">
+                    <tr key={mark.code} className="bg-white border-b border-gray-300 hover:bg-gray-50 transition-colors">
                       <td className="px-3 py-2 border-r border-gray-300 font-medium">{mark.code}</td>
                       <td className="px-3 py-2 border-r border-gray-300">{mark.name}</td>
                       <td className="px-3 py-2 border-r border-gray-300 text-center">{mark.internal}</td>
                       <td className="px-3 py-2 border-r border-gray-300 text-center">{mark.external}</td>
-                      <td className="px-3 py-2 text-center font-semibold">{mark.total}</td>
+                      <td className="px-3 py-2 text-center font-semibold text-aums-teal">{mark.total}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              <div className="p-3 bg-gray-50 border-t border-gray-300">
+              <div className="p-3 bg-gray-100 border-t border-gray-300">
                 <p className="text-[11px] text-gray-600 font-semibold italic">NP: Not Published</p>
               </div>
             </div>
