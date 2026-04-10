@@ -34,10 +34,10 @@ export default function ChangePassword() {
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
+    <div className="space-y-4 min-h-full bg-aums-bg-main">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
+          <h1 className="text-base font-bold uppercase text-aums-orange">
             CHANGE PASSWORD
           </h1>
         </div>
@@ -78,7 +78,7 @@ export default function ChangePassword() {
           <div className="mb-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
+                <div className="border border-gray-300 rounded-sm bg-gray-50">
                   <div className="px-3 pt-1">
                     <label className="text-xs text-gray-500">Old Password</label>
                   </div>
@@ -93,7 +93,7 @@ export default function ChangePassword() {
               </div>
 
               <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
+                <div className="border border-gray-300 rounded-sm bg-gray-50">
                   <div className="px-3 pt-1">
                     <label className="text-xs text-gray-500">New Password</label>
                   </div>
@@ -108,7 +108,7 @@ export default function ChangePassword() {
               </div>
 
               <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
+                <div className="border border-gray-300 rounded-sm bg-gray-50">
                   <div className="px-3 pt-1">
                     <label className="text-xs text-gray-500">Confirm New Password</label>
                   </div>
@@ -127,8 +127,7 @@ export default function ChangePassword() {
           <div>
             <button
               onClick={handleUpdate}
-              className="px-6 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity shadow-sm uppercase tracking-wide"
-              style={{ backgroundColor: '#ffa100' }}
+              className="px-6 py-2 text-white text-sm font-semibold rounded-sm hover:bg-aums-orange-dark transition-colors shadow-sm uppercase tracking-wide bg-aums-orange"
             >
               Update Password
             </button>
