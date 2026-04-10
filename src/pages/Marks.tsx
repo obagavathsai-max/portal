@@ -29,10 +29,10 @@ export default function Marks() {
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#fff', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-200 rounded-sm">
+    <div className="space-y-4 min-h-full bg-aums-bg-main">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="px-4 py-3 border-b border-gray-100">
-          <h1 className="text-[15px] font-bold uppercase" style={{ color: '#26a69a' }}>
+          <h1 className="text-[15px] font-bold uppercase text-aums-orange">
             STUDENT MARK REPORT
           </h1>
         </div>
@@ -54,8 +54,8 @@ export default function Marks() {
           </div>
 
           <div className="mb-4">
-            <div className="relative inline-block border border-gray-300 rounded px-3 py-1.5 min-w-[300px]">
-              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-[#26a69a] font-medium">Semester</label>
+            <div className="relative inline-block border border-gray-300 rounded px-3 py-1.5 min-w-[300px] bg-gray-50">
+              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-aums-orange font-medium">Semester</label>
               <select
                 value={selectedSemester}
                 onChange={handleSemesterChange}
@@ -76,7 +76,7 @@ export default function Marks() {
             <div className="mt-6 overflow-x-auto border border-gray-300 rounded-sm">
               <table className="min-w-full text-[12px] border-collapse">
                 <thead>
-                  <tr className="bg-white border-b border-gray-300">
+                  <tr className="bg-gray-50 border-b border-gray-300">
                     <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Course Code</th>
                     <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Course Name</th>
                     <th className="px-3 py-2 text-center font-bold border-r border-gray-300">Internal</th>
@@ -86,7 +86,7 @@ export default function Marks() {
                 </thead>
                 <tbody>
                   {mockMarks.map((mark, i) => (
-                    <tr key={mark.code} className="border-b border-gray-300">
+                    <tr key={mark.code} className="border-b border-gray-300 bg-white">
                       <td className="px-3 py-2 border-r border-gray-300 font-medium">{mark.code}</td>
                       <td className="px-3 py-2 border-r border-gray-300">{mark.name}</td>
                       <td className="px-3 py-2 border-r border-gray-300 text-center">{mark.internal}</td>

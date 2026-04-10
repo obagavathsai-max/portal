@@ -4,10 +4,10 @@ export default function FeeDetails() {
   const [selectedFeeTerm, setSelectedFeeTerm] = useState<string>('Select');
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
+    <div className="space-y-4 min-h-full bg-aums-bg-main">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
+          <h1 className="text-base font-bold uppercase text-aums-orange">
             STUDENTS FEE DETAILS
           </h1>
         </div>
@@ -35,7 +35,7 @@ export default function FeeDetails() {
           </div>
 
           <div className="mb-6">
-            <div className="inline-flex items-baseline border border-gray-300 rounded-sm" style={{ minWidth: '260px' }}>
+            <div className="inline-flex items-baseline border border-gray-300 rounded-sm bg-gray-50" style={{ minWidth: '260px' }}>
               <div className="px-3 pt-1">
                 <label className="text-xs text-gray-500">Fee Term</label>
               </div>
@@ -52,7 +52,7 @@ export default function FeeDetails() {
           <div className="overflow-x-auto border border-gray-300 rounded-sm">
             <table className="min-w-full text-sm">
               <thead>
-                <tr style={{ backgroundColor: '#f5f5f5' }}>
+                <tr className="bg-gray-50">
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Select</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Fee Section</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">currency</th>
@@ -62,7 +62,7 @@ export default function FeeDetails() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr className="bg-white">
                   <td colSpan={6} className="px-4 py-8 text-center text-gray-500 text-sm">
                     No data available in table
                   </td>
