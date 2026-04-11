@@ -3,17 +3,38 @@
 
 @theme {
   --font-sans: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Core Brand Colors */
   --color-aums-teal: #26a69a;
   --color-aums-teal-dark: #1e8e83;
+  --color-aums-teal-light: #e0f2f1;
+
   --color-aums-orange: #ffa100;
+  --color-aums-orange-dark: #e69100;
   --color-aums-orange-light: #ffa100;
+
+  --color-aums-pink: #e91e63;
+  --color-aums-red-error: #f05050;
+
+  --color-aums-yellow-highlight: #ffe082;
+  --color-aums-yellow-border: #ffd54f;
+
+  /* Layout Backgrounds */
+  --color-aums-bg-main: #f5f5f5;
+
+  /* Login & Signup Branding */
+  --color-aums-bg-login: #89d1c2;
+  --color-aums-card-login: #e9edf2;
+  --color-aums-input-login: #dee3e9;
+  --color-aums-link-login: #2c7ba0;
+  --color-aums-footer-login: #7a9ea1;
+
   --color-aums-sidebar-active: #FFA100;
-  --color-amrita-maroon: #A4123F;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #f5f5f5;
+  background-color: var(--color-aums-bg-main);
   color: #333;
 }
 
