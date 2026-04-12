@@ -1,138 +1,109 @@
 import React, { useState } from 'react';
+import { Lock, ShieldCheck, AlertCircle } from 'lucide-react';
 
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState({ type: '', text: '' });
 
-  const handleUpdate = () => {
-    setError('');
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const storedPassword = localStorage.getItem('userPassword') || 'niyathi@0125';
 
-    const currentPassword = localStorage.getItem('userPassword') || 'niyathi@0125';
-
-    if (oldPassword !== currentPassword) {
-      setError('Incorrect old password');
+    if (oldPassword !== storedPassword) {
+      setMessage({ type: 'error', text: 'Old password is incorrect' });
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      setError('New passwords do not match');
+      setMessage({ type: 'error', text: 'New passwords do not match' });
       return;
     }
 
     if (newPassword.length < 6) {
-      setError('New password must be at least 6 characters');
+      setMessage({ type: 'error', text: 'Password must be at least 6 characters long' });
       return;
     }
 
     localStorage.setItem('userPassword', newPassword);
+    setMessage({ type: 'success', text: 'Password changed successfully!' });
     setOldPassword('');
     setNewPassword('');
     setConfirmPassword('');
-    alert('Password updated successfully!');
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
+    <div className="space-y-4 bg-aums-bg-main min-h-full">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            CHANGE PASSWORD
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            Change Password
           </h1>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-20">RollNo</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-24">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-40">Academic Program</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-
-            <div className="flex">
-              <span className="text-gray-700 w-20">Branch</span>
-              <span className="font-semibold text-gray-900">AIE</span>
-            </div>
-          </div>
-
-          {error && (
-            <div className="mb-4 p-3 bg-red-100 text-red-700 text-sm rounded border border-red-200 font-semibold">
-              {error}
-            </div>
-          )}
-
-          <div className="mb-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
-                  <div className="px-3 pt-1">
-                    <label className="text-xs text-gray-500">Old Password</label>
-                  </div>
-                  <input
-                    type="password"
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                    className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
-                    placeholder="Enter current password"
-                  />
-                </div>
+        <div className="p-8 max-w-md">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {message.text && (
+              <div className={`px-4 py-3 rounded-sm text-sm font-semibold flex items-center gap-2 ${
+                message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'
+              }`}>
+                {message.type === 'success' ? <ShieldCheck size={18} /> : <AlertCircle size={18} />}
+                {message.text}
               </div>
+            )}
 
-              <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
-                  <div className="px-3 pt-1">
-                    <label className="text-xs text-gray-500">New Password</label>
-                  </div>
-                  <input
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
-                    placeholder="Min. 6 characters"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
-                  <div className="px-3 pt-1">
-                    <label className="text-xs text-gray-500">Confirm New Password</label>
-                  </div>
-                  <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
-                    placeholder="Repeat new password"
-                  />
-                </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-gray-500 uppercase">Old Password</label>
+              <div className="relative">
+                <input
+                  type="password"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm text-sm focus:outline-none focus:border-aums-teal"
+                  required
+                />
+                <Lock size={16} className="absolute left-3 top-2.5 text-gray-400" />
               </div>
             </div>
-          </div>
 
-          <div>
-            <button
-              onClick={handleUpdate}
-              className="px-6 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity shadow-sm uppercase tracking-wide"
-              style={{ backgroundColor: '#ffa100' }}
-            >
-              Update Password
-            </button>
-          </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-gray-500 uppercase">New Password</label>
+              <div className="relative">
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm text-sm focus:outline-none focus:border-aums-teal"
+                  required
+                />
+                <Lock size={16} className="absolute left-3 top-2.5 text-gray-400" />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-gray-500 uppercase">Confirm New Password</label>
+              <div className="relative">
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm text-sm focus:outline-none focus:border-aums-teal"
+                  required
+                />
+                <Lock size={16} className="absolute left-3 top-2.5 text-gray-400" />
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <button
+                type="submit"
+                className="w-full py-2.5 text-white text-sm font-bold rounded-sm uppercase tracking-wide hover:brightness-110 active:scale-95 transition-all bg-aums-orange"
+              >
+                Update Password
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
