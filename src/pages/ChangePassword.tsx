@@ -34,10 +34,10 @@ export default function ChangePassword() {
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
+    <div className="space-y-4 bg-aums-bg-main min-h-full">
       <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
+          <h1 className="text-base font-bold uppercase text-aums-teal">
             CHANGE PASSWORD
           </h1>
         </div>
@@ -70,7 +70,7 @@ export default function ChangePassword() {
           </div>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-100 text-red-700 text-sm rounded border border-red-200 font-semibold">
+            <div className="mb-4 p-3 bg-red-100 text-aums-red-error text-sm rounded border border-red-200 font-semibold">
               {error}
             </div>
           )}
@@ -127,8 +127,7 @@ export default function ChangePassword() {
           <div>
             <button
               onClick={handleUpdate}
-              className="px-6 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity shadow-sm uppercase tracking-wide"
-              style={{ backgroundColor: '#ffa100' }}
+              className="px-6 py-2 text-white text-sm font-semibold rounded-sm hover:bg-aums-orange-dark transition-opacity shadow-sm uppercase tracking-wide bg-aums-orange"
             >
               Update Password
             </button>
