@@ -1,78 +1,55 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function FeeDetails() {
-  const [selectedFeeTerm, setSelectedFeeTerm] = useState<string>('Select');
+  const fees = [
+    { type: 'Tuition Fee', amount: '350,000', status: 'Paid', date: '15-Aug-2023' },
+    { type: 'Hostel Fee', amount: '120,000', status: 'Paid', date: '15-Aug-2023' },
+    { type: 'Caution Deposit', amount: '10,000', status: 'Paid', date: '15-Aug-2023' },
+    { type: 'Mess Fee', amount: '45,000', status: 'Paid', date: '15-Aug-2023' },
+  ];
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
-        <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            STUDENTS FEE DETAILS
+    <div className="space-y-4 min-h-full bg-aums-bg-main">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="px-5 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            Fee Payment Details
           </h1>
         </div>
 
         <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-32">Roll No</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-32">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-48">Academic Program & Branch</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <div className="inline-flex items-baseline border border-gray-300 rounded-sm" style={{ minWidth: '260px' }}>
-              <div className="px-3 pt-1">
-                <label className="text-xs text-gray-500">Fee Term</label>
-              </div>
-              <select
-                value={selectedFeeTerm}
-                onChange={(e) => setSelectedFeeTerm(e.target.value)}
-                className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-              >
-                <option value="Select">Select</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto border border-gray-300 rounded-sm">
-            <table className="min-w-full text-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse border border-gray-200 text-sm">
               <thead>
-                <tr style={{ backgroundColor: '#f5f5f5' }}>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Select</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Fee Section</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">currency</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Assigned Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Paid Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700">Amount To Pay</th>
+                <tr className="bg-gray-50">
+                  <th className="border border-gray-200 p-3 text-left font-semibold text-gray-700">Fee Type</th>
+                  <th className="border border-gray-200 p-3 text-right font-semibold text-gray-700">Amount (₹)</th>
+                  <th className="border border-gray-200 p-3 text-center font-semibold text-gray-700">Status</th>
+                  <th className="border border-gray-200 p-3 text-center font-semibold text-gray-700">Payment Date</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500 text-sm">
-                    No data available in table
-                  </td>
-                </tr>
+                {fees.map((fee, i) => (
+                  <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                    <td className="border border-gray-200 p-3">{fee.type}</td>
+                    <td className="border border-gray-200 p-3 text-right font-medium">{fee.amount}</td>
+                    <td className="border border-gray-200 p-3 text-center">
+                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded">
+                        {fee.status}
+                      </span>
+                    </td>
+                    <td className="border border-gray-200 p-3 text-center text-gray-600">{fee.date}</td>
+                  </tr>
+                ))}
               </tbody>
+              <tfoot>
+                <tr className="bg-aums-bg-main font-bold">
+                  <td className="border border-gray-200 p-3">Total Paid</td>
+                  <td className="border border-gray-200 p-3 text-right">525,000</td>
+                  <td colSpan={2} className="border border-gray-200"></td>
+                </tr>
+              </tfoot>
             </table>
-          </div>
-
-          <div className="mt-3 text-xs text-gray-600">
-            Total rows: 0
           </div>
         </div>
       </div>
