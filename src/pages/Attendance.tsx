@@ -122,10 +122,10 @@ export default function Attendance() {
   const data = getAttendanceData();
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)', padding: '20px' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
+    <div className="space-y-4 min-h-full">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
+          <h1 className="text-base font-bold uppercase text-aums-teal">
             COMPREHENSIVE ATTENDANCE REPORT
           </h1>
         </div>
@@ -211,61 +211,58 @@ export default function Attendance() {
           <div className="flex gap-3 mb-6">
             <button
               onClick={handleShowReport}
-              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#26a69a' }}
+              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity bg-aums-teal"
             >
               Attendance Summary
             </button>
             <button
               onClick={handleShowReport}
-              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#26a69a' }}
+              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity bg-aums-teal"
             >
               Show Course Wise Report
             </button>
           </div>
 
           {showReport && (
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse border border-gray-200 text-xs">
+            <div className="overflow-x-auto border border-gray-200 rounded-sm">
+              <table className="w-full border-collapse text-xs">
                 <thead>
-                  <tr style={{ backgroundColor: '#26a69a', color: 'white' }}>
-                    <th className="border border-gray-300 p-2 font-semibold">Sl No</th>
-                    <th className="border border-gray-300 p-2 font-semibold text-left">Class Name</th>
-                    <th className="border border-gray-300 p-2 font-semibold text-left">Course</th>
-                    <th className="border border-gray-300 p-2 font-semibold text-left">Faculty</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Total</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Present</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Duty Leave</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Absent</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Percentage</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Medical</th>
+                  <tr className="bg-aums-teal text-white">
+                    <th className="border-r border-aums-teal-dark p-2 font-semibold">Sl No</th>
+                    <th className="border-r border-aums-teal-dark p-2 font-semibold text-left">Class Name</th>
+                    <th className="border-r border-aums-teal-dark p-2 font-semibold text-left">Course</th>
+                    <th className="border-r border-aums-teal-dark p-2 font-semibold text-left">Faculty</th>
+                    <th className="border-r border-aums-teal-dark p-2 font-semibold">Total</th>
+                    <th className="border-r border-aums-teal-dark p-2 font-semibold">Present</th>
+                    <th className="border-r border-aums-teal-dark p-2 font-semibold">Duty Leave</th>
+                    <th className="border-r border-aums-teal-dark p-2 font-semibold">Absent</th>
+                    <th className="border-r border-aums-teal-dark p-2 font-semibold">Percentage</th>
+                    <th className="p-2 font-semibold">Medical</th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.length > 0 ? (
                     data.map((row) => (
-                      <tr key={row.slNo} className="bg-white">
-                        <td className="border border-gray-300 p-2 text-center">{row.slNo}</td>
-                        <td className="border border-gray-300 p-2">{row.className}</td>
-                        <td className="border border-gray-300 p-2">{row.course}</td>
-                        <td className="border border-gray-300 p-2">{row.faculty}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.total}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.present}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.dutyLeave}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.absent}</td>
+                      <tr key={row.slNo} className="bg-white border-b border-gray-200 last:border-0">
+                        <td className="border-r border-gray-200 p-2 text-center">{row.slNo}</td>
+                        <td className="border-r border-gray-200 p-2">{row.className}</td>
+                        <td className="border-r border-gray-200 p-2">{row.course}</td>
+                        <td className="border-r border-gray-200 p-2">{row.faculty}</td>
+                        <td className="border-r border-gray-200 p-2 text-center">{row.total}</td>
+                        <td className="border-r border-gray-200 p-2 text-center">{row.present}</td>
+                        <td className="border-r border-gray-200 p-2 text-center">{row.dutyLeave}</td>
+                        <td className="border-r border-gray-200 p-2 text-center">{row.absent}</td>
                         <td
-                          className="border border-gray-300 p-2 text-center font-semibold text-white"
-                          style={{ backgroundColor: '#f05050' }}
+                          className="border-r border-gray-200 p-2 text-center font-semibold text-white bg-aums-red-error"
                         >
                           {row.percentage}
                         </td>
-                        <td className="border border-gray-300 p-2 text-center">{row.medical}</td>
+                        <td className="p-2 text-center">{row.medical}</td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={10} className="border border-gray-300 p-4 text-center text-gray-500 italic">
+                      <td colSpan={10} className="p-4 text-center text-gray-500 italic bg-gray-50">
                         No attendance data available for Semester {selectedSemester}
                       </td>
                     </tr>
