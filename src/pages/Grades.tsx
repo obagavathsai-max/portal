@@ -102,10 +102,10 @@ export default function Grades() {
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#fff', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-200 rounded-sm">
-        <div className="px-4 py-3 border-b border-gray-100">
-          <h1 className="text-[15px] font-bold uppercase" style={{ color: '#26a69a' }}>
+    <div className="space-y-4 min-h-full bg-aums-bg-main">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200">
+          <h1 className="text-[15px] font-bold uppercase text-aums-teal">
             STUDENTS PERFORMANCE REPORTS
           </h1>
         </div>
@@ -131,12 +131,12 @@ export default function Grades() {
           </div>
 
           <p className="text-[11px] text-gray-600 mb-6 italic">
-            <span className="font-bold not-italic">NOTE:</span> CGPA value will be shown ONLY AFTER all the courses that the student has registered in the term has been Published from Registrar's office
+            <span className="font-bold not-italic text-aums-red-error">NOTE:</span> CGPA value will be shown ONLY AFTER all the courses that the student has registered in the term has been Published from Registrar's office
           </p>
 
           <div className="mb-4">
             <div className="relative inline-block border border-gray-300 rounded px-3 py-1.5 min-w-[300px]">
-              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-[#26a69a] font-medium">Semester</label>
+              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-aums-teal font-medium">Semester</label>
               <select
                 value={selectedSemester}
                 onChange={handleSemesterChange}
@@ -170,15 +170,15 @@ export default function Grades() {
                   {currentSem.subjects.map((subject, i) => (
                     <tr key={subject.code} className="border-b border-gray-300">
                       <td className="px-3 py-2 border-r border-gray-300">{currentSem.name}</td>
-                      <td className="px-3 py-2 border-r border-gray-300 font-medium">{subject.code}</td>
+                      <td className="px-3 py-2 border-r border-gray-300 font-medium text-aums-teal">{subject.code}</td>
                       <td className="px-3 py-2 border-r border-gray-300">{subject.name}</td>
                       <td className="px-3 py-2 border-r border-gray-300">{currentSem.term}</td>
                       <td className="px-3 py-2 border-r border-gray-300">{subject.type}</td>
-                      <td className="px-3 py-2">{subject.grade}</td>
+                      <td className="px-3 py-2 font-bold">{subject.grade}</td>
                     </tr>
                   ))}
                   <tr className="bg-gray-50 font-bold">
-                    <td colSpan={5} className="px-3 py-2 text-right border-r border-gray-300 uppercase">SGPA</td>
+                    <td colSpan={5} className="px-3 py-2 text-right border-r border-gray-300 uppercase text-aums-teal">SGPA</td>
                     <td className="px-3 py-2">{currentSem.sgpa}</td>
                   </tr>
                 </tbody>
