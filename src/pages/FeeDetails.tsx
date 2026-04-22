@@ -1,78 +1,61 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+const feeData = [
+  { term: '2025-2026Odd Semester', amount: 125000, status: 'Paid', date: '2024-06-15' },
+  { term: '2024-2025Even Semester', amount: 125000, status: 'Paid', date: '2024-01-10' },
+  { term: '2024-2025Odd Semester', amount: 125000, status: 'Paid', date: '2023-06-20' },
+  { term: '2023-2024Even Semester', amount: 110000, status: 'Paid', date: '2023-01-05' },
+  { term: '2023-2024Odd Semester', amount: 110000, status: 'Paid', date: '2022-06-12' },
+];
 
 export default function FeeDetails() {
-  const [selectedFeeTerm, setSelectedFeeTerm] = useState<string>('Select');
-
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
+    <div className="space-y-4 bg-aums-bg-main min-h-[calc(100vh-120px)]">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            STUDENTS FEE DETAILS
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            Fee Details & Payments
           </h1>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-32">Roll No</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-32">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-48">Academic Program & Branch</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <div className="inline-flex items-baseline border border-gray-300 rounded-sm" style={{ minWidth: '260px' }}>
-              <div className="px-3 pt-1">
-                <label className="text-xs text-gray-500">Fee Term</label>
-              </div>
-              <select
-                value={selectedFeeTerm}
-                onChange={(e) => setSelectedFeeTerm(e.target.value)}
-                className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-              >
-                <option value="Select">Select</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto border border-gray-300 rounded-sm">
-            <table className="min-w-full text-sm">
+        <div className="p-6">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
               <thead>
-                <tr style={{ backgroundColor: '#f5f5f5' }}>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Select</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Fee Section</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">currency</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Assigned Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Paid Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700">Amount To Pay</th>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="px-4 py-3 text-left font-bold text-gray-700">Academic Term</th>
+                  <th className="px-4 py-3 text-right font-bold text-gray-700">Amount (₹)</th>
+                  <th className="px-4 py-3 text-center font-bold text-gray-700">Status</th>
+                  <th className="px-4 py-3 text-left font-bold text-gray-700">Payment Date</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500 text-sm">
-                    No data available in table
-                  </td>
-                </tr>
+                {feeData.map((fee, i) => (
+                  <tr key={i} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td className="px-4 py-4 text-gray-600 font-medium">{fee.term}</td>
+                    <td className="px-4 py-4 text-right text-gray-800 font-bold">{fee.amount.toLocaleString()}</td>
+                    <td className="px-4 py-4 text-center">
+                      <span className="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-bold uppercase rounded-full">
+                        {fee.status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-4 text-gray-500">{fee.date}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
 
-          <div className="mt-3 text-xs text-gray-600">
-            Total rows: 0
+          <div className="mt-8 p-5 bg-aums-teal-light rounded border border-teal-100">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div>
+                <h2 className="text-lg font-bold text-aums-teal">Current Balance: ₹ 0</h2>
+                <p className="text-xs text-teal-600 font-medium">All fees for the current semester have been cleared.</p>
+              </div>
+              <button className="px-6 py-2 bg-gray-400 text-white font-bold rounded cursor-not-allowed text-sm uppercase tracking-wide">
+                No Pending Payments
+              </button>
+            </div>
           </div>
         </div>
       </div>
