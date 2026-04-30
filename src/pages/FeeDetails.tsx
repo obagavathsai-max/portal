@@ -1,78 +1,66 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+const feeData = [
+  { description: 'Tuition Fee', amount: '3,00,000', paid: '3,00,000', balance: '0', dueDate: '15-Aug-2023', status: 'Paid' },
+  { description: 'Hostel Fee', amount: '1,20,000', paid: '1,20,000', balance: '0', dueDate: '15-Aug-2023', status: 'Paid' },
+  { description: 'Mess Fee', amount: '65,000', paid: '65,000', balance: '0', dueDate: '15-Aug-2023', status: 'Paid' },
+  { description: 'Caution Deposit', amount: '10,000', paid: '10,000', balance: '0', dueDate: '15-Aug-2023', status: 'Paid' },
+];
 
 export default function FeeDetails() {
-  const [selectedFeeTerm, setSelectedFeeTerm] = useState<string>('Select');
-
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
-        <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            STUDENTS FEE DETAILS
+    <div className="space-y-4 min-h-full bg-aums-bg-alt">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            Fee Details
           </h1>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-32">Roll No</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-32">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-48">Academic Program & Branch</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <div className="inline-flex items-baseline border border-gray-300 rounded-sm" style={{ minWidth: '260px' }}>
-              <div className="px-3 pt-1">
-                <label className="text-xs text-gray-500">Fee Term</label>
-              </div>
-              <select
-                value={selectedFeeTerm}
-                onChange={(e) => setSelectedFeeTerm(e.target.value)}
-                className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-              >
-                <option value="Select">Select</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto border border-gray-300 rounded-sm">
-            <table className="min-w-full text-sm">
+        <div className="p-6">
+          <div className="overflow-x-auto border border-gray-200 rounded">
+            <table className="w-full text-sm text-left">
               <thead>
-                <tr style={{ backgroundColor: '#f5f5f5' }}>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Select</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Fee Section</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">currency</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Assigned Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Paid Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700">Amount To Pay</th>
+                <tr className="bg-aums-bg-main border-b border-gray-200">
+                  <th className="px-4 py-3 font-bold text-gray-700">Description</th>
+                  <th className="px-4 py-3 font-bold text-gray-700 text-right">Amount (₹)</th>
+                  <th className="px-4 py-3 font-bold text-gray-700 text-right">Paid (₹)</th>
+                  <th className="px-4 py-3 font-bold text-gray-700 text-right">Balance (₹)</th>
+                  <th className="px-4 py-3 font-bold text-gray-700 text-center">Due Date</th>
+                  <th className="px-4 py-3 font-bold text-gray-700 text-center">Status</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500 text-sm">
-                    No data available in table
-                  </td>
-                </tr>
+              <tbody className="divide-y divide-gray-200">
+                {feeData.map((fee, i) => (
+                  <tr key={i} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-4 py-3 text-gray-800 font-medium">{fee.description}</td>
+                    <td className="px-4 py-3 text-right text-gray-600">{fee.amount}</td>
+                    <td className="px-4 py-3 text-right text-green-600 font-semibold">{fee.paid}</td>
+                    <td className="px-4 py-3 text-right text-gray-600">{fee.balance}</td>
+                    <td className="px-4 py-3 text-center text-gray-500">{fee.dueDate}</td>
+                    <td className="px-4 py-3 text-center">
+                      <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-green-100 text-green-700 uppercase">
+                        {fee.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
+              <tfoot>
+                <tr className="bg-gray-50 font-bold border-t-2 border-gray-200">
+                  <td className="px-4 py-4 text-gray-800">Total</td>
+                  <td className="px-4 py-4 text-right text-gray-800">4,95,000</td>
+                  <td className="px-4 py-4 text-right text-green-700">4,95,000</td>
+                  <td className="px-4 py-4 text-right text-gray-800">0</td>
+                  <td colSpan={2}></td>
+                </tr>
+              </tfoot>
             </table>
           </div>
 
-          <div className="mt-3 text-xs text-gray-600">
-            Total rows: 0
+          <div className="mt-8 p-4 bg-blue-50 border border-blue-100 rounded text-sm text-blue-800">
+            <p className="font-bold mb-1">Note:</p>
+            <p>Fee receipts can be downloaded from the 'Receipts' tab. For any discrepancies, please contact the accounts department.</p>
           </div>
         </div>
       </div>
