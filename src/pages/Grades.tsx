@@ -102,10 +102,10 @@ export default function Grades() {
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#fff', minHeight: 'calc(100vh - 120px)' }}>
+    <div className="space-y-4 bg-white min-h-full">
       <div className="bg-white border border-gray-200 rounded-sm">
         <div className="px-4 py-3 border-b border-gray-100">
-          <h1 className="text-[15px] font-bold uppercase" style={{ color: '#26a69a' }}>
+          <h1 className="text-[15px] font-bold uppercase text-aums-teal">
             STUDENTS PERFORMANCE REPORTS
           </h1>
         </div>
@@ -136,7 +136,7 @@ export default function Grades() {
 
           <div className="mb-4">
             <div className="relative inline-block border border-gray-300 rounded px-3 py-1.5 min-w-[300px]">
-              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-[#26a69a] font-medium">Semester</label>
+              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-aums-teal font-medium">Semester</label>
               <select
                 value={selectedSemester}
                 onChange={handleSemesterChange}
@@ -177,7 +177,7 @@ export default function Grades() {
                       <td className="px-3 py-2">{subject.grade}</td>
                     </tr>
                   ))}
-                  <tr className="bg-gray-50 font-bold">
+                  <tr className="bg-aums-bg-main font-bold">
                     <td colSpan={5} className="px-3 py-2 text-right border-r border-gray-300 uppercase">SGPA</td>
                     <td className="px-3 py-2">{currentSem.sgpa}</td>
                   </tr>
