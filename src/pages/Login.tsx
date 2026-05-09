@@ -20,7 +20,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-['Open_Sans']" style={{ backgroundColor: '#81ccc4' }}>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-sans bg-aums-bg-login">
       {/* Logo and Title Section */}
       <div className="mb-4 flex flex-col items-center text-center">
         <img
@@ -31,13 +31,13 @@ export default function Login() {
       </div>
 
       {/* Login Card */}
-      <div className="rounded-[10px] w-full max-w-[450px] overflow-hidden p-10 pt-8 shadow-lg" style={{ backgroundColor: '#e9edf2' }}>
-        <h2 className="text-[48px] font-normal text-center mb-10" style={{ color: '#ffa100' }}>
+      <div className="rounded-[10px] w-full max-w-[450px] overflow-hidden p-10 pt-8 shadow-lg bg-aums-card-login">
+        <h2 className="text-[48px] font-normal text-center mb-10 text-aums-orange">
           Sign In
         </h2>
 
         <form onSubmit={handleLogin} className="space-y-6">
-          {error && <p className="text-red-600 text-[14px] text-center font-bold">{error}</p>}
+          {error && <p className="text-aums-red-error text-[14px] text-center font-bold">{error}</p>}
 
           <div className="relative">
             <input
@@ -47,8 +47,7 @@ export default function Login() {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
               required
-              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all"
-              style={{ backgroundColor: '#dee3e9' }}
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all bg-aums-input-login"
             />
           </div>
 
@@ -60,8 +59,7 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               required
-              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all"
-              style={{ backgroundColor: '#dee3e9' }}
+              className="w-full px-4 py-[18px] border-none rounded-[4px] text-[20px] placeholder-gray-500 focus:outline-none transition-all bg-aums-input-login"
             />
           </div>
 
@@ -69,19 +67,18 @@ export default function Login() {
             <div className="flex items-center justify-between">
               <button
                 type="submit"
-                className="px-10 py-3 text-white text-[18px] font-bold rounded-[6px] uppercase tracking-wide hover:brightness-110 active:scale-95 transition-all"
-                style={{ backgroundColor: '#ffa100' }}
+                className="px-10 py-3 text-white text-[18px] font-bold rounded-[6px] uppercase tracking-wide hover:bg-aums-orange-dark active:scale-95 transition-all bg-aums-orange"
               >
                 LOGIN
               </button>
 
-              <a href="#" className="text-[16px] hover:underline" style={{ color: '#337ab7' }}>
+              <a href="#" className="text-[16px] hover:underline text-aums-link-login">
                 OPAC Search
               </a>
             </div>
 
             <div className="flex justify-end pt-4">
-              <a href="#" className="text-[16px] hover:underline" style={{ color: '#337ab7' }}>
+              <a href="#" className="text-[16px] hover:underline text-aums-link-login">
                 Can't access your account?
               </a>
             </div>
@@ -91,7 +88,7 @@ export default function Login() {
 
       {/* Footer */}
       <div className="mt-14 text-center">
-        <p className="text-[20px] font-normal" style={{ color: '#7a9ea1' }}>
+        <p className="text-[20px] font-normal text-aums-footer-login">
           Copyright © 2021 Amrita Technologies.
         </p>
       </div>
