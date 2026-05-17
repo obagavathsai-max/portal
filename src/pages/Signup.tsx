@@ -14,7 +14,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: '#26a69a' }}>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-aums-bg-login">
       {/* Logo */}
       <div className="mb-6 flex flex-col items-center">
         <div className="bg-white p-2 rounded-lg shadow-lg">
@@ -27,9 +27,9 @@ export default function Signup() {
       </div>
 
       {/* Card */}
-      <div className="bg-white rounded shadow-lg w-full max-w-sm mx-4">
+      <div className="rounded shadow-lg w-full max-w-sm mx-4 bg-aums-card-login">
         <div className="px-8 py-8">
-          <h2 className="text-2xl font-semibold text-center mb-6" style={{ color: '#f57c00' }}>
+          <h2 className="text-2xl font-semibold text-center mb-6 text-aums-orange">
             Create Account
           </h2>
 
@@ -40,7 +40,7 @@ export default function Signup() {
               onChange={(e) => setName(e.target.value)}
               placeholder="Full Name"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-3 py-2.5 border-none rounded text-sm text-gray-700 bg-aums-input-login focus:outline-none"
             />
             <input
               type="text"
@@ -48,7 +48,7 @@ export default function Signup() {
               onChange={(e) => setRollNo(e.target.value)}
               placeholder="Roll Number (e.g. AV.SC.U4AIE23132)"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-3 py-2.5 border-none rounded text-sm text-gray-700 bg-aums-input-login focus:outline-none"
             />
             <input
               type="email"
@@ -56,7 +56,7 @@ export default function Signup() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="University Email"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-3 py-2.5 border-none rounded text-sm text-gray-700 bg-aums-input-login focus:outline-none"
             />
             <input
               type="password"
@@ -64,18 +64,17 @@ export default function Signup() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 focus:outline-none focus:border-teal-400"
+              className="w-full px-3 py-2.5 border-none rounded text-sm text-gray-700 bg-aums-input-login focus:outline-none"
             />
 
             <div className="flex items-center justify-between pt-2">
               <button
                 type="submit"
-                className="px-6 py-2 text-white text-sm font-bold rounded uppercase tracking-wide"
-                style={{ backgroundColor: '#f57c00' }}
+                className="px-6 py-2 text-white text-sm font-bold rounded uppercase tracking-wide bg-aums-orange"
               >
                 Sign Up
               </button>
-              <Link to="/login" className="text-xs" style={{ color: '#26a69a' }}>
+              <Link to="/login" className="text-xs text-aums-link-login">
                 Already have an account?
               </Link>
             </div>
@@ -83,7 +82,7 @@ export default function Signup() {
         </div>
       </div>
 
-      <p className="mt-8 text-white/70 text-xs">
+      <p className="mt-8 text-xs text-aums-footer-login">
         Copyright © 2021 Amrita Technologies.
       </p>
     </div>
