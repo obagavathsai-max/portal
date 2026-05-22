@@ -1,103 +1,105 @@
 import React, { useState, useEffect } from 'react';
+import { Save, Info, AlertCircle } from 'lucide-react';
 
 export default function ABCIDMaster() {
   const [abcId, setAbcId] = useState('');
-  const [aadhaarName, setAadhaarName] = useState('');
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
-    const savedAbcId = localStorage.getItem('abcId');
-    const savedAadhaarName = localStorage.getItem('aadhaarName');
-    if (savedAbcId) setAbcId(savedAbcId);
-    else setAbcId('740923811437');
-    if (savedAadhaarName) setAadhaarName(savedAadhaarName);
-    else setAadhaarName('Oruganti bagavath Sai');
+    const saved = localStorage.getItem('abcId');
+    if (saved) {
+      setAbcId(saved);
+    }
   }, []);
 
   const handleSave = () => {
     localStorage.setItem('abcId', abcId);
-    localStorage.setItem('aadhaarName', aadhaarName);
-    alert('ABCId details saved permanently!');
+    setIsSaved(true);
+    setTimeout(() => setIsSaved(false), 3000);
   };
 
   return (
-    <div className="space-y-4">
-      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
-        <div className="px-5 py-3 border-b border-gray-100 bg-white">
-          <h1 className="text-[14px] font-bold text-[#26a69a] uppercase tracking-wide">
-            ABCID MASTER UI
-          </h1>
+    <div className="space-y-6">
+      <div className="flex items-center gap-2 mb-3">
+        <div className="grid grid-cols-2 gap-[2px]">
+          <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+          <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+          <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+          <div className="w-1.5 h-1.5 bg-aums-teal"></div>
         </div>
+        <h1 className="text-[14px] font-bold text-aums-teal uppercase tracking-wide">
+          ABCID Master
+        </h1>
+      </div>
 
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="p-6">
-          {/* Info Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-12 mb-10">
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Roll No</p>
-              <p className="text-[14px] font-medium text-gray-800">AV.SC.U4AIE23132</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 mb-8">
+            {/* Student Info (Read-only) */}
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Roll No</label>
+                <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-aums-bg-alt">
+                  <span className="text-[13px] font-semibold text-gray-700">AV.SC.U4AIE23132</span>
+                </div>
+              </div>
+              <div className="space-y-1">
+                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Student Name</label>
+                <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-aums-bg-alt">
+                  <span className="text-[13px] font-semibold text-gray-700 uppercase">ORUGANTI BAGAVATH SAI</span>
+                </div>
+              </div>
             </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Name</p>
-              <p className="text-[14px] font-medium text-gray-800 uppercase">ORUGANTI BAGAVATH SAI</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Academic Program</p>
-              <p className="text-[14px] font-medium text-gray-800 uppercase">B.Tech 2023</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Branch</p>
-              <p className="text-[14px] font-medium text-gray-800">AIE</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">ABCId</p>
-              <p className="text-[14px] font-medium text-gray-800">{abcId}</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Name same as in Aadhaar</p>
-              <p className="text-[14px] font-medium text-gray-800">{aadhaarName}</p>
-            </div>
-          </div>
 
-          {/* Form Section */}
-          <div className="flex flex-col md:flex-row items-end gap-4 max-w-4xl">
-            <div className="flex-1 w-full">
-              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
-                  Save ABCId <span className="text-red-600">*</span>
-                </label>
+            {/* ABC ID Input */}
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">ABC ID <span className="text-aums-red-error">*</span></label>
                 <input
                   type="text"
                   value={abcId}
                   onChange={(e) => setAbcId(e.target.value)}
-                  className="w-full bg-transparent outline-none py-1.5 text-[14px] text-gray-800"
+                  placeholder="Enter your 12 digit ABC ID"
+                  className="w-full px-3 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:border-aums-teal text-[13px]"
                 />
               </div>
-            </div>
-
-            <div className="flex-1 w-full">
-              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
-                  Name same as in Aadhaar <span className="text-red-600">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={aadhaarName}
-                  onChange={(e) => setAadhaarName(e.target.value)}
-                  className="w-full bg-transparent outline-none py-1.5 text-[14px] text-gray-800"
-                />
+              <div className="flex items-end justify-start h-full pb-0.5">
+                <button
+                  onClick={handleSave}
+                  className="bg-aums-teal hover:brightness-110 text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5"
+                >
+                  SAVE
+                </button>
+                {isSaved && (
+                  <span className="ml-4 mb-2 text-[12px] font-bold text-green-600 flex items-center gap-1">
+                    <Save size={14} /> Saved Successfully
+                  </span>
+                )}
               </div>
             </div>
-
-            <button
-              onClick={handleSave}
-              className="bg-[#26a69a] hover:bg-[#1f8a80] text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5"
-            >
-              Save
-            </button>
           </div>
 
-          <p className="mt-6 text-[12px] text-gray-700 italic">
-            NB:- Please enter the name as per the Aadhar.
-          </p>
+          {/* Instructions */}
+          <div className="mt-8 border-t border-gray-100 pt-6">
+            <div className="flex items-center gap-2 mb-4 text-aums-teal">
+              <Info size={18} />
+              <h2 className="text-[13px] font-bold uppercase">Instructions</h2>
+            </div>
+            <ul className="space-y-3">
+              <li className="flex gap-3 text-[12px] text-gray-600">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-aums-teal-light text-aums-teal flex items-center justify-center font-bold">1</span>
+                <span>The Academic Bank of Credits (ABC) ID is mandatory for all students as per UGC guidelines.</span>
+              </li>
+              <li className="flex gap-3 text-[12px] text-gray-600">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-aums-teal-light text-aums-teal flex items-center justify-center font-bold">2</span>
+                <span>Students must ensure that their name in ABC matches exactly with their name in University records.</span>
+              </li>
+              <li className="flex gap-3 text-[12px] text-gray-600">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-aums-teal-light text-aums-teal flex items-center justify-center font-bold">3</span>
+                <span>Verify your ABC ID on the DigiLocker portal before submitting it here.</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
