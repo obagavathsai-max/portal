@@ -3,102 +3,100 @@ import React, { useState, useEffect } from 'react';
 export default function ABCIDMaster() {
   const [abcId, setAbcId] = useState('');
   const [aadhaarName, setAadhaarName] = useState('');
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     const savedAbcId = localStorage.getItem('abcId');
-    const savedAadhaarName = localStorage.getItem('aadhaarName');
+    const savedName = localStorage.getItem('aadhaarName');
     if (savedAbcId) setAbcId(savedAbcId);
-    else setAbcId('740923811437');
-    if (savedAadhaarName) setAadhaarName(savedAadhaarName);
-    else setAadhaarName('Oruganti bagavath Sai');
+    if (savedName) setAadhaarName(savedName);
   }, []);
 
   const handleSave = () => {
     localStorage.setItem('abcId', abcId);
     localStorage.setItem('aadhaarName', aadhaarName);
-    alert('ABCId details saved permanently!');
+    setIsSaved(true);
+    setTimeout(() => setIsSaved(false), 3000);
   };
 
   return (
-    <div className="space-y-4">
-      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
-        <div className="px-5 py-3 border-b border-gray-100 bg-white">
-          <h1 className="text-[14px] font-bold text-[#26a69a] uppercase tracking-wide">
-            ABCID MASTER UI
-          </h1>
+    <div className="space-y-6">
+      <div className="flex items-center gap-2 mb-2">
+        <div className="grid grid-cols-2 gap-[2px]">
+          <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+          <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+          <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+          <div className="w-1.5 h-1.5 bg-aums-teal"></div>
         </div>
+        <h1 className="text-[14px] font-bold text-aums-teal uppercase tracking-wide">
+          ABC ID MASTER
+        </h1>
+      </div>
 
-        <div className="p-6">
-          {/* Info Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-12 mb-10">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+          {/* Left Column: Read-only info */}
+          <div className="space-y-4">
             <div>
-              <p className="text-[13px] text-gray-600 mb-1">Roll No</p>
-              <p className="text-[14px] font-medium text-gray-800">AV.SC.U4AIE23132</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Name</p>
-              <p className="text-[14px] font-medium text-gray-800 uppercase">ORUGANTI BAGAVATH SAI</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Academic Program</p>
-              <p className="text-[14px] font-medium text-gray-800 uppercase">B.Tech 2023</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Branch</p>
-              <p className="text-[14px] font-medium text-gray-800">AIE</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">ABCId</p>
-              <p className="text-[14px] font-medium text-gray-800">{abcId}</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Name same as in Aadhaar</p>
-              <p className="text-[14px] font-medium text-gray-800">{aadhaarName}</p>
-            </div>
-          </div>
-
-          {/* Form Section */}
-          <div className="flex flex-col md:flex-row items-end gap-4 max-w-4xl">
-            <div className="flex-1 w-full">
-              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
-                  Save ABCId <span className="text-red-600">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={abcId}
-                  onChange={(e) => setAbcId(e.target.value)}
-                  className="w-full bg-transparent outline-none py-1.5 text-[14px] text-gray-800"
-                />
+              <label className="block text-[11px] font-bold text-gray-500 uppercase mb-1">Roll No</label>
+              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-aums-bg-alt">
+                <span className="text-[13px] text-gray-700">AV.SC.U4AIE23132</span>
               </div>
             </div>
 
-            <div className="flex-1 w-full">
-              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
-                  Name same as in Aadhaar <span className="text-red-600">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={aadhaarName}
-                  onChange={(e) => setAadhaarName(e.target.value)}
-                  className="w-full bg-transparent outline-none py-1.5 text-[14px] text-gray-800"
-                />
+            <div>
+              <label className="block text-[11px] font-bold text-gray-500 uppercase mb-1">Student Name</label>
+              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-aums-bg-alt">
+                <span className="text-[13px] text-gray-700">ORUGANTI BAGAVATH SAI</span>
               </div>
             </div>
-
-            <button
-              onClick={handleSave}
-              className="bg-[#26a69a] hover:bg-[#1f8a80] text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5"
-            >
-              Save
-            </button>
           </div>
 
-          <p className="mt-6 text-[12px] text-gray-700 italic">
-            NB:- Please enter the name as per the Aadhar.
-          </p>
+          {/* Right Column: Editable info */}
+          <div className="space-y-4">
+            <div>
+              <label className="block text-[11px] font-bold text-gray-500 uppercase mb-1">ABC ID</label>
+              <input
+                type="text"
+                value={abcId}
+                onChange={(e) => setAbcId(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-1 text-[13px] focus:outline-none focus:border-aums-teal"
+                placeholder="Enter ABC ID"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-bold text-gray-500 uppercase mb-1">Name as per Aadhaar</label>
+              <input
+                type="text"
+                value={aadhaarName}
+                onChange={(e) => setAadhaarName(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-1 text-[13px] focus:outline-none focus:border-aums-teal"
+                placeholder="Enter name as per Aadhaar"
+              />
+            </div>
+          </div>
         </div>
+
+        <div className="mt-8 flex flex-col items-center gap-3">
+          <button
+            onClick={handleSave}
+            className="bg-aums-teal hover:bg-aums-teal-dark text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5"
+          >
+            SUBMIT
+          </button>
+
+          {isSaved && (
+            <div className="text-green-600 text-[13px] font-bold animate-in fade-in duration-300">
+              ✓ Information Saved Successfully
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="mt-4 p-4 bg-blue-50 border-l-4 border-blue-400 text-[12px] text-blue-700">
+        <p className="font-bold mb-1">Information:</p>
+        <p>Please ensure that the ABC ID and Aadhaar Name entered are correct as per your official documents.</p>
       </div>
     </div>
   );
