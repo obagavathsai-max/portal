@@ -1,190 +1,109 @@
 import React, { useState } from 'react';
+import { HelpCircle, Link as LinkIcon, Maximize2, FileText, Download } from 'lucide-react';
 
-const semesters = [
-  {
-    id: 5,
-    name: '5',
-    sgpa: 9.54,
-    term: '2025-2026Odd Semester',
-    subjects: [
-      { code: '23LSE211', name: 'Life Skills for Engineers II', credits: 2, type: 'Regular', grade: 'O' },
-      { code: '22AIE301', name: 'Probabilistic Reasoning', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '22AIE302', name: 'Formal language and Automata', credits: 3, type: 'Regular', grade: 'A' },
-      { code: '22AIE303', name: 'Database Management Systems', credits: 4, type: 'Regular', grade: 'A' },
-      { code: '22AIE304', name: 'Deep Learning', credits: 4, type: 'Regular', grade: 'A+' },
-      { code: '22AIE305', name: 'Introduction to Cloud Computing', credits: 3, type: 'Regular', grade: 'A+' },
-      { code: '22AIE458', name: 'Mobile Application Development', credits: 3, type: 'Regular', grade: 'A+' },
-      { code: '23LSE301', name: 'Life Skills for Engineers III', credits: 1, type: 'Regular', grade: 'O' },
-    ]
-  },
-  {
-    id: 4,
-    name: '4',
-    sgpa: 9.42,
-    term: '2024-2025Even Semester',
-    subjects: [
-      { code: '22AIE211', name: 'Design and Analysis of Algorithms', credits: 4, type: 'Regular', grade: 'A' },
-      { code: '22AIE212', name: 'Operating Systems', credits: 4, type: 'Regular', grade: 'A' },
-      { code: '22AIE213', name: 'Machine Learning', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '22MAT211', name: 'Optimization Techniques', credits: 3, type: 'Regular', grade: 'A+' },
-      { code: '22AIE214', name: 'Computer Networks', credits: 3, type: 'Regular', grade: 'O' },
-      { code: '23LSE211', name: 'Life Skills for Engineers II', credits: 2, type: 'Regular', grade: 'O' },
-    ]
-  },
-  {
-    id: 3,
-    name: '3',
-    sgpa: 9.34,
-    term: '2024-2025Odd Semester',
-    subjects: [
-      { code: '22MAT220', name: 'Mathematics for Computing 3', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '22AIE201', name: 'Fundamentals of AI', credits: 3, type: 'Regular', grade: 'A' },
-      { code: '22AIE202', name: 'Operating Sytems', credits: 3, type: 'Regular', grade: 'A' },
-      { code: '22AIE203', name: 'Data Structures & Algorithms 2', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '22AIE204', name: 'Introduction to Computer Networks', credits: 3, type: 'Regular', grade: 'O' },
-      { code: '22AIE205', name: 'Introduction to Python', credits: 3, type: 'Regular', grade: 'O' },
-      { code: '22BIO201', name: 'Intelligence of Biological Systems - 1', credits: 2, type: 'Regular', grade: 'A+' },
-      { code: '19HUM230', name: 'Emotional Intelligence', credits: 2, type: 'Regular', grade: 'O' },
-      { code: '22ADM201', name: 'Strategic Lessons from Mahabharata', credits: 2, type: 'Regular', grade: 'O' },
-      { code: '23LSE201', name: 'Life Skills for Engineers I', credits: 2, type: 'Regular', grade: 'A+' },
-    ]
-  },
-  {
-    id: 2,
-    name: '2',
-    sgpa: 9.34,
-    term: '2023-2024Even Semester',
-    subjects: [
-      { code: '22MAT111', name: 'Mathematics for Computing 2', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '22AIE111', name: 'Data Structures & Algorithms 1', credits: 4, type: 'Regular', grade: 'A' },
-      { code: '22AIE112', name: 'Object Oriented Programming', credits: 3, type: 'Regular', grade: 'A' },
-      { code: '22PHY111', name: 'Physics for AI', credits: 3, type: 'Regular', grade: 'A+' },
-      { code: '22AIE113', name: 'Digital Electronics', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '23LSE111', name: 'Life Skills for Engineers I', credits: 2, type: 'Regular', grade: 'O' },
-    ]
-  },
-  {
-    id: 1,
-    name: '1',
-    sgpa: 9.4,
-    term: '2023-2024Odd Semester',
-    subjects: [
-      { code: '22MAT110', name: 'Mathematics for Computing 1', credits: 4, type: 'Regular', grade: 'O' },
-      { code: '22PHY106', name: 'Computational Physics', credits: 4, type: 'Regular', grade: 'A' },
-      { code: '22AIE101', name: 'Problem Solving & C Programming', credits: 4, type: 'Regular', grade: 'A' },
-      { code: '22AIE102', name: 'Elements of Computing Systems 1', credits: 3, type: 'Regular', grade: 'O' },
-      { code: '22MAT121', name: 'Discrete Mathematics', credits: 4, type: 'Regular', grade: 'A+' },
-      { code: '22ADM101', name: 'Foundations of Indian Heritage', credits: 2, type: 'Regular', grade: 'O' },
-      { code: '19ENG111', name: 'Technical Communication', credits: 2, type: 'Regular', grade: 'O' },
-      { code: '22AVP103', name: 'Mastery Over Mind', credits: 2, type: 'Regular', grade: 'A+' },
-    ]
-  }
+const gradeData = [
+  { code: '21AIE311', title: 'Software Engineering', type: 'Core', credits: 3, grade: 'A', status: 'Pass' },
+  { code: '21AIE312', title: 'Big Data Analytics', type: 'Core', credits: 4, grade: 'A+', status: 'Pass' },
+  { code: '21AIE313', title: 'Computer Vision', type: 'Core', credits: 3, grade: 'B+', status: 'Pass' },
+  { code: '21AIE314', title: 'Computer Security', type: 'Core', credits: 3, grade: 'A', status: 'Pass' },
+  { code: '21AIE315', title: 'Natural Language Processing', type: 'Core', credits: 3, grade: 'A', status: 'Pass' },
+  { code: '21CSS301', title: 'Full Stack Development', type: 'Lab', credits: 2, grade: 'O', status: 'Pass' },
+  { code: '21SSK301', title: 'Life Skills III', type: 'Soft Skill', credits: 1, grade: 'A+', status: 'Pass' },
+  { code: '21HUM302', title: 'Principles of Economics', type: 'Elective', credits: 3, grade: 'B', status: 'Pass' },
 ];
 
 export default function Grades() {
-  const [selectedSemester, setSelectedSemester] = useState<string>('Select');
-  const [showTable, setShowTable] = useState(false);
-  const [currentSem, setCurrentSem] = useState(semesters[0]);
-
-  const handleSemesterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const val = e.target.value;
-    setSelectedSemester(val);
-    if (val !== 'Select') {
-      const semId = parseInt(val);
-      const sem = semesters.find(s => s.id === semId);
-      if (sem) {
-        setCurrentSem(sem);
-        setShowTable(true);
-      }
-    } else {
-      setShowTable(false);
-    }
-  };
+  const [semester, setSemester] = useState('5');
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#fff', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-200 rounded-sm">
-        <div className="px-4 py-3 border-b border-gray-100">
-          <h1 className="text-[15px] font-bold uppercase" style={{ color: '#26a69a' }}>
-            STUDENTS PERFORMANCE REPORTS
+    <div className="space-y-4 min-h-full bg-white">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-aums-teal-light">
+          <h1 className="text-[15px] font-bold uppercase text-aums-teal">
+            View Grades
           </h1>
+          <div className="flex gap-1.5">
+            <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
+              <LinkIcon size={12} strokeWidth={2.5} /> Link
+            </button>
+            <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
+              <HelpCircle size={12} strokeWidth={2.5} /> Help
+            </button>
+            <button className="p-1 border border-gray-300 bg-white rounded-sm text-gray-700 hover:bg-gray-50">
+              <Maximize2 size={13} strokeWidth={2.5} />
+            </button>
+          </div>
         </div>
 
-        <div className="p-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 mb-6 text-[13px]">
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Roll No</span>
-              <span className="font-semibold text-gray-800">AV.SC.U4AIE23132</span>
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Name</span>
-              <span className="font-semibold text-gray-800 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Academic Program & Branch</span>
-              <span className="font-semibold text-gray-800 uppercase">B.Tech 2023 AIE</span>
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Current CGPA</span>
-              <span className="font-semibold text-gray-800">9.41</span>
-            </div>
-          </div>
-
-          <p className="text-[11px] text-gray-600 mb-6 italic">
-            <span className="font-bold not-italic">NOTE:</span> CGPA value will be shown ONLY AFTER all the courses that the student has registered in the term has been Published from Registrar's office
-          </p>
-
-          <div className="mb-4">
-            <div className="relative inline-block border border-gray-300 rounded px-3 py-1.5 min-w-[300px]">
-              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-[#26a69a] font-medium">Semester</label>
+        <div className="p-6">
+          <div className="flex flex-wrap gap-6 items-center mb-8">
+            <div className="relative w-48">
+              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-aums-teal font-medium">Semester</label>
               <select
-                value={selectedSemester}
-                onChange={handleSemesterChange}
-                className="w-full text-[13px] text-gray-700 bg-transparent border-none outline-none cursor-pointer appearance-none"
+                value={semester}
+                onChange={(e) => setSemester(e.target.value)}
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-aums-teal"
               >
-                <option value="Select">Select</option>
-                {semesters.map(s => (
-                  <option key={s.id} value={s.id}>{s.name}</option>
+                {[1, 2, 3, 4, 5].map(s => (
+                  <option key={s} value={s}>Semester {s}</option>
                 ))}
               </select>
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                ▼
-              </div>
             </div>
+            <button className="px-6 py-2 text-white text-sm font-bold rounded-sm shadow-sm hover:brightness-110 transition-all bg-aums-teal">
+              View Grades
+            </button>
+            <button className="flex items-center gap-2 px-4 py-2 text-white text-sm font-bold rounded-sm shadow-sm hover:brightness-110 transition-all bg-aums-teal ml-auto">
+              <Download size={16} /> Download Grade Sheet
+            </button>
           </div>
 
-          {showTable && (
-            <div className="mt-6 overflow-x-auto border border-gray-300 rounded-sm">
-              <table className="min-w-full text-[12px] border-collapse">
-                <thead>
-                  <tr className="bg-white border-b border-gray-300">
-                    <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Sem</th>
-                    <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Course Code</th>
-                    <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Course Name</th>
-                    <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Academic Term Period</th>
-                    <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Type</th>
-                    <th className="px-3 py-2 text-left font-bold">Grade</th>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {[
+              { label: 'SGPA', value: '8.82', color: 'bg-blue-50 text-blue-700 border-blue-100' },
+              { label: 'Credits Registered', value: '22', color: 'bg-green-50 text-green-700 border-green-100' },
+              { label: 'Credits Earned', value: '22', color: 'bg-purple-50 text-purple-700 border-purple-100' },
+            ].map((stat, i) => (
+              <div key={i} className={`p-4 rounded-sm border ${stat.color} flex flex-col items-center justify-center`}>
+                <span className="text-[11px] font-bold uppercase tracking-wider mb-1">{stat.label}</span>
+                <span className="text-2xl font-bold">{stat.value}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="overflow-x-auto border border-gray-200 rounded-sm">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="px-4 py-3 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Course Code</th>
+                  <th className="px-4 py-3 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Course Title</th>
+                  <th className="px-4 py-3 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Type</th>
+                  <th className="px-4 py-3 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-center">Credits</th>
+                  <th className="px-4 py-3 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-center">Grade</th>
+                  <th className="px-4 py-3 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {gradeData.map((row, i) => (
+                  <tr key={i} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-4 py-3 text-sm font-semibold text-gray-700">{row.code}</td>
+                    <td className="px-4 py-3 text-sm text-gray-800 font-medium">{row.title}</td>
+                    <td className="px-4 py-3 text-xs">
+                      <span className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium">{row.type}</span>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-center font-medium text-gray-700">{row.credits}</td>
+                    <td className="px-4 py-3 text-center">
+                      <span className={`inline-block w-8 py-1 rounded text-xs font-bold text-white ${row.grade.startsWith('A') || row.grade === 'O' ? 'bg-green-500' : 'bg-blue-500'}`}>
+                        {row.grade}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      <span className="text-xs font-bold text-green-600">{row.status}</span>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {currentSem.subjects.map((subject, i) => (
-                    <tr key={subject.code} className="border-b border-gray-300">
-                      <td className="px-3 py-2 border-r border-gray-300">{currentSem.name}</td>
-                      <td className="px-3 py-2 border-r border-gray-300 font-medium">{subject.code}</td>
-                      <td className="px-3 py-2 border-r border-gray-300">{subject.name}</td>
-                      <td className="px-3 py-2 border-r border-gray-300">{currentSem.term}</td>
-                      <td className="px-3 py-2 border-r border-gray-300">{subject.type}</td>
-                      <td className="px-3 py-2">{subject.grade}</td>
-                    </tr>
-                  ))}
-                  <tr className="bg-gray-50 font-bold">
-                    <td colSpan={5} className="px-3 py-2 text-right border-r border-gray-300 uppercase">SGPA</td>
-                    <td className="px-3 py-2">{currentSem.sgpa}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          )}
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

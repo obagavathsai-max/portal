@@ -1,78 +1,102 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { HelpCircle, Link as LinkIcon, Maximize2, CreditCard, Download, ExternalLink } from 'lucide-react';
+
+const feeHistory = [
+  { id: 'PAY-2024-001', date: '2024-01-15', description: 'Semester 6 Tuition Fee', amount: '1,25,000', status: 'Paid', method: 'Net Banking' },
+  { id: 'PAY-2023-082', date: '2023-07-10', description: 'Semester 5 Tuition Fee', amount: '1,25,000', status: 'Paid', method: 'UPI' },
+  { id: 'PAY-2023-015', date: '2023-01-20', description: 'Semester 4 Tuition Fee', amount: '1,15,000', status: 'Paid', method: 'Debit Card' },
+];
 
 export default function FeeDetails() {
-  const [selectedFeeTerm, setSelectedFeeTerm] = useState<string>('Select');
-
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
-        <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            STUDENTS FEE DETAILS
+    <div className="space-y-4 min-h-full bg-aums-bg-alt">
+      {/* Pending Fees Card */}
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-aums-teal-light">
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            Pending Fee Details
           </h1>
+          <div className="flex gap-1.5">
+            <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
+              <LinkIcon size={12} strokeWidth={2.5} /> Link
+            </button>
+            <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
+              <HelpCircle size={12} strokeWidth={2.5} /> Help
+            </button>
+            <button className="p-1 border border-gray-300 bg-white rounded-sm text-gray-700 hover:bg-gray-50">
+              <Maximize2 size={13} strokeWidth={2.5} />
+            </button>
+          </div>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-32">Roll No</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-32">Name</span>
+        <div className="p-6">
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1 bg-aums-bg-alt p-6 rounded-sm border border-gray-200 flex flex-col items-center justify-center">
+              <CreditCard size={40} className="text-aums-teal mb-4" />
+              <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-1">Outstanding Balance</p>
+              <p className="text-4xl font-bold text-gray-800">₹ 0.00</p>
+              <p className="text-xs text-green-600 font-bold mt-2">All dues are cleared!</p>
             </div>
 
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-48">Academic Program & Branch</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <div className="inline-flex items-baseline border border-gray-300 rounded-sm" style={{ minWidth: '260px' }}>
-              <div className="px-3 pt-1">
-                <label className="text-xs text-gray-500">Fee Term</label>
+            <div className="flex-1 space-y-4">
+              <div className="flex justify-between items-center p-3 border-b border-gray-100">
+                <span className="text-sm text-gray-600">Next Payment Due:</span>
+                <span className="text-sm font-bold text-gray-800">N/A</span>
               </div>
-              <select
-                value={selectedFeeTerm}
-                onChange={(e) => setSelectedFeeTerm(e.target.value)}
-                className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-              >
-                <option value="Select">Select</option>
-              </select>
+              <div className="flex justify-between items-center p-3 border-b border-gray-100">
+                <span className="text-sm text-gray-600">Last Payment Date:</span>
+                <span className="text-sm font-bold text-gray-800">Jan 15, 2024</span>
+              </div>
+              <button className="w-full mt-4 py-3 text-white text-sm font-bold rounded-sm shadow-sm hover:brightness-110 transition-all bg-aums-teal opacity-50 cursor-not-allowed">
+                Make Online Payment
+              </button>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="overflow-x-auto border border-gray-300 rounded-sm">
-            <table className="min-w-full text-sm">
+      {/* Payment History */}
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-aums-teal-light">
+          <h2 className="text-sm font-bold uppercase text-aums-teal">Payment History</h2>
+          <button className="flex items-center gap-2 px-3 py-1 bg-white border border-gray-300 rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
+            <Download size={14} /> Download Ledger
+          </button>
+        </div>
+        <div className="p-0">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
               <thead>
-                <tr style={{ backgroundColor: '#f5f5f5' }}>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Select</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Fee Section</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">currency</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Assigned Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Paid Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700">Amount To Pay</th>
+                <tr className="bg-aums-bg-main border-b border-gray-200">
+                  <th className="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Transaction ID</th>
+                  <th className="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Date</th>
+                  <th className="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Description</th>
+                  <th className="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-right">Amount</th>
+                  <th className="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-center">Status</th>
+                  <th className="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-center">Receipt</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500 text-sm">
-                    No data available in table
-                  </td>
-                </tr>
+              <tbody className="divide-y divide-gray-200">
+                {feeHistory.map((row) => (
+                  <tr key={row.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-6 py-4 text-sm font-semibold text-gray-700">{row.id}</td>
+                    <td className="px-6 py-4 text-sm text-gray-600">{row.date}</td>
+                    <td className="px-6 py-4 text-sm text-gray-800 font-medium">{row.description}</td>
+                    <td className="px-6 py-4 text-sm text-gray-800 font-bold text-right">₹ {row.amount}</td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="px-2 py-1 rounded-full text-[10px] font-bold bg-green-100 text-green-700 uppercase">
+                        {row.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <button className="text-aums-teal hover:text-aums-teal-dark transition-colors">
+                        <ExternalLink size={16} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-          </div>
-
-          <div className="mt-3 text-xs text-gray-600">
-            Total rows: 0
           </div>
         </div>
       </div>
