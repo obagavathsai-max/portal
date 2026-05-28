@@ -1,103 +1,117 @@
 import React, { useState, useEffect } from 'react';
+import { Save, Search, User, CreditCard, ShieldCheck } from 'lucide-react';
 
 export default function ABCIDMaster() {
-  const [abcId, setAbcId] = useState('');
-  const [aadhaarName, setAadhaarName] = useState('');
+  const [abcId, setAbcId] = useState(localStorage.getItem('abcId') || '');
+  const [aadhaarName, setAadhaarName] = useState(localStorage.getItem('aadhaarName') || '');
+  const [isSaved, setIsSaved] = useState(false);
 
-  useEffect(() => {
-    const savedAbcId = localStorage.getItem('abcId');
-    const savedAadhaarName = localStorage.getItem('aadhaarName');
-    if (savedAbcId) setAbcId(savedAbcId);
-    else setAbcId('740923811437');
-    if (savedAadhaarName) setAadhaarName(savedAadhaarName);
-    else setAadhaarName('Oruganti bagavath Sai');
-  }, []);
-
-  const handleSave = () => {
-    localStorage.setItem('abcId', abcId);
-    localStorage.setItem('aadhaarName', aadhaarName);
-    alert('ABCId details saved permanently!');
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (abcId && aadhaarName) {
+      localStorage.setItem('abcId', abcId);
+      localStorage.setItem('aadhaarName', aadhaarName);
+      setIsSaved(true);
+      setTimeout(() => setIsSaved(false), 3000);
+    }
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      {/* Header */}
       <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
-        <div className="px-5 py-3 border-b border-gray-100 bg-white">
-          <h1 className="text-[14px] font-bold text-[#26a69a] uppercase tracking-wide">
-            ABCID MASTER UI
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h1 className="text-[14px] font-bold text-aums-teal uppercase tracking-wide">
+            ABCID Master
           </h1>
         </div>
 
         <div className="p-6">
-          {/* Info Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-12 mb-10">
+          {/* Student Info Card */}
+          <div className="bg-aums-bg-main p-4 rounded border border-gray-200 mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <p className="text-[13px] text-gray-600 mb-1">Roll No</p>
-              <p className="text-[14px] font-medium text-gray-800">AV.SC.U4AIE23132</p>
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Roll No</p>
+              <p className="text-sm font-semibold text-gray-800">AV.SC.U4AIE23132</p>
             </div>
             <div>
-              <p className="text-[13px] text-gray-600 mb-1">Name</p>
-              <p className="text-[14px] font-medium text-gray-800 uppercase">ORUGANTI BAGAVATH SAI</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Academic Program</p>
-              <p className="text-[14px] font-medium text-gray-800 uppercase">B.Tech 2023</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Branch</p>
-              <p className="text-[14px] font-medium text-gray-800">AIE</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">ABCId</p>
-              <p className="text-[14px] font-medium text-gray-800">{abcId}</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Name same as in Aadhaar</p>
-              <p className="text-[14px] font-medium text-gray-800">{aadhaarName}</p>
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Name</p>
+              <p className="text-sm font-semibold text-gray-800">ORUGANTI BAGAVATH SAI</p>
             </div>
           </div>
 
-          {/* Form Section */}
-          <div className="flex flex-col md:flex-row items-end gap-4 max-w-4xl">
-            <div className="flex-1 w-full">
-              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
-                  Save ABCId <span className="text-red-600">*</span>
+          <form onSubmit={handleSave} className="max-w-xl space-y-6">
+            <div className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-[12px] font-bold text-gray-700 block uppercase tracking-wider">
+                  ABC ID (12 Digit Number) <span className="text-red-500">*</span>
                 </label>
-                <input
-                  type="text"
-                  value={abcId}
-                  onChange={(e) => setAbcId(e.target.value)}
-                  className="w-full bg-transparent outline-none py-1.5 text-[14px] text-gray-800"
-                />
+                <div className="relative">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    <CreditCard size={16} />
+                  </div>
+                  <input
+                    type="text"
+                    value={abcId}
+                    onChange={(e) => setAbcId(e.target.value)}
+                    placeholder="Enter 12 digit ABC ID"
+                    required
+                    maxLength={12}
+                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded focus:outline-none focus:border-aums-teal focus:ring-1 focus:ring-aums-teal/10 text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[12px] font-bold text-gray-700 block uppercase tracking-wider">
+                  Name as per Aadhaar <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    <User size={16} />
+                  </div>
+                  <input
+                    type="text"
+                    value={aadhaarName}
+                    onChange={(e) => setAadhaarName(e.target.value)}
+                    placeholder="Enter name exactly as on Aadhaar"
+                    required
+                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded focus:outline-none focus:border-aums-teal focus:ring-1 focus:ring-aums-teal/10 text-sm"
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="flex-1 w-full">
-              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
-                  Name same as in Aadhaar <span className="text-red-600">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={aadhaarName}
-                  onChange={(e) => setAadhaarName(e.target.value)}
-                  className="w-full bg-transparent outline-none py-1.5 text-[14px] text-gray-800"
-                />
-              </div>
-            </div>
+            <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+              <button
+                type="submit"
+                className="w-full sm:w-auto bg-aums-teal hover:bg-aums-teal-dark text-white px-8 py-2.5 rounded text-[13px] font-bold shadow-sm transition-colors flex items-center justify-center gap-2"
+              >
+                <Save size={16} />
+                SAVE DETAILS
+              </button>
 
-            <button
-              onClick={handleSave}
-              className="bg-[#26a69a] hover:bg-[#1f8a80] text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5"
-            >
-              Save
-            </button>
+              {isSaved && (
+                <div className="flex items-center gap-2 text-green-600 text-[13px] font-semibold animate-in fade-in slide-in-from-left-2">
+                  <ShieldCheck size={18} />
+                  Saved Successfully
+                </div>
+              )}
+            </div>
+          </form>
+
+          {/* Instructions */}
+          <div className="mt-12 p-4 bg-orange-50 border border-orange-100 rounded text-[12px] text-orange-800 space-y-2">
+            <p className="font-bold uppercase tracking-wider flex items-center gap-2">
+              <Search size={14} />
+              Important Instructions:
+            </p>
+            <ul className="list-disc ml-4 space-y-1">
+              <li>Academic Bank of Credits (ABC) ID is mandatory for all students.</li>
+              <li>Ensure the ABC ID entered is correct and belongs to you.</li>
+              <li>Name should be exactly as it appears on your Aadhaar card.</li>
+              <li>Once saved, any changes require approval from the academic office.</li>
+            </ul>
           </div>
-
-          <p className="mt-6 text-[12px] text-gray-700 italic">
-            NB:- Please enter the name as per the Aadhar.
-          </p>
         </div>
       </div>
     </div>

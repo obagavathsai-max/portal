@@ -1,99 +1,117 @@
 import React, { useState, useEffect } from 'react';
+import { Save, User, Mail, Phone, Fingerprint, CreditCard } from 'lucide-react';
 
 export default function UpdateAccount() {
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [abcId, setAbcId] = useState(localStorage.getItem('abcId') || '1234-5678-9012');
+  const [aadhaarName, setAadhaarName] = useState(localStorage.getItem('aadhaarName') || 'ORUGANTI BAGAVATH SAI');
+  const [email, setEmail] = useState(localStorage.getItem('studentEmail') || 'bagavath.sai@student.amrita.edu');
+  const [phone, setPhone] = useState(localStorage.getItem('studentPhone') || '+91 98765 43210');
+  const [showSuccess, setShowSuccess] = useState(false);
 
-  useEffect(() => {
-    const savedEmail = localStorage.getItem('userEmail');
-    const savedPhone = localStorage.getItem('userPhone');
-    if (savedEmail) setEmail(savedEmail);
-    else setEmail('obagavathsai@gmail.com');
-    if (savedPhone) setPhone(savedPhone);
-    else setPhone('8106736469');
-  }, []);
-
-  const handleUpdate = () => {
-    localStorage.setItem('userEmail', email);
-    localStorage.setItem('userPhone', phone);
-    alert('Account details updated successfully!');
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+    localStorage.setItem('abcId', abcId);
+    localStorage.setItem('aadhaarName', aadhaarName);
+    localStorage.setItem('studentEmail', email);
+    localStorage.setItem('studentPhone', phone);
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
-        <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            UPDATE ACCOUNT
+    <div className="space-y-4 bg-aums-bg-alt min-h-[calc(100vh-120px)]">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            Update Student Account
           </h1>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-20">RollNo</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
+        <div className="p-6">
+          {showSuccess && (
+            <div className="mb-6 p-3 bg-green-50 border border-green-200 text-green-700 text-sm rounded-sm flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+              <div className="w-2 h-2 rounded-full bg-green-500"></div>
+              Account details updated successfully!
             </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-24">Name</span>
+          )}
+
+          <form onSubmit={handleSave} className="space-y-6 max-w-2xl">
+            {/* Read-only info section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-aums-bg-main rounded-sm border border-gray-200 mb-8">
+              <div>
+                <p className="text-[10px] font-bold text-gray-500 uppercase">Roll No</p>
+                <p className="text-sm font-semibold text-gray-800">AV.SC.U4AIE23132</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold text-gray-500 uppercase">Student Name</p>
+                <p className="text-sm font-semibold text-gray-800">ORUGANTI BAGAVATH SAI</p>
+              </div>
             </div>
 
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-40">Academic Program</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-1.5">
+                <label className="text-[12px] font-bold text-gray-600 flex items-center gap-2">
+                  <Fingerprint size={14} className="text-aums-teal" />
+                  ABC ID
+                </label>
+                <input
+                  type="text"
+                  value={abcId}
+                  onChange={(e) => setAbcId(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-sm text-sm focus:outline-none focus:border-aums-teal focus:ring-1 focus:ring-aums-teal/20"
+                />
+              </div>
 
-            <div className="flex">
-              <span className="text-gray-700 w-20">Branch</span>
-              <span className="font-semibold text-gray-900">AIE</span>
-            </div>
-          </div>
+              <div className="space-y-1.5">
+                <label className="text-[12px] font-bold text-gray-600 flex items-center gap-2">
+                  <User size={14} className="text-aums-teal" />
+                  Name as per Aadhaar
+                </label>
+                <input
+                  type="text"
+                  value={aadhaarName}
+                  onChange={(e) => setAadhaarName(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-sm text-sm focus:outline-none focus:border-aums-teal focus:ring-1 focus:ring-aums-teal/20"
+                />
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <div className="border border-gray-300 rounded-sm bg-white">
-                <div className="px-3 pt-1">
-                  <label className="text-xs text-gray-500">Email *</label>
-                </div>
+              <div className="space-y-1.5">
+                <label className="text-[12px] font-bold text-gray-600 flex items-center gap-2">
+                  <Mail size={14} className="text-aums-teal" />
+                  Contact Email
+                </label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-sm text-sm focus:outline-none focus:border-aums-teal focus:ring-1 focus:ring-aums-teal/20"
                 />
               </div>
-            </div>
 
-            <div>
-              <div className="border border-gray-300 rounded-sm bg-white">
-                <div className="px-3 pt-1">
-                  <label className="text-xs text-gray-500">PhoneNo *</label>
-                </div>
+              <div className="space-y-1.5">
+                <label className="text-[12px] font-bold text-gray-600 flex items-center gap-2">
+                  <Phone size={14} className="text-aums-teal" />
+                  Mobile Number
+                </label>
                 <input
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-sm text-sm focus:outline-none focus:border-aums-teal focus:ring-1 focus:ring-aums-teal/20"
                 />
               </div>
             </div>
-          </div>
 
-          <div>
-            <button
-              onClick={handleUpdate}
-              className="px-6 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity shadow-sm uppercase tracking-wide"
-              style={{ backgroundColor: '#ffa100' }}
-            >
-              Update Account
-            </button>
-          </div>
+            <div className="pt-4">
+              <button
+                type="submit"
+                className="bg-aums-orange hover:bg-aums-orange-dark text-white px-8 py-2.5 rounded-sm text-sm font-bold shadow-sm transition-all flex items-center gap-2"
+              >
+                <Save size={16} />
+                UPDATE DETAILS
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

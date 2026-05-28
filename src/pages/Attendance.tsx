@@ -122,10 +122,10 @@ export default function Attendance() {
   const data = getAttendanceData();
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)', padding: '20px' }}>
+    <div className="space-y-4 bg-aums-bg-alt min-h-[calc(100vh-120px)] p-5">
       <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
+          <h1 className="text-base font-bold uppercase text-aums-teal">
             COMPREHENSIVE ATTENDANCE REPORT
           </h1>
         </div>
@@ -142,7 +142,7 @@ export default function Attendance() {
             </div>
 
             <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
+              <span className="font-semibold text-gray-900 uppercase text-aums-teal">ORUGANTI BAGAVATH SAI</span>
             </div>
             <div className="flex">
               <span className="text-gray-700 w-48">Academic Program & Branch</span>
@@ -164,7 +164,7 @@ export default function Attendance() {
                     setSelectedSemester(e.target.value);
                     setShowReport(false);
                   }}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
+                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer focus:ring-0"
                 >
                   <option value="Select">Select</option>
                   <option value="1">Semester 1</option>
@@ -185,7 +185,7 @@ export default function Attendance() {
                 <select
                   value={selectedCourse}
                   onChange={(e) => setSelectedCourse(e.target.value)}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
+                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer focus:ring-0"
                 >
                   <option value="">All Courses</option>
                 </select>
@@ -200,7 +200,7 @@ export default function Attendance() {
                 <select
                   value={attendanceType}
                   onChange={(e) => setAttendanceType(e.target.value)}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
+                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer focus:ring-0"
                 >
                   <option value="Regular">Regular</option>
                 </select>
@@ -211,15 +211,13 @@ export default function Attendance() {
           <div className="flex gap-3 mb-6">
             <button
               onClick={handleShowReport}
-              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#26a69a' }}
+              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:brightness-110 transition-all bg-aums-teal"
             >
               Attendance Summary
             </button>
             <button
               onClick={handleShowReport}
-              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#26a69a' }}
+              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:brightness-110 transition-all bg-aums-teal"
             >
               Show Course Wise Report
             </button>
@@ -229,7 +227,7 @@ export default function Attendance() {
             <div className="overflow-x-auto">
               <table className="w-full border-collapse border border-gray-200 text-xs">
                 <thead>
-                  <tr style={{ backgroundColor: '#26a69a', color: 'white' }}>
+                  <tr className="bg-aums-teal text-white">
                     <th className="border border-gray-300 p-2 font-semibold">Sl No</th>
                     <th className="border border-gray-300 p-2 font-semibold text-left">Class Name</th>
                     <th className="border border-gray-300 p-2 font-semibold text-left">Course</th>
@@ -255,8 +253,7 @@ export default function Attendance() {
                         <td className="border border-gray-300 p-2 text-center">{row.dutyLeave}</td>
                         <td className="border border-gray-300 p-2 text-center">{row.absent}</td>
                         <td
-                          className="border border-gray-300 p-2 text-center font-semibold text-white"
-                          style={{ backgroundColor: '#f05050' }}
+                          className="border border-gray-300 p-2 text-center font-semibold text-white bg-aums-red-error"
                         >
                           {row.percentage}
                         </td>
