@@ -3,97 +3,89 @@ import React, { useState, useEffect } from 'react';
 export default function UpdateAccount() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     const savedEmail = localStorage.getItem('userEmail');
     const savedPhone = localStorage.getItem('userPhone');
     if (savedEmail) setEmail(savedEmail);
-    else setEmail('obagavathsai@gmail.com');
+    else setEmail('av.sc.u4aie23132@av.students.amrita.edu');
     if (savedPhone) setPhone(savedPhone);
-    else setPhone('8106736469');
+    else setPhone('+91 81067 36469');
   }, []);
 
-  const handleUpdate = () => {
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
     localStorage.setItem('userEmail', email);
     localStorage.setItem('userPhone', phone);
-    alert('Account details updated successfully!');
+    setIsSaved(true);
+    setTimeout(() => setIsSaved(false), 3000);
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
+    <div className="space-y-4 min-h-full bg-aums-bg-alt">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            UPDATE ACCOUNT
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            Update Student Details
           </h1>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-20">RollNo</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
+        <div className="p-6">
+          {/* Student Info (Read-only) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-sm">
+            <div className="flex flex-col gap-1">
+              <span className="text-gray-500 font-medium">Roll No</span>
+              <span className="text-gray-800 font-semibold">AV.SC.U4AIE23132</span>
             </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-24">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-40">Academic Program</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-
-            <div className="flex">
-              <span className="text-gray-700 w-20">Branch</span>
-              <span className="font-semibold text-gray-900">AIE</span>
+            <div className="flex flex-col gap-1">
+              <span className="text-gray-500 font-medium">Name</span>
+              <span className="text-gray-800 font-semibold uppercase">ORUGANTI BAGAVATH SAI</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <div className="border border-gray-300 rounded-sm bg-white">
-                <div className="px-3 pt-1">
-                  <label className="text-xs text-gray-500">Email *</label>
-                </div>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
-                />
+          <form onSubmit={handleSave} className="max-w-2xl space-y-6">
+            {isSaved && (
+              <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded text-sm font-medium">
+                Student details updated successfully!
               </div>
+            )}
+
+            <div className="space-y-1">
+              <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider">
+                Email Address <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded focus:ring-1 focus:ring-aums-teal focus:border-aums-teal outline-none transition-all text-sm"
+              />
             </div>
 
-            <div>
-              <div className="border border-gray-300 rounded-sm bg-white">
-                <div className="px-3 pt-1">
-                  <label className="text-xs text-gray-500">PhoneNo *</label>
-                </div>
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
-                />
-              </div>
+            <div className="space-y-1">
+              <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider">
+                Phone Number <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded focus:ring-1 focus:ring-aums-teal focus:border-aums-teal outline-none transition-all text-sm"
+              />
             </div>
-          </div>
 
-          <div>
-            <button
-              onClick={handleUpdate}
-              className="px-6 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity shadow-sm uppercase tracking-wide"
-              style={{ backgroundColor: '#ffa100' }}
-            >
-              Update Account
-            </button>
-          </div>
+            <div className="pt-2">
+              <button
+                type="submit"
+                className="px-8 py-2.5 text-white text-sm font-bold rounded uppercase tracking-wide hover:brightness-110 active:scale-95 transition-all bg-aums-orange"
+              >
+                Save Details
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
