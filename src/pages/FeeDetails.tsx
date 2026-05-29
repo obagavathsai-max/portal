@@ -1,78 +1,57 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function FeeDetails() {
-  const [selectedFeeTerm, setSelectedFeeTerm] = useState<string>('Select');
-
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
+    <div className="space-y-4 min-h-full bg-aums-bg-alt">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            STUDENTS FEE DETAILS
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            Fee Payment Details
           </h1>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-32">Roll No</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-32">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-48">Academic Program & Branch</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-          </div>
-
+        <div className="p-6">
           <div className="mb-6">
-            <div className="inline-flex items-baseline border border-gray-300 rounded-sm" style={{ minWidth: '260px' }}>
-              <div className="px-3 pt-1">
-                <label className="text-xs text-gray-500">Fee Term</label>
-              </div>
-              <select
-                value={selectedFeeTerm}
-                onChange={(e) => setSelectedFeeTerm(e.target.value)}
-                className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-              >
-                <option value="Select">Select</option>
-              </select>
+            <h2 className="text-sm font-bold text-gray-700 mb-4 flex items-center gap-2">
+              <span className="w-2 h-4 bg-aums-teal rounded-full"></span>
+              PENDING DUES
+            </h2>
+
+            <div className="overflow-x-auto border border-gray-200 rounded">
+              <table className="w-full text-sm text-left">
+                <thead>
+                  <tr className="bg-aums-bg-main border-b border-gray-200">
+                    <th className="px-4 py-3 font-bold text-gray-700">Particulars</th>
+                    <th className="px-4 py-3 font-bold text-gray-700">Academic Year</th>
+                    <th className="px-4 py-3 font-bold text-gray-700 text-right">Amount (₹)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  <tr>
+                    <td className="px-4 py-4 text-gray-600">Tuition Fee - Semester 6</td>
+                    <td className="px-4 py-4 text-gray-600">2023-2024</td>
+                    <td className="px-4 py-4 text-gray-800 font-bold text-right">1,25,000.00</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-4 text-gray-600">Bus Fee - Year 3</td>
+                    <td className="px-4 py-4 text-gray-600">2023-2024</td>
+                    <td className="px-4 py-4 text-gray-800 font-bold text-right">32,000.00</td>
+                  </tr>
+                  <tr className="bg-gray-50 font-bold">
+                    <td colSpan={2} className="px-4 py-4 text-gray-800 uppercase text-right">Total Payable</td>
+                    <td className="px-4 py-4 text-aums-teal text-right text-lg">₹ 1,57,000.00</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
-          <div className="overflow-x-auto border border-gray-300 rounded-sm">
-            <table className="min-w-full text-sm">
-              <thead>
-                <tr style={{ backgroundColor: '#f5f5f5' }}>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Select</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Fee Section</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">currency</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Assigned Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Paid Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700">Amount To Pay</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500 text-sm">
-                    No data available in table
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="mt-3 text-xs text-gray-600">
-            Total rows: 0
+          <div className="flex justify-end">
+            <button
+              className="px-8 py-2.5 text-white text-sm font-bold rounded uppercase tracking-wide hover:brightness-110 active:scale-95 transition-all bg-aums-teal shadow-md"
+            >
+              Pay Online
+            </button>
           </div>
         </div>
       </div>
