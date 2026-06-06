@@ -1,279 +1,75 @@
-import React, { useState } from 'react';
-
-interface AttendanceRecord {
-  slNo: number;
-  className: string;
-  course: string;
-  faculty: string;
-  total: number;
-  present: number;
-  dutyLeave: number;
-  absent: number;
-  percentage: string;
-  medical: number;
-}
-
-const semester6Data: AttendanceRecord[] = [
-  {
-    slNo: 1,
-    className: 'B.Tech..2023.R.AIE.16.22AIE311',
-    course: '22AIE311 Software Engineering (Project-Based)',
-    faculty: 'Parvathaneni Naga Srinivasu',
-    total: 40,
-    present: 16,
-    dutyLeave: 0,
-    absent: 24,
-    percentage: '40',
-    medical: 0
-  },
-  {
-    slNo: 2,
-    className: 'B.Tech..2023.R.AIE.16.22AIE312',
-    course: '22AIE312 Big Data Analytics',
-    faculty: 'V Lakshmi Chetana',
-    total: 45,
-    present: 25,
-    dutyLeave: 0,
-    absent: 20,
-    percentage: '55.56',
-    medical: 0
-  },
-  {
-    slNo: 3,
-    className: 'B.Tech..2023.R.AIE.16.22AIE313',
-    course: '22AIE313 Computer Vision and Image Processing',
-    faculty: 'RAVI SANKAR PUPPALA',
-    total: 55,
-    present: 40,
-    dutyLeave: 0,
-    absent: 15,
-    percentage: '72.73',
-    medical: 0
-  },
-  {
-    slNo: 4,
-    className: 'B.Tech..2023.R.AIE.16.22AIE314',
-    course: '22AIE314 Computer Security',
-    faculty: 'Venkata Ramana Gupta Nallagattla',
-    total: 56,
-    present: 23,
-    dutyLeave: 0,
-    absent: 33,
-    percentage: '41.07',
-    medical: 0
-  },
-  {
-    slNo: 5,
-    className: 'B.Tech..2023.R.AIE.16.22AIE315',
-    course: '22AIE315 Natural Language Processing',
-    faculty: 'korrapati sindhu',
-    total: 68,
-    present: 27,
-    dutyLeave: 0,
-    absent: 41,
-    percentage: '39.71',
-    medical: 0
-  },
-  {
-    slNo: 6,
-    className: 'B.Tech..2023.R.AIE.16.22AIE457',
-    course: '22AIE457 Full Stack Development',
-    faculty: 'Budati Jaya Lakshmi Narayana',
-    total: 51,
-    present: 23,
-    dutyLeave: 0,
-    absent: 28,
-    percentage: '45.1',
-    medical: 0
-  },
-  {
-    slNo: 7,
-    className: 'B.Tech..2023.R.AIE.16.23LSE311',
-    course: '23LSE311 Life Skills for Engineers IV',
-    faculty: 'Swati K Karthikeyan S Kanchustambam Satya Savithri',
-    total: 15,
-    present: 6,
-    dutyLeave: 0,
-    absent: 9,
-    percentage: '40',
-    medical: 0
-  }
-];
+import React from 'react';
+import { Download, Filter, Printer } from 'lucide-react';
 
 export default function Attendance() {
-  const [selectedSemester, setSelectedSemester] = useState<string>('Select');
-  const [selectedCourse, setSelectedCourse] = useState<string>('');
-  const [attendanceType, setAttendanceType] = useState<string>('Regular');
-  const [showReport, setShowReport] = useState<boolean>(false);
-
-  const handleShowReport = () => {
-    if (selectedSemester !== 'Select') {
-      setShowReport(true);
-    }
-  };
-
-  const getAttendanceData = () => {
-    if (selectedSemester === '6') {
-      return semester6Data;
-    }
-    return [];
-  };
-
-  const data = getAttendanceData();
+  const attendanceData = [
+    { id: 1, class: '2023-2027 B.Tech (AIE)', course: '21AIE201 Artificial Intelligence I', faculty: 'Dr. Ramesh M', total: 42, present: 38, dutyLeave: 0, absent: 4, percentage: 90.48, medical: 0 },
+    { id: 2, class: '2023-2027 B.Tech (AIE)', course: '21AIE202 Data Structures & Algorithms', faculty: 'Ms. Priya S', total: 40, present: 37, dutyLeave: 1, absent: 2, percentage: 92.50, medical: 0 },
+    { id: 3, class: '2023-2027 B.Tech (AIE)', course: '21AIE203 Computer Systems Organization', faculty: 'Dr. Anand V', total: 38, present: 35, dutyLeave: 0, absent: 3, percentage: 92.11, medical: 0 },
+    { id: 4, class: '2023-2027 B.Tech (AIE)', course: '21AIE204 Mathematics for AI III', faculty: 'Dr. Sunitha K', total: 44, present: 40, dutyLeave: 2, absent: 2, percentage: 90.91, medical: 0 },
+    { id: 5, class: '2023-2027 B.Tech (AIE)', course: '21MAT205 Optimization Techniques', faculty: 'Mr. Rajesh P', total: 36, present: 34, dutyLeave: 0, absent: 2, percentage: 94.44, medical: 0 },
+    { id: 6, class: '2023-2027 B.Tech (AIE)', course: '21ENV201 Environmental Science', faculty: 'Dr. Lakshmi R', total: 20, present: 19, dutyLeave: 0, absent: 1, percentage: 95.00, medical: 0 }
+  ];
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)', padding: '20px' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
-        <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            COMPREHENSIVE ATTENDANCE REPORT
+    <div className="space-y-4 bg-aums-bg-alt min-h-[calc(100vh-120px)] p-5">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            View Attendance
           </h1>
+
+          <div className="flex items-center gap-2">
+            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-aums-teal text-white text-[11px] font-bold rounded uppercase shadow-sm transition-all hover:brightness-105 active:scale-95">
+              <Download size={14} />
+              Export
+            </button>
+            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-aums-teal text-white text-[11px] font-bold rounded uppercase shadow-sm transition-all hover:brightness-105 active:scale-95">
+              <Printer size={14} />
+              Print
+            </button>
+          </div>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-32">Roll No</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-32">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-48">Academic Program & Branch</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div>
-              <div className="border border-gray-300 rounded-sm">
-                <div className="px-3 pt-1">
-                  <label className="text-xs text-gray-500">Semester</label>
-                </div>
-                <select
-                  value={selectedSemester}
-                  onChange={(e) => {
-                    setSelectedSemester(e.target.value);
-                    setShowReport(false);
-                  }}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-                >
-                  <option value="Select">Select</option>
-                  <option value="1">Semester 1</option>
-                  <option value="2">Semester 2</option>
-                  <option value="3">Semester 3</option>
-                  <option value="4">Semester 4</option>
-                  <option value="5">Semester 5</option>
-                  <option value="6">Semester 6</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <div className="border border-gray-300 rounded-sm">
-                <div className="px-3 pt-1">
-                  <label className="text-xs text-gray-500">Course</label>
-                </div>
-                <select
-                  value={selectedCourse}
-                  onChange={(e) => setSelectedCourse(e.target.value)}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-                >
-                  <option value="">All Courses</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <div className="border border-gray-300 rounded-sm">
-                <div className="px-3 pt-1">
-                  <label className="text-xs text-gray-500">Attendance Type</label>
-                </div>
-                <select
-                  value={attendanceType}
-                  onChange={(e) => setAttendanceType(e.target.value)}
-                  className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-                >
-                  <option value="Regular">Regular</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex gap-3 mb-6">
-            <button
-              onClick={handleShowReport}
-              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#26a69a' }}
-            >
-              Attendance Summary
-            </button>
-            <button
-              onClick={handleShowReport}
-              className="px-5 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#26a69a' }}
-            >
-              Show Course Wise Report
-            </button>
-          </div>
-
-          {showReport && (
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse border border-gray-200 text-xs">
-                <thead>
-                  <tr style={{ backgroundColor: '#26a69a', color: 'white' }}>
-                    <th className="border border-gray-300 p-2 font-semibold">Sl No</th>
-                    <th className="border border-gray-300 p-2 font-semibold text-left">Class Name</th>
-                    <th className="border border-gray-300 p-2 font-semibold text-left">Course</th>
-                    <th className="border border-gray-300 p-2 font-semibold text-left">Faculty</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Total</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Present</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Duty Leave</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Absent</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Percentage</th>
-                    <th className="border border-gray-300 p-2 font-semibold">Medical</th>
+        <div className="p-0">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-aums-teal text-white">
+                  <th className="px-3 py-3 text-[10px] font-bold uppercase border-r border-white/10 text-center">Sl No</th>
+                  <th className="px-3 py-3 text-[10px] font-bold uppercase border-r border-white/10">Class Name</th>
+                  <th className="px-3 py-3 text-[10px] font-bold uppercase border-r border-white/10">Course</th>
+                  <th className="px-3 py-3 text-[10px] font-bold uppercase border-r border-white/10">Faculty</th>
+                  <th className="px-3 py-3 text-[10px] font-bold uppercase border-r border-white/10 text-center">Total</th>
+                  <th className="px-3 py-3 text-[10px] font-bold uppercase border-r border-white/10 text-center">Present</th>
+                  <th className="px-3 py-3 text-[10px] font-bold uppercase border-r border-white/10 text-center">Duty Leave</th>
+                  <th className="px-3 py-3 text-[10px] font-bold uppercase border-r border-white/10 text-center">Absent</th>
+                  <th className="px-3 py-3 text-[10px] font-bold uppercase border-r border-white/10 text-center">Percentage</th>
+                  <th className="px-3 py-3 text-[10px] font-bold uppercase text-center">Medical</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {attendanceData.map((row) => (
+                  <tr key={row.id} className="hover:bg-gray-50 transition-colors text-[12px] text-gray-700">
+                    <td className="px-3 py-4 border-r border-gray-100 text-center">{row.id}</td>
+                    <td className="px-3 py-4 border-r border-gray-100 font-medium">{row.class}</td>
+                    <td className="px-3 py-4 border-r border-gray-100">{row.course}</td>
+                    <td className="px-3 py-4 border-r border-gray-100">{row.faculty}</td>
+                    <td className="px-3 py-4 border-r border-gray-100 text-center font-semibold">{row.total}</td>
+                    <td className="px-3 py-4 border-r border-gray-100 text-center text-green-600 font-bold">{row.present}</td>
+                    <td className="px-3 py-4 border-r border-gray-100 text-center text-blue-600 font-bold">{row.dutyLeave}</td>
+                    <td className="px-3 py-4 border-r border-gray-100 text-center text-aums-red-error font-bold">{row.absent}</td>
+                    <td className="px-3 py-4 border-r border-gray-100 text-center">
+                      <span className="px-2 py-1 rounded text-white font-bold bg-aums-red-error">
+                        {row.percentage}%
+                      </span>
+                    </td>
+                    <td className="px-3 py-4 text-center font-bold text-orange-500">{row.medical}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {data.length > 0 ? (
-                    data.map((row) => (
-                      <tr key={row.slNo} className="bg-white">
-                        <td className="border border-gray-300 p-2 text-center">{row.slNo}</td>
-                        <td className="border border-gray-300 p-2">{row.className}</td>
-                        <td className="border border-gray-300 p-2">{row.course}</td>
-                        <td className="border border-gray-300 p-2">{row.faculty}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.total}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.present}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.dutyLeave}</td>
-                        <td className="border border-gray-300 p-2 text-center">{row.absent}</td>
-                        <td
-                          className="border border-gray-300 p-2 text-center font-semibold text-white"
-                          style={{ backgroundColor: '#f05050' }}
-                        >
-                          {row.percentage}
-                        </td>
-                        <td className="border border-gray-300 p-2 text-center">{row.medical}</td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={10} className="border border-gray-300 p-4 text-center text-gray-500 italic">
-                        No attendance data available for Semester {selectedSemester}
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          )}
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
