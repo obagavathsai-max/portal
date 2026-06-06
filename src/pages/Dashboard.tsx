@@ -1,230 +1,162 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Link as LinkIcon, HelpCircle, Maximize2, Star, Home, Menu } from 'lucide-react';
-
-const courseTabs = [
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..Re.AIE.1...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-];
-
-const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-function MiniCalendar() {
-  const today = new Date();
-  const [viewDate, setViewDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
-
-  const year = viewDate.getFullYear();
-  const month = viewDate.getMonth();
-  const monthName = viewDate.toLocaleString('default', { month: 'long', year: 'numeric' });
-
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  const cells: (number | null)[] = [];
-  for (let i = 0; i < firstDay; i++) cells.push(null);
-  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
-  while (cells.length % 7 !== 0) cells.push(null);
-
-  const isToday = (d: number | null) =>
-    d !== null &&
-    d === today.getDate() &&
-    month === today.getMonth() &&
-    year === today.getFullYear();
-
-  const rows: (number | null)[][] = [];
-  for (let i = 0; i < cells.length; i += 7) rows.push(cells.slice(i, i + 7));
-
-  return (
-    <div className="text-xs">
-      <div className="flex items-center justify-between mb-2">
-        <span className="font-bold text-sm" style={{ color: '#26a69a' }}>{monthName}</span>
-        <div className="flex gap-1">
-          <button
-            onClick={() => setViewDate(new Date(year, month - 1, 1))}
-            className="px-2 py-0.5 border border-gray-300 rounded text-gray-600 hover:bg-gray-100"
-          >&lt;</button>
-          <button
-            onClick={() => setViewDate(new Date())}
-            className="px-2 py-0.5 border border-gray-300 rounded text-gray-600 hover:bg-gray-100 text-xs"
-          >Today</button>
-          <button
-            onClick={() => setViewDate(new Date(year, month + 1, 1))}
-            className="px-2 py-0.5 border border-gray-300 rounded text-gray-600 hover:bg-gray-100"
-          >&gt;</button>
-        </div>
-      </div>
-      <table className="w-full border-collapse">
-        <thead>
-          <tr>
-            {DAYS.map(d => (
-              <th key={d} className="text-center py-1 text-gray-500 font-semibold">{d}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, ri) => (
-            <tr key={ri}>
-              {row.map((cell, ci) => {
-                const isFri = (ri * 7 + ci) % 7 === 5;
-                const isSat = (ri * 7 + ci) % 7 === 6;
-                return (
-                  <td key={ci} className="text-center py-1">
-                    {cell !== null ? (
-                      <span
-                        className={`inline-flex items-center justify-center w-6 h-6 rounded-sm text-xs cursor-pointer
-                          ${isToday(cell) ? 'font-bold' : ''}
-                          ${isFri || isSat ? '' : ''}
-                        `}
-                        style={
-                          isToday(cell)
-                            ? { backgroundColor: '#ffe082', border: '1px solid #ffd54f' }
-                            : isFri || isSat
-                              ? { color: '#26a69a' }
-                              : { color: '#333' }
-                        }
-                      >
-                        {cell}
-                      </span>
-                    ) : null}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, User, GraduationCap, Clock, CheckCircle, Star, ChevronDown, Award } from 'lucide-react';
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState('Home');
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  // Basic Calendar Logic
+  const daysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate();
+  const firstDayOfMonth = (year: number, month: number) => new Date(year, month, 1).getDay();
+
+  const monthName = currentDate.toLocaleString('default', { month: 'long' });
+  const year = currentDate.getFullYear();
+  const days = daysInMonth(year, currentDate.getMonth());
+  const firstDay = firstDayOfMonth(year, currentDate.getMonth());
+
+  const prevMonth = () => setCurrentDate(new Date(year, currentDate.getMonth() - 1));
+  const nextMonth = () => setCurrentDate(new Date(year, currentDate.getMonth() + 1));
+
+  const stats = [
+    { label: 'CGPA', value: '9.25', icon: GraduationCap, color: 'text-aums-teal' },
+    { label: 'Attendance', value: '92%', icon: Clock, color: 'text-aums-orange' },
+    { label: 'Courses', value: '6', icon: CheckCircle, color: 'text-green-600' },
+  ];
 
   return (
-    <div className="space-y-4">
-      {/* Course Tabs */}
-      <div className="flex flex-wrap gap-2 pt-2">
-        {/* Home tab */}
-        <button
-          className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-bold text-white shadow-sm transition-opacity hover:opacity-90 active:scale-95"
-          style={{ backgroundColor: '#26a69a' }}
-        >
-          <Home size={13} className="text-white" /> Home <ChevronDown size={14} className="text-white/70" />
-        </button>
-
-        {/* Course tabs */}
-        {courseTabs.map((tab, i) => (
-          <button
-            key={i}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-semibold shadow-sm text-gray-700 transition-colors hover:bg-[#b2dfdb] group active:scale-95"
-            style={{ backgroundColor: '#e0f2f1' }}
-          >
-            <Star size={13} className="shrink-0 text-[#26a69a] fill-[#26a69a]" />
-            <span className="truncate max-w-[200px]">{tab}</span>
-            <ChevronDown size={14} className="shrink-0 text-[#26a69a]/60 group-hover:text-[#26a69a]" />
-          </button>
-        ))}
-      </div>
-
-      {/* OVERVIEW heading */}
-      <div className="flex items-center gap-2 mt-6 mb-3">
-        <div className="grid grid-cols-2 gap-[2px]">
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
-        </div>
-        <h2 className="text-[14px] font-bold text-[#26a69a] uppercase tracking-wide">Overview</h2>
-      </div>
-
-      {/* Grid: Message + Calendar */}
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-5">
-        {/* Message of the Day */}
-        <div className="xl:col-span-8 bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-            <span className="text-[13px] font-semibold text-[#26a69a]">Message Of The Day</span>
-            <div className="flex gap-1.5">
-              <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-                <LinkIcon size={12} strokeWidth={2.5} /> Link
-              </button>
-              <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-                <HelpCircle size={12} strokeWidth={2.5} /> Help
-              </button>
-              <button className="p-1 border border-gray-300 bg-white rounded-sm text-gray-700 hover:bg-gray-50">
-                <Maximize2 size={13} strokeWidth={2.5} />
-              </button>
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      {/* Left Column - Main Content */}
+      <div className="lg:col-span-8 space-y-6">
+        {/* Welcome Card */}
+        <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
+          <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light flex items-center justify-between">
+            <h2 className="text-[14px] font-bold text-aums-teal uppercase tracking-wide">Overview</h2>
+            <div className="flex gap-1">
+              <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+              <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+              <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+              <div className="w-1.5 h-1.5 bg-aums-teal"></div>
             </div>
           </div>
-          <div className="p-5">
-            <div className="mb-4">
-              <button className="px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">Options</button>
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {stats.map((stat) => (
+                <div key={stat.label} className="flex items-center gap-4 p-4 bg-gray-50 rounded-sm border border-gray-100">
+                  <div className={`p-3 rounded-full bg-white shadow-sm ${stat.color}`}>
+                    <stat.icon size={20} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-gray-500 uppercase">{stat.label}</p>
+                    <p className="text-xl font-bold text-gray-800">{stat.value}</p>
+                  </div>
+                </div>
+              ))}
             </div>
+          </div>
+        </div>
 
-            <div className="space-y-4">
-              <p className="font-bold text-[18px] text-[#A4123F]">Om Amriteswaryai Namah</p>
-
-              <p className="text-[15px] font-bold text-gray-800 leading-relaxed max-w-2xl">
-                Everything happens spontaneously when you distance yourself from your mind.
-              </p>
-
-              <div className="pt-2">
-                <p className="text-[14px] font-bold text-[#A4123F]">Chancellor,</p>
-                <p className="text-[14px] font-bold text-[#A4123F]">Sri Mata Amritanandamayi Devi</p>
+        {/* Message Card */}
+        <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-aums-teal-light">
+            <span className="text-[13px] font-semibold text-aums-teal">Message Of The Day</span>
+            <Award size={14} className="text-aums-teal/60" />
+          </div>
+          <div className="p-8 text-center bg-gray-50/50">
+            <div className="max-w-md mx-auto space-y-4">
+              <p className="font-bold text-[18px] text-aums-maroon italic">Om Amriteswaryai Namah</p>
+              <div className="h-px bg-aums-maroon/10 w-24 mx-auto"></div>
+              <div className="space-y-1">
+                <p className="text-[14px] font-bold text-aums-maroon">Chancellor,</p>
+                <p className="text-[14px] font-bold text-aums-maroon">Sri Mata Amritanandamayi Devi</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Calendar */}
-        <div className="xl:col-span-4 bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-            <span className="text-[13px] font-semibold text-[#26a69a]">Calendar</span>
-            <div className="flex gap-1.5">
-              <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-                <LinkIcon size={12} strokeWidth={2.5} /> Link
-              </button>
-              <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-                <HelpCircle size={12} strokeWidth={2.5} /> Help
-              </button>
-            </div>
+        {/* Info Card */}
+        <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-aums-teal-light">
+            <span className="text-[13px] font-semibold text-aums-teal">Home Information Display</span>
+            <Star size={13} className="text-aums-teal/60" />
           </div>
-          <div className="p-4">
-            <MiniCalendar />
+          <div className="p-12 text-center text-gray-400">
+            <div className="flex flex-col items-center gap-3">
+              <Star size={40} className="text-gray-100" />
+              <p className="text-xs font-medium uppercase tracking-widest">No important information to display at the moment</p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Home Information Display */}
-      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden mt-2">
-        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <span className="text-[13px] font-semibold text-[#26a69a]">Home Information Display</span>
-          <div className="flex gap-1.5">
-            <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-              ✏️ Edit
-            </button>
-            <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-              <LinkIcon size={12} strokeWidth={2.5} /> Link
-            </button>
-            <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-              <HelpCircle size={12} strokeWidth={2.5} /> Help
-            </button>
-            <button className="p-1 border border-gray-300 bg-white rounded-sm text-gray-700 hover:bg-gray-50">
-              <Maximize2 size={13} strokeWidth={2.5} />
+      {/* Right Column - Sidebar Widgets */}
+      <div className="lg:col-span-4 space-y-6">
+        {/* Profile Quick View */}
+        <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
+          <div className="p-6 flex flex-col items-center text-center bg-aums-teal text-white">
+            <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mb-4 border-2 border-white/30">
+              <User size={40} />
+            </div>
+            <h3 className="font-bold text-sm uppercase">ORUGANTI BAGAVATH SAI</h3>
+            <p className="text-[11px] opacity-90 mt-1">AV.SC.U4AIE23132</p>
+
+            <button className="mt-4 flex items-center gap-1.5 px-4 py-2 rounded-full text-[11px] font-semibold shadow-sm transition-colors bg-aums-teal-light text-gray-700 hover:bg-white active:scale-95 group">
+              <Star size={13} className="shrink-0 text-aums-teal fill-aums-teal" />
+              S4 B.Tech AI
+              <ChevronDown size={14} className="shrink-0 text-aums-teal/60 group-hover:text-aums-teal" />
             </button>
           </div>
         </div>
-        <div className="p-5 text-sm text-gray-700 leading-relaxed font-medium">
-          <p>Welcome to Amrita University Management System. Use the left menu to navigate to your courses, attendance, grades, and more.</p>
+
+        {/* Calendar Widget */}
+        <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-aums-teal-light">
+            <span className="text-[13px] font-semibold text-aums-teal">Calendar</span>
+            <CalendarIcon size={14} className="text-aums-teal/60" />
+          </div>
+          <div className="p-4">
+            <div className="flex items-center justify-between mb-4 px-1">
+              <span className="font-bold text-sm text-aums-teal">{monthName}</span>
+              <div className="flex gap-2">
+                <button onClick={prevMonth} className="p-1 hover:bg-gray-100 rounded transition-colors text-gray-500">
+                  <ChevronLeft size={16} />
+                </button>
+                <button onClick={nextMonth} className="p-1 hover:bg-gray-100 rounded transition-colors text-gray-500">
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-7 gap-1 text-center mb-2">
+              {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => (
+                <span key={d} className="text-[10px] font-bold text-gray-400 uppercase">{d}</span>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-7 gap-1">
+              {Array.from({ length: firstDay }).map((_, i) => (
+                <div key={`empty-${i}`} className="h-8"></div>
+              ))}
+              {Array.from({ length: days }).map((_, i) => {
+                const day = i + 1;
+                const isToday = day === new Date().getDate() &&
+                                currentDate.getMonth() === new Date().getMonth() &&
+                                currentDate.getFullYear() === new Date().getFullYear();
+
+                return (
+                  <div
+                    key={day}
+                    className={`
+                      h-8 flex items-center justify-center text-[11px] font-medium rounded-sm cursor-default
+                      ${isToday
+                        ? 'bg-aums-yellow-highlight border border-aums-yellow-border text-gray-800'
+                        : 'hover:bg-gray-50 text-gray-800'}
+                    `}
+                  >
+                    {day}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>

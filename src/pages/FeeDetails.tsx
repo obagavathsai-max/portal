@@ -1,78 +1,69 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { CreditCard, History } from 'lucide-react';
 
 export default function FeeDetails() {
-  const [selectedFeeTerm, setSelectedFeeTerm] = useState<string>('Select');
+  const fees = [
+    { type: 'Tuition Fee', amount: '1,50,000', dueDate: '15-Aug-2024', status: 'Paid' },
+    { type: 'Hostel Fee', amount: '45,000', dueDate: '15-Aug-2024', status: 'Paid' },
+    { type: 'Mess Fee', amount: '35,000', dueDate: '15-Aug-2024', status: 'Paid' },
+    { type: 'Exam Fee', amount: '2,500', dueDate: '20-Oct-2024', status: 'Paid' }
+  ];
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
-        <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            STUDENTS FEE DETAILS
+    <div className="space-y-4 bg-aums-bg-alt min-h-[calc(100vh-120px)]">
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200">
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            Fee Payment Details
           </h1>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-32">Roll No</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-32">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-48">Academic Program & Branch</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <div className="inline-flex items-baseline border border-gray-300 rounded-sm" style={{ minWidth: '260px' }}>
-              <div className="px-3 pt-1">
-                <label className="text-xs text-gray-500">Fee Term</label>
-              </div>
-              <select
-                value={selectedFeeTerm}
-                onChange={(e) => setSelectedFeeTerm(e.target.value)}
-                className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-              >
-                <option value="Select">Select</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto border border-gray-300 rounded-sm">
-            <table className="min-w-full text-sm">
+        <div className="p-6">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
               <thead>
-                <tr style={{ backgroundColor: '#f5f5f5' }}>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Select</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Fee Section</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">currency</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Assigned Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Paid Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700">Amount To Pay</th>
+                <tr className="bg-aums-bg-main">
+                  <th className="px-4 py-3 text-[11px] font-bold text-gray-600 uppercase border-b border-gray-200">Sl No</th>
+                  <th className="px-4 py-3 text-[11px] font-bold text-gray-600 uppercase border-b border-gray-200">Fee Type</th>
+                  <th className="px-4 py-3 text-[11px] font-bold text-gray-600 uppercase border-b border-gray-200 text-right">Amount (₹)</th>
+                  <th className="px-4 py-3 text-[11px] font-bold text-gray-600 uppercase border-b border-gray-200">Due Date</th>
+                  <th className="px-4 py-3 text-[11px] font-bold text-gray-600 uppercase border-b border-gray-200 text-center">Status</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500 text-sm">
-                    No data available in table
-                  </td>
-                </tr>
+              <tbody className="divide-y divide-gray-100">
+                {fees.map((fee, idx) => (
+                  <tr key={idx} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-4 py-3 text-sm text-gray-600">{idx + 1}</td>
+                    <td className="px-4 py-3 text-sm font-medium text-gray-800">{fee.type}</td>
+                    <td className="px-4 py-3 text-sm text-gray-800 text-right font-mono">{fee.amount}</td>
+                    <td className="px-4 py-3 text-sm text-gray-600">{fee.dueDate}</td>
+                    <td className="px-4 py-3 text-sm text-center">
+                      <span className="px-2 py-1 rounded-full bg-green-100 text-green-700 text-[10px] font-bold uppercase">
+                        {fee.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
 
-          <div className="mt-3 text-xs text-gray-600">
-            Total rows: 0
+          <div className="mt-8 flex flex-col md:flex-row gap-4">
+            <div className="flex-1 bg-gray-50 border border-gray-200 rounded p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <CreditCard size={18} className="text-aums-teal" />
+                <h3 className="text-sm font-bold text-gray-800 uppercase">Pending Payments</h3>
+              </div>
+              <p className="text-sm text-gray-500 italic">No pending payments found for the current semester.</p>
+            </div>
+
+            <div className="flex-1 bg-gray-50 border border-gray-200 rounded p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <History size={18} className="text-aums-teal" />
+                <h3 className="text-sm font-bold text-gray-800 uppercase">Payment History</h3>
+              </div>
+              <button className="text-xs font-bold text-aums-teal hover:underline uppercase">View Full Transaction History</button>
+            </div>
           </div>
         </div>
       </div>
