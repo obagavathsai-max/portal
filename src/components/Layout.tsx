@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import {
-  ChevronRight,
   ChevronDown,
   Menu,
-  X,
   Mail,
   Home as HomeIcon,
   Bell,
   Globe,
   User,
-  LogOut,
   Lock,
   Info,
   Power,
@@ -18,12 +15,6 @@ import {
   Heart,
   Calendar,
   Library as LibraryIcon,
-  ClipboardList,
-  ShoppingCart,
-  Sprout,
-  Gem,
-  Briefcase,
-  Send
 } from 'lucide-react';
 
 interface MenuItem {
@@ -36,14 +27,14 @@ interface MenuItem {
 const menuItems: MenuItem[] = [
   {
     name: 'Registration',
-    icon: ClipboardList,
+    icon: HomeIcon,
     children: [
       { name: 'Registered Courses', path: '/dashboard' },
     ]
   },
   {
     name: 'Exam Scores',
-    icon: ShoppingCart,
+    icon: Calendar,
     children: [
       { name: 'View Attendance', path: '/attendance' },
       { name: 'View Marks', path: '/marks' },
@@ -52,21 +43,21 @@ const menuItems: MenuItem[] = [
   },
   {
     name: 'Fee',
-    icon: Sprout,
+    icon: Mail,
     children: [
       { name: 'View Fee Details', path: '/fee-details' },
     ]
   },
   {
     name: 'Dues',
-    icon: Gem,
+    icon: Bell,
     children: [
       { name: 'Dues Details', path: '/dashboard' },
     ]
   },
   {
     name: 'Personal',
-    icon: Briefcase,
+    icon: User,
     children: [
       { name: 'Update Account', path: '/update-account' },
       { name: 'Student Profile', path: '/profile' },
@@ -75,14 +66,14 @@ const menuItems: MenuItem[] = [
   },
   {
     name: 'Library',
-    icon: Send,
+    icon: LibraryIcon,
     children: [
       { name: 'Library Search', path: '/dashboard' },
     ]
   },
   {
     name: 'OPAC',
-    icon: Briefcase,
+    icon: Globe,
     children: [
       { name: 'OPAC Search', path: '/dashboard' },
     ]
@@ -126,12 +117,12 @@ export default function Layout() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: '#f5f5f5' }}>
+    <div className="min-h-screen flex flex-col font-sans bg-aums-bg-main">
       {/* TOP HEADER BAR */}
-      <header style={{ backgroundColor: '#26a69a' }} className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0">
+      <header className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0 bg-aums-teal">
         {/* Left: Logo */}
         <div className="flex items-center h-full py-2">
-          <img src="/custom-logo.png" alt="Logo" className="h-[40px] object-contain ml-2" />
+          <img src="/exact-logo.png" alt="Logo" className="h-[40px] object-contain ml-2 brightness-0 invert" />
         </div>
 
         {/* Center/Right: welcome + datetime + icons */}
@@ -207,14 +198,13 @@ export default function Layout() {
         <aside
           className={`
             fixed top-14 bottom-0 left-0 z-40 w-[180px] shadow-lg flex flex-col
-            transform transition-transform duration-200
+            transform transition-transform duration-200 bg-aums-orange
             ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
             lg:translate-x-0 lg:static lg:top-0 lg:h-auto
           `}
-          style={{ backgroundColor: '#ffa100' }}
         >
           <div className="flex items-center justify-end p-2 px-3">
-            <button className="bg-[#cca300] p-1 rounded-sm shadow-inner" onClick={() => setSidebarOpen(false)}>
+            <button className="bg-aums-orange-dark p-1 rounded-sm shadow-inner" onClick={() => setSidebarOpen(false)}>
               <Menu size={16} className="text-white" />
             </button>
           </div>
@@ -256,7 +246,7 @@ export default function Layout() {
                 <div key={item.name} className="relative">
                   <button
                     onClick={() => toggleMenu(item.name)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 text-[13px] font-medium transition-colors text-white ${isExpanded ? 'bg-[#e91e63]' : 'hover:bg-[#d06900]'}`}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 text-[13px] font-medium transition-colors text-white ${isExpanded ? 'bg-aums-pink' : 'hover:bg-aums-orange-dark'}`}
                   >
                     <span className="flex items-center gap-3">
                       <item.icon size={15} className="text-white" />
@@ -268,7 +258,7 @@ export default function Layout() {
                   </button>
 
                   {isExpanded && item.children && (
-                    <div className="bg-[#e91e63] py-0.5">
+                    <div className="bg-aums-pink py-0.5">
                       {item.children.map((child) => (
                         <NavLink
                           key={child.name}
@@ -296,7 +286,7 @@ export default function Layout() {
           </nav>
 
           {/* Search bar at bottom */}
-          <div className="p-4 bg-[#ffa100] mt-auto">
+          <div className="p-4 bg-aums-orange mt-auto">
             <div className="flex items-center gap-2 border-b border-white/50 pb-1">
               <input
                 type="text"
