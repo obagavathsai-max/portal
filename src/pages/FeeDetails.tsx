@@ -1,79 +1,49 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function FeeDetails() {
-  const [selectedFeeTerm, setSelectedFeeTerm] = useState<string>('Select');
+  const pendingFees = [
+    { type: 'Tuition Fee', amount: '₹ 1,50,000', deadline: 'August 10, 2024', status: 'Pending' },
+    { type: 'Hostel Fee', amount: '₹ 60,000', deadline: 'August 15, 2024', status: 'Pending' },
+  ];
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
-        <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            STUDENTS FEE DETAILS
-          </h1>
+    <div className="space-y-4 min-h-[calc(100vh-120px)] bg-aums-bg-alt">
+      {/* Header */}
+      <div className="bg-white px-4 py-3 rounded shadow-sm border-l-4 border-aums-teal">
+        <h1 className="text-base font-bold uppercase text-aums-teal">
+          Fee Details
+        </h1>
+      </div>
+
+      <div className="bg-white rounded shadow-sm overflow-hidden border border-gray-200">
+        <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
+          <h2 className="text-[13px] font-bold text-gray-700 uppercase">Pending Fees</h2>
         </div>
-
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-32">Roll No</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-32">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-48">Academic Program & Branch</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <div className="inline-flex items-baseline border border-gray-300 rounded-sm" style={{ minWidth: '260px' }}>
-              <div className="px-3 pt-1">
-                <label className="text-xs text-gray-500">Fee Term</label>
-              </div>
-              <select
-                value={selectedFeeTerm}
-                onChange={(e) => setSelectedFeeTerm(e.target.value)}
-                className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-              >
-                <option value="Select">Select</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto border border-gray-300 rounded-sm">
-            <table className="min-w-full text-sm">
-              <thead>
-                <tr style={{ backgroundColor: '#f5f5f5' }}>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Select</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Fee Section</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">currency</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Assigned Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Paid Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700">Amount To Pay</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500 text-sm">
-                    No data available in table
+        <div className="overflow-x-auto">
+          <table className="w-full text-[13px]">
+            <thead className="bg-aums-bg-main text-gray-600">
+              <tr>
+                <th className="px-4 py-3 text-left font-bold">Fee Description</th>
+                <th className="px-4 py-3 text-left font-bold">Amount</th>
+                <th className="px-4 py-3 text-left font-bold">Due Date</th>
+                <th className="px-4 py-3 text-center font-bold">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {pendingFees.map((fee, idx) => (
+                <tr key={idx} className="hover:bg-gray-50">
+                  <td className="px-4 py-4 font-medium text-gray-800">{fee.type}</td>
+                  <td className="px-4 py-4 text-aums-teal font-bold">{fee.amount}</td>
+                  <td className="px-4 py-4 text-gray-500">{fee.deadline}</td>
+                  <td className="px-4 py-4 text-center">
+                    <span className="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                      {fee.status}
+                    </span>
                   </td>
                 </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="mt-3 text-xs text-gray-600">
-            Total rows: 0
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
