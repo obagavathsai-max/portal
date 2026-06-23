@@ -1,103 +1,118 @@
 import React, { useState, useEffect } from 'react';
+import { Save, User, Hash, FileText, CheckCircle2 } from 'lucide-react';
 
 export default function ABCIDMaster() {
   const [abcId, setAbcId] = useState('');
   const [aadhaarName, setAadhaarName] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
+  // Load from localStorage on mount
   useEffect(() => {
     const savedAbcId = localStorage.getItem('abcId');
-    const savedAadhaarName = localStorage.getItem('aadhaarName');
+    const savedAadhaar = localStorage.getItem('aadhaarName');
     if (savedAbcId) setAbcId(savedAbcId);
-    else setAbcId('740923811437');
-    if (savedAadhaarName) setAadhaarName(savedAadhaarName);
-    else setAadhaarName('Oruganti bagavath Sai');
+    if (savedAadhaar) setAadhaarName(savedAadhaar);
   }, []);
 
   const handleSave = () => {
     localStorage.setItem('abcId', abcId);
     localStorage.setItem('aadhaarName', aadhaarName);
-    alert('ABCId details saved permanently!');
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
   };
 
   return (
-    <div className="space-y-4">
-      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
-        <div className="px-5 py-3 border-b border-gray-100 bg-white">
-          <h1 className="text-[14px] font-bold text-[#26a69a] uppercase tracking-wide">
-            ABCID MASTER UI
+    <div className="max-w-4xl mx-auto space-y-6">
+      <div className="bg-white rounded shadow-sm overflow-hidden border border-gray-100">
+        <div className="px-4 py-3 border-b border-gray-200">
+          <h1 className="text-[14px] font-bold text-aums-teal uppercase tracking-wide">
+            ABCID Master
           </h1>
         </div>
 
         <div className="p-6">
-          {/* Info Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-12 mb-10">
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Roll No</p>
-              <p className="text-[14px] font-medium text-gray-800">AV.SC.U4AIE23132</p>
+          {showSuccess && (
+            <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+              <CheckCircle2 size={18} />
+              <p className="text-sm font-medium">ABC ID details saved successfully!</p>
             </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Name</p>
-              <p className="text-[14px] font-medium text-gray-800 uppercase">ORUGANTI BAGAVATH SAI</p>
+          )}
+
+          {/* Student Info Grid (Read Only) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 bg-gray-50 p-4 rounded-lg">
+            <div className="space-y-1">
+              <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                <Hash size={12} className="text-aums-teal" />
+                Roll No
+              </label>
+              <p className="text-sm font-semibold text-gray-700">AV.SC.U4AIE23132</p>
             </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Academic Program</p>
-              <p className="text-[14px] font-medium text-gray-800 uppercase">B.Tech 2023</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Branch</p>
-              <p className="text-[14px] font-medium text-gray-800">AIE</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">ABCId</p>
-              <p className="text-[14px] font-medium text-gray-800">{abcId}</p>
-            </div>
-            <div>
-              <p className="text-[13px] text-gray-600 mb-1">Name same as in Aadhaar</p>
-              <p className="text-[14px] font-medium text-gray-800">{aadhaarName}</p>
+            <div className="space-y-1">
+              <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                <User size={12} className="text-aums-teal" />
+                Name
+              </label>
+              <p className="text-sm font-semibold text-gray-700">ORUGANTI BAGAVATH SAI</p>
             </div>
           </div>
 
-          {/* Form Section */}
-          <div className="flex flex-col md:flex-row items-end gap-4 max-w-4xl">
-            <div className="flex-1 w-full">
-              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
-                  Save ABCId <span className="text-red-600">*</span>
-                </label>
+          {/* Input Form */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+            <div className="space-y-2">
+              <label className="text-[12px] font-bold text-gray-600">
+                ABC ID <span className="text-red-500">*</span>
+              </label>
+              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-aums-bg-alt">
                 <input
                   type="text"
                   value={abcId}
                   onChange={(e) => setAbcId(e.target.value)}
-                  className="w-full bg-transparent outline-none py-1.5 text-[14px] text-gray-800"
+                  placeholder="Enter 12 digit ABC ID"
+                  className="w-full bg-transparent border-none outline-none text-[14px] py-1"
                 />
               </div>
             </div>
 
-            <div className="flex-1 w-full">
-              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-[#f0f0f0]">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-[11px] text-red-600 font-medium">
-                  Name same as in Aadhaar <span className="text-red-600">*</span>
-                </label>
+            <div className="space-y-2">
+              <label className="text-[12px] font-bold text-gray-600">
+                Name as per Aadhaar <span className="text-red-500">*</span>
+              </label>
+              <div className="relative border border-gray-300 rounded-md px-3 py-1 bg-aums-bg-alt">
                 <input
                   type="text"
                   value={aadhaarName}
                   onChange={(e) => setAadhaarName(e.target.value)}
-                  className="w-full bg-transparent outline-none py-1.5 text-[14px] text-gray-800"
+                  placeholder="Full Name as per Aadhaar"
+                  className="w-full bg-transparent border-none outline-none text-[14px] py-1"
                 />
               </div>
             </div>
 
-            <button
-              onClick={handleSave}
-              className="bg-[#26a69a] hover:bg-[#1f8a80] text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5"
-            >
-              Save
-            </button>
+            <div className="md:col-span-2 pt-4 border-t border-gray-100 flex justify-end">
+              <button
+                onClick={handleSave}
+                className="text-white px-6 py-2 rounded text-[13px] font-bold shadow-sm transition-colors mb-0.5 bg-aums-teal hover:bg-aums-teal-dark"
+              >
+                <div className="flex items-center gap-2">
+                  <Save size={16} /> SAVE ABC ID
+                </div>
+              </button>
+            </div>
           </div>
 
-          <p className="mt-6 text-[12px] text-gray-700 italic">
-            NB:- Please enter the name as per the Aadhar.
-          </p>
+          <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
+            <div className="flex gap-3">
+              <FileText className="text-blue-600 shrink-0" size={20} />
+              <div>
+                <p className="text-[13px] font-bold text-blue-800 mb-1">Instructions:</p>
+                <ul className="text-[12px] text-blue-700 space-y-1 list-disc ml-4 leading-relaxed">
+                  <li>ABC ID must be a 12-digit numeric value.</li>
+                  <li>Ensure the name matches exactly as it appears on your Aadhaar card.</li>
+                  <li>This information is mandatory for credit transfers and degree issuance.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
