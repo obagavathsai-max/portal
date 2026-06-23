@@ -1,230 +1,201 @@
-import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Link as LinkIcon, HelpCircle, Maximize2, Star, Home, Menu } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock, MapPin, Star, Bell, Info, ChevronDown } from 'lucide-react';
 
-const courseTabs = [
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..Re.AIE.1...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
-  'B.Tech..2023.R.AIE.16...',
+const courses = [
+  { id: 1, name: 'Environmental Science and Sustainability', code: '21ENV111', slot: 'A', faculty: 'Venkatesh B.', attendance: 92 },
+  { id: 2, name: 'Calculus', code: '21MAT101', slot: 'B', faculty: 'Dr. Ramesh K.', attendance: 85 },
+  { id: 3, name: 'Computer Programming', code: '21CSE102', slot: 'C', faculty: 'Saranya M.', attendance: 88 },
+  { id: 4, name: 'Engineering Physics', code: '21PHY103', slot: 'D', faculty: 'Senthil Kumar', attendance: 78 },
 ];
 
-const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-function MiniCalendar() {
-  const today = new Date();
-  const [viewDate, setViewDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
-
-  const year = viewDate.getFullYear();
-  const month = viewDate.getMonth();
-  const monthName = viewDate.toLocaleString('default', { month: 'long', year: 'numeric' });
-
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  const cells: (number | null)[] = [];
-  for (let i = 0; i < firstDay; i++) cells.push(null);
-  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
-  while (cells.length % 7 !== 0) cells.push(null);
-
-  const isToday = (d: number | null) =>
-    d !== null &&
-    d === today.getDate() &&
-    month === today.getMonth() &&
-    year === today.getFullYear();
-
-  const rows: (number | null)[][] = [];
-  for (let i = 0; i < cells.length; i += 7) rows.push(cells.slice(i, i + 7));
-
-  return (
-    <div className="text-xs">
-      <div className="flex items-center justify-between mb-2">
-        <span className="font-bold text-sm" style={{ color: '#26a69a' }}>{monthName}</span>
-        <div className="flex gap-1">
-          <button
-            onClick={() => setViewDate(new Date(year, month - 1, 1))}
-            className="px-2 py-0.5 border border-gray-300 rounded text-gray-600 hover:bg-gray-100"
-          >&lt;</button>
-          <button
-            onClick={() => setViewDate(new Date())}
-            className="px-2 py-0.5 border border-gray-300 rounded text-gray-600 hover:bg-gray-100 text-xs"
-          >Today</button>
-          <button
-            onClick={() => setViewDate(new Date(year, month + 1, 1))}
-            className="px-2 py-0.5 border border-gray-300 rounded text-gray-600 hover:bg-gray-100"
-          >&gt;</button>
-        </div>
-      </div>
-      <table className="w-full border-collapse">
-        <thead>
-          <tr>
-            {DAYS.map(d => (
-              <th key={d} className="text-center py-1 text-gray-500 font-semibold">{d}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, ri) => (
-            <tr key={ri}>
-              {row.map((cell, ci) => {
-                const isFri = (ri * 7 + ci) % 7 === 5;
-                const isSat = (ri * 7 + ci) % 7 === 6;
-                return (
-                  <td key={ci} className="text-center py-1">
-                    {cell !== null ? (
-                      <span
-                        className={`inline-flex items-center justify-center w-6 h-6 rounded-sm text-xs cursor-pointer
-                          ${isToday(cell) ? 'font-bold' : ''}
-                          ${isFri || isSat ? '' : ''}
-                        `}
-                        style={
-                          isToday(cell)
-                            ? { backgroundColor: '#ffe082', border: '1px solid #ffd54f' }
-                            : isFri || isSat
-                              ? { color: '#26a69a' }
-                              : { color: '#333' }
-                        }
-                      >
-                        {cell}
-                      </span>
-                    ) : null}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState('Home');
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  const daysInMonth = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  };
+
+  const startDayOfMonth = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  };
+
+  const monthName = currentDate.toLocaleString('default', { month: 'long' });
+  const year = currentDate.getFullYear();
+
+  const prevMonth = () => setCurrentDate(new Date(year, currentDate.getMonth() - 1));
+  const nextMonth = () => setCurrentDate(new Date(year, currentDate.getMonth() + 1));
+
+  const days = [];
+  for (let i = 0; i < startDayOfMonth(currentDate); i++) {
+    days.push(<div key={`empty-${i}`} className="h-8"></div>);
+  }
+  for (let i = 1; i <= daysInMonth(currentDate); i++) {
+    const isToday = i === new Date().getDate() && currentDate.getMonth() === new Date().getMonth();
+    days.push(
+      <div
+        key={i}
+        className="h-8 flex items-center justify-center text-[11px] rounded-sm transition-colors cursor-pointer hover:bg-gray-100"
+        style={isToday ? { backgroundColor: 'var(--color-aums-yellow-highlight)', border: '1px solid var(--color-aums-yellow-border)' } : {}}
+      >
+        <span
+          className={isToday ? "font-bold text-aums-teal" : "text-gray-800"}
+        >
+          {i}
+        </span>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-4">
-      {/* Course Tabs */}
-      <div className="flex flex-wrap gap-2 pt-2">
-        {/* Home tab */}
-        <button
-          className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-bold text-white shadow-sm transition-opacity hover:opacity-90 active:scale-95"
-          style={{ backgroundColor: '#26a69a' }}
-        >
-          <Home size={13} className="text-white" /> Home <ChevronDown size={14} className="text-white/70" />
-        </button>
-
-        {/* Course tabs */}
-        {courseTabs.map((tab, i) => (
-          <button
-            key={i}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-semibold shadow-sm text-gray-700 transition-colors hover:bg-[#b2dfdb] group active:scale-95"
-            style={{ backgroundColor: '#e0f2f1' }}
-          >
-            <Star size={13} className="shrink-0 text-[#26a69a] fill-[#26a69a]" />
-            <span className="truncate max-w-[200px]">{tab}</span>
-            <ChevronDown size={14} className="shrink-0 text-[#26a69a]/60 group-hover:text-[#26a69a]" />
-          </button>
-        ))}
-      </div>
-
-      {/* OVERVIEW heading */}
-      <div className="flex items-center gap-2 mt-6 mb-3">
-        <div className="grid grid-cols-2 gap-[2px]">
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
-          <div className="w-1.5 h-1.5 bg-[#26a69a]"></div>
+    <div className="max-w-6xl mx-auto space-y-6 pb-10">
+      {/* Top Welcome Section */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
+          <p className="text-sm text-gray-500">Welcome back, Oruganti Bagavath Sai</p>
         </div>
-        <h2 className="text-[14px] font-bold text-[#26a69a] uppercase tracking-wide">Overview</h2>
+        <div className="flex items-center gap-2">
+          <div className="bg-aums-teal text-white p-2 rounded-lg shadow-sm">
+            <CalendarIcon size={20} />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-gray-400 uppercase">Current Session</p>
+            <p className="text-sm font-semibold text-gray-700">2023-2024 Odd Semester</p>
+          </div>
+        </div>
       </div>
 
-      {/* Grid: Message + Calendar */}
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-5">
-        {/* Message of the Day */}
-        <div className="xl:col-span-8 bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-            <span className="text-[13px] font-semibold text-[#26a69a]">Message Of The Day</span>
-            <div className="flex gap-1.5">
-              <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-                <LinkIcon size={12} strokeWidth={2.5} /> Link
-              </button>
-              <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-                <HelpCircle size={12} strokeWidth={2.5} /> Help
-              </button>
-              <button className="p-1 border border-gray-300 bg-white rounded-sm text-gray-700 hover:bg-gray-50">
-                <Maximize2 size={13} strokeWidth={2.5} />
-              </button>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column: Calendar & Overview */}
+        <div className="lg:col-span-1 space-y-6">
+          {/* Calendar Card */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-aums-teal-light">
+              <span className="text-[13px] font-semibold text-aums-teal">Calendar</span>
+              <div className="flex items-center gap-2">
+                <button onClick={prevMonth} className="p-1 hover:bg-black/5 rounded transition-colors">
+                  <ChevronLeft size={14} className="text-aums-teal" />
+                </button>
+                <button onClick={nextMonth} className="p-1 hover:bg-black/5 rounded transition-colors">
+                  <ChevronRight size={14} className="text-aums-teal" />
+                </button>
+              </div>
+            </div>
+            <div className="p-4">
+              <div className="text-center mb-4">
+                <span className="font-bold text-sm text-aums-teal">{monthName}</span>
+                <span className="text-sm text-gray-500 ml-1">{year}</span>
+              </div>
+              <div className="grid grid-cols-7 gap-1 text-center mb-2">
+                {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(day => (
+                  <div key={day} className="text-[10px] font-bold text-gray-400">{day}</div>
+                ))}
+              </div>
+              <div className="grid grid-cols-7 gap-1">
+                {days}
+              </div>
             </div>
           </div>
-          <div className="p-5">
-            <div className="mb-4">
-              <button className="px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">Options</button>
+
+          {/* Quick Overview */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+            <div className="px-4 py-2 border-b border-gray-200 bg-aums-teal-light">
+              <h2 className="text-[13px] font-semibold text-aums-teal">Overview</h2>
             </div>
+            <div className="p-4 space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                    <Clock size={16} />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500">Overall Attendance</p>
+                    <p className="text-sm font-bold text-gray-800">86.5%</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-[10px] font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded">GOOD</span>
+                </div>
+              </div>
+              <div className="w-full bg-gray-100 rounded-full h-1.5">
+                <div className="bg-aums-teal h-1.5 rounded-full" style={{ width: '86.5%' }}></div>
+              </div>
 
-            <div className="space-y-4">
-              <p className="font-bold text-[18px] text-[#A4123F]">Om Amriteswaryai Namah</p>
-
-              <p className="text-[15px] font-bold text-gray-800 leading-relaxed max-w-2xl">
-                Everything happens spontaneously when you distance yourself from your mind.
-              </p>
-
-              <div className="pt-2">
-                <p className="text-[14px] font-bold text-[#A4123F]">Chancellor,</p>
-                <p className="text-[14px] font-bold text-[#A4123F]">Sri Mata Amritanandamayi Devi</p>
+              <div className="pt-2 grid grid-cols-2 gap-4">
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <p className="text-[10px] text-gray-400 font-bold uppercase mb-1">Courses</p>
+                  <p className="text-xl font-bold text-gray-800">6</p>
+                </div>
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <p className="text-[10px] text-gray-400 font-bold uppercase mb-1">Credits</p>
+                  <p className="text-xl font-bold text-gray-800">22</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Calendar */}
-        <div className="xl:col-span-4 bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-            <span className="text-[13px] font-semibold text-[#26a69a]">Calendar</span>
-            <div className="flex gap-1.5">
-              <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-                <LinkIcon size={12} strokeWidth={2.5} /> Link
-              </button>
-              <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-                <HelpCircle size={12} strokeWidth={2.5} /> Help
-              </button>
+        {/* Right Column: News & Courses */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Message of the Day */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-aums-teal-light">
+              <span className="text-[13px] font-semibold text-aums-teal">Message Of The Day</span>
+              <Bell size={14} className="text-aums-teal" />
+            </div>
+            <div className="p-6 text-center">
+              <p className="font-bold text-[18px] text-aums-maroon">Om Amriteswaryai Namah</p>
+              <div className="mt-4 inline-block text-left">
+                <p className="text-[14px] font-bold text-aums-maroon">Chancellor,</p>
+                <p className="text-[14px] font-bold text-aums-maroon">Sri Mata Amritanandamayi Devi</p>
+              </div>
             </div>
           </div>
-          <div className="p-4">
-            <MiniCalendar />
-          </div>
-        </div>
-      </div>
 
-      {/* Home Information Display */}
-      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden mt-2">
-        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <span className="text-[13px] font-semibold text-[#26a69a]">Home Information Display</span>
-          <div className="flex gap-1.5">
-            <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-              ✏️ Edit
-            </button>
-            <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-              <LinkIcon size={12} strokeWidth={2.5} /> Link
-            </button>
-            <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
-              <HelpCircle size={12} strokeWidth={2.5} /> Help
-            </button>
-            <button className="p-1 border border-gray-300 bg-white rounded-sm text-gray-700 hover:bg-gray-50">
-              <Maximize2 size={13} strokeWidth={2.5} />
-            </button>
+          {/* Active Courses */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-aums-teal-light">
+              <span className="text-[13px] font-semibold text-aums-teal">Registered Courses</span>
+              <button className="text-[11px] font-bold text-aums-teal hover:underline">View All</button>
+            </div>
+            <div className="p-4">
+              <div className="flex flex-wrap gap-2 mb-4">
+                <button className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-semibold shadow-sm text-gray-700 transition-colors hover:bg-aums-teal/20 group active:scale-95 bg-aums-teal-light">
+                  <Star size={13} className="shrink-0 text-aums-teal fill-aums-teal" />
+                  Regular Courses
+                  <ChevronDown size={14} className="shrink-0 text-aums-teal/60 group-hover:text-aums-teal" />
+                </button>
+                <button className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-semibold text-gray-500 hover:bg-gray-50 transition-colors">
+                  Electives
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                {courses.map(course => (
+                  <div key={course.id} className="flex items-center p-3 border border-gray-100 rounded-lg hover:border-aums-teal/30 hover:bg-gray-50 transition-all group">
+                    <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-aums-teal group-hover:bg-aums-teal group-hover:text-white transition-colors">
+                      <span className="font-bold text-sm">{course.slot}</span>
+                    </div>
+                    <div className="ml-4 flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm font-bold text-gray-800">{course.name}</p>
+                        <span className="text-[10px] font-bold bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">{course.code}</span>
+                      </div>
+                      <p className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
+                        <MapPin size={10} /> {course.faculty}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs font-bold text-gray-400 uppercase">Attendance</p>
+                      <p className={`text-sm font-bold ${course.attendance < 80 ? 'text-aums-red-error' : 'text-aums-teal'}`}>
+                        {course.attendance}%
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="p-5 text-sm text-gray-700 leading-relaxed font-medium">
-          <p>Welcome to Amrita University Management System. Use the left menu to navigate to your courses, attendance, grades, and more.</p>
         </div>
       </div>
     </div>
