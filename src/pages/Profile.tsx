@@ -1,109 +1,136 @@
 import React, { useState } from 'react';
+import { User, Mail, Phone, MapPin, GraduationCap, Calendar, Edit3, Save, X } from 'lucide-react';
 
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     name: 'ORUGANTI BAGAVATH SAI',
     rollNo: 'AV.SC.U4AIE23132',
-    email: 'av.sc.u4aie23132@av.students.amrita.edu',
-    phone: '+91 81067 36469',
-    department: 'Artificial Intelligence and Data Science',
-    program: 'B.Tech 2023 AIE',
-    batch: '2023-2027'
+    email: 'av.sc.u4aie23132@amrita.edu',
+    phone: '9876543210',
+    program: 'B.Tech in Artificial Intelligence',
+    batch: '2023-2027',
+    advisor: 'Dr. Ram Kumar',
+    address: 'Amrita Vishwa Vidyapeetham, Coimbatore'
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
+  const handleSave = () => {
+    setIsEditing(false);
+    // Logic to save would go here
   };
 
   return (
-    <div className="space-y-4">
-      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <h1 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>
-            Personal Information
-          </h1>
+    <div className="max-w-5xl mx-auto space-y-6">
+      {/* Header Profile Card */}
+      <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h1 className="font-bold text-sm uppercase tracking-wide text-aums-teal">Student Profile</h1>
         </div>
-
         <div className="p-6">
-          {/* Profile header */}
-          <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
-            <div
-              className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold"
-              style={{ backgroundColor: '#26a69a' }}
-            >
-              OB
-            </div>
-            <div>
-              <p className="text-base font-bold text-gray-800">{profile.name}</p>
-              <p className="text-sm text-gray-500">{profile.rollNo}</p>
-              <p className="text-xs mt-1" style={{ color: '#f57c00' }}>{profile.program}</p>
-            </div>
-            <div className="ml-auto">
-              {!isEditing ? (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#26a69a' }}
-                >
-                  Edit Profile
-                </button>
-              ) : (
-                <button
-                  onClick={() => setIsEditing(false)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#f57c00' }}
-                >
-                  Save Changes
-                </button>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            {[
-              { label: 'Full Name', key: 'name', type: 'text' },
-              { label: 'Roll Number', key: 'rollNo', type: 'text' },
-              { label: 'University Email', key: 'email', type: 'email' },
-              { label: 'Phone Number', key: 'phone', type: 'tel' },
-              { label: 'Department', key: 'department', type: 'text' },
-              { label: 'Batch', key: 'batch', type: 'text' },
-            ].map(field => (
-              <div key={field.key}>
-                <label className="block text-xs font-semibold text-gray-500 mb-1">{field.label}</label>
-                <input
-                  type={field.type}
-                  name={field.key}
-                  value={profile[field.key as keyof typeof profile]}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 disabled:opacity-80 focus:outline-none"
-                  style={isEditing ? { borderColor: '#26a69a' } : {}}
-                />
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+            <div className="relative group">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-aums-teal-light shadow-lg bg-aums-teal flex items-center justify-center">
+                <User size={64} className="text-white" />
               </div>
-            ))}
+              <button className="absolute bottom-1 right-1 p-2 bg-white rounded-full shadow-md text-aums-teal hover:bg-aums-teal hover:text-white transition-all">
+                <Edit3 size={16} />
+              </button>
+            </div>
+
+            <div className="flex-1 text-center md:text-left space-y-2">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-800">{profile.name}</h2>
+                  <p className="text-xs mt-1 text-aums-orange font-bold uppercase tracking-wider">{profile.program}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  {isEditing ? (
+                    <>
+                      <button onClick={handleSave} className="flex items-center gap-2 bg-aums-teal text-white px-4 py-2 rounded text-xs font-bold uppercase shadow-sm hover:brightness-110">
+                        <Save size={14} /> Save
+                      </button>
+                      <button onClick={() => setIsEditing(false)} className="flex items-center gap-2 bg-gray-100 text-gray-600 px-4 py-2 rounded text-xs font-bold uppercase hover:bg-gray-200">
+                        <X size={14} /> Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <button onClick={() => setIsEditing(true)} className="flex items-center gap-2 bg-aums-teal text-white px-4 py-2 rounded text-xs font-bold uppercase shadow-sm hover:brightness-110">
+                      <Edit3 size={14} /> Edit Profile
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                {[
+                  { icon: Mail, label: 'Email', value: profile.email, type: 'email', name: 'email' },
+                  { icon: Phone, label: 'Phone', value: profile.phone, type: 'tel', name: 'phone' },
+                  { icon: GraduationCap, label: 'Advisor', value: profile.advisor, type: 'text', name: 'advisor' },
+                  { icon: MapPin, label: 'Address', value: profile.address, type: 'text', name: 'address' },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 border border-transparent hover:border-aums-teal/20 transition-all">
+                    <div className="p-2 rounded bg-white shadow-sm">
+                      <item.icon size={16} className="text-aums-teal" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{item.label}</p>
+                      {isEditing ? (
+                        <input
+                          type={item.type}
+                          value={item.value}
+                          onChange={(e) => setProfile({ ...profile, [item.name]: e.target.value })}
+                          className="w-full text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded px-2 py-1 mt-1 focus:ring-1 focus:ring-aums-teal outline-none border-aums-teal"
+                        />
+                      ) : (
+                        <p className="text-sm font-semibold text-gray-700">{item.value}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Academic Summary */}
-      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <h2 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>Academic Summary</h2>
-        </div>
-        <div className="p-6">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      {/* Academic Details Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden">
+          <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+            <h2 className="font-bold text-sm uppercase tracking-wide text-aums-teal">Academic Summary</h2>
+          </div>
+          <div className="p-6 grid grid-cols-2 gap-6">
             {[
-              { label: 'Current CGPA', value: '9.41' },
-              { label: 'Credits Earned', value: '105' },
               { label: 'Current Semester', value: '5' },
-              { label: 'Program', value: 'B.Tech AIE' },
-            ].map(item => (
-              <div key={item.label} className="text-center p-3 border border-gray-100 rounded bg-gray-50">
-                <p className="text-xl font-bold" style={{ color: '#26a69a' }}>{item.value}</p>
-                <p className="text-xs text-gray-500 mt-1">{item.label}</p>
+              { label: 'Total Credits', value: '84' },
+              { label: 'CGPA', value: '9.15' },
+              { label: 'Arrears', value: '0' },
+            ].map((item, idx) => (
+              <div key={idx} className="text-center p-4 rounded-lg bg-gray-50 border border-gray-100">
+                <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">{item.label}</p>
+                <p className="text-xl font-bold text-aums-teal">{item.value}</p>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden">
+          <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+            <h2 className="font-bold text-sm uppercase tracking-wide text-aums-teal">Registration Details</h2>
+          </div>
+          <div className="p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-gray-50 pb-2">
+              <span className="text-[11px] font-bold text-gray-400 uppercase">Roll Number</span>
+              <span className="text-[13px] font-bold text-gray-700">{profile.rollNo}</span>
+            </div>
+            <div className="flex items-center justify-between border-b border-gray-50 pb-2">
+              <span className="text-[11px] font-bold text-gray-400 uppercase">Batch</span>
+              <span className="text-[13px] font-bold text-gray-700">{profile.batch}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-bold text-gray-400 uppercase">Department</span>
+              <span className="text-[13px] font-bold text-gray-700">TIFAC CORE</span>
+            </div>
           </div>
         </div>
       </div>
