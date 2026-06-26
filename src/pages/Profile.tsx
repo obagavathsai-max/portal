@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { User, Mail, Phone, Book, GraduationCap, Calendar, Edit2, Check } from 'lucide-react';
 
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
@@ -19,8 +20,8 @@ export default function Profile() {
   return (
     <div className="space-y-4">
       <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <h1 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h1 className="font-bold text-sm uppercase tracking-wide text-aums-teal">
             Personal Information
           </h1>
         </div>
@@ -29,32 +30,29 @@ export default function Profile() {
           {/* Profile header */}
           <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
             <div
-              className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold"
-              style={{ backgroundColor: '#26a69a' }}
+              className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold bg-aums-teal"
             >
               OB
             </div>
             <div>
               <p className="text-base font-bold text-gray-800">{profile.name}</p>
               <p className="text-sm text-gray-500">{profile.rollNo}</p>
-              <p className="text-xs mt-1" style={{ color: '#f57c00' }}>{profile.program}</p>
+              <p className="text-xs mt-1 text-aums-orange">{profile.program}</p>
             </div>
             <div className="ml-auto">
               {!isEditing ? (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#26a69a' }}
+                  className="px-4 py-1.5 text-xs font-semibold text-white rounded bg-aums-teal hover:brightness-110 flex items-center gap-1"
                 >
-                  Edit Profile
+                  <Edit2 size={12} /> Edit Profile
                 </button>
               ) : (
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#f57c00' }}
+                  className="px-4 py-1.5 text-xs font-semibold text-white rounded bg-aums-orange hover:brightness-110 flex items-center gap-1"
                 >
-                  Save Changes
+                  <Check size={12} /> Save Changes
                 </button>
               )}
             </div>
@@ -62,23 +60,24 @@ export default function Profile() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             {[
-              { label: 'Full Name', key: 'name', type: 'text' },
-              { label: 'Roll Number', key: 'rollNo', type: 'text' },
-              { label: 'University Email', key: 'email', type: 'email' },
-              { label: 'Phone Number', key: 'phone', type: 'tel' },
-              { label: 'Department', key: 'department', type: 'text' },
-              { label: 'Batch', key: 'batch', type: 'text' },
+              { label: 'Full Name', key: 'name', type: 'text', icon: User },
+              { label: 'Roll Number', key: 'rollNo', type: 'text', icon: GraduationCap },
+              { label: 'University Email', key: 'email', type: 'email', icon: Mail },
+              { label: 'Phone Number', key: 'phone', type: 'tel', icon: Phone },
+              { label: 'Department', key: 'department', type: 'text', icon: Book },
+              { label: 'Batch', key: 'batch', type: 'text', icon: Calendar },
             ].map(field => (
               <div key={field.key}>
-                <label className="block text-xs font-semibold text-gray-500 mb-1">{field.label}</label>
+                <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mb-1">
+                  <field.icon size={12} className="text-gray-400" /> {field.label}
+                </label>
                 <input
                   type={field.type}
                   name={field.key}
                   value={profile[field.key as keyof typeof profile]}
                   onChange={handleChange}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 disabled:opacity-80 focus:outline-none"
-                  style={isEditing ? { borderColor: '#26a69a' } : {}}
+                  className={`w-full px-3 py-2 border rounded text-sm text-gray-700 bg-gray-50 disabled:opacity-80 focus:outline-none ${isEditing ? 'border-aums-teal' : 'border-gray-300'}`}
                 />
               </div>
             ))}
@@ -88,8 +87,8 @@ export default function Profile() {
 
       {/* Academic Summary */}
       <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <h2 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>Academic Summary</h2>
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h2 className="font-bold text-sm uppercase tracking-wide text-aums-teal">Academic Summary</h2>
         </div>
         <div className="p-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -100,7 +99,7 @@ export default function Profile() {
               { label: 'Program', value: 'B.Tech AIE' },
             ].map(item => (
               <div key={item.label} className="text-center p-3 border border-gray-100 rounded bg-gray-50">
-                <p className="text-xl font-bold" style={{ color: '#26a69a' }}>{item.value}</p>
+                <p className="text-xl font-bold text-aums-teal">{item.value}</p>
                 <p className="text-xs text-gray-500 mt-1">{item.label}</p>
               </div>
             ))}
