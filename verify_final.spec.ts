@@ -4,15 +4,21 @@ test.describe('Portal Branding and Data Verification', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate and Login
     await page.goto('http://localhost:3000/login');
-    await page.fill('input[type="text"]', 'av.sc.u4aie23132');
-    await page.fill('input[type="password"]', 'niyathi@0125');
-    await page.click('button:has-text("Login")');
+    await page.fill('input[id="username"]', 'av.sc.u4aie23132');
+    await page.fill('input[id="password"]', 'niyathi@0125');
+    await page.click('button:has-text("LOGIN")');
     await expect(page).toHaveURL('http://localhost:3000/dashboard');
   });
 
   test('Check Attendance Branding and Data', async ({ page }) => {
+    // Expand Exam Scores menu
+    await page.click('text=Exam Scores');
     await page.click('a[href="/attendance"]');
     await expect(page).toHaveURL('http://localhost:3000/attendance');
+
+    // Select semester to show report
+    await page.selectOption('select', '6');
+    await page.click('button:has-text("Attendance Summary")');
 
     // Check Teal header color (#26a69a)
     const header = page.locator('thead tr').first();
@@ -21,16 +27,18 @@ test.describe('Portal Branding and Data Verification', () => {
     expect(bgColor).toBe('rgb(38, 166, 154)');
 
     // Check Attendance Percentage color (#f05050)
-    const percentageCell = page.locator('table tbody tr').first().locator('td').nth(5);
+    const percentageCell = page.locator('table tbody tr').first().locator('td').nth(8);
     const cellBgColor = await percentageCell.evaluate((el) => window.getComputedStyle(el).backgroundColor);
     // rgb(240, 80, 80) is #f05050
     expect(cellBgColor).toBe('rgb(240, 80, 80)');
 
-    // Check course from image
-    await expect(page.locator('text=Principles of Economics')).toBeVisible();
+    // Check course data
+    await expect(page.locator('text=22AIE311 Software Engineering (Project-Based)')).toBeVisible();
   });
 
   test('Check Grades for A grades', async ({ page }) => {
+    // Expand Exam Scores menu
+    await page.click('text=Exam Scores');
     await page.click('a[href="/grades"]');
     await expect(page).toHaveURL('http://localhost:3000/grades');
 
