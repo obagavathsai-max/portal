@@ -1,107 +1,108 @@
 import React, { useState } from 'react';
+import { User, Mail, Phone, Calendar, MapPin, Edit2, Save, X, BookOpen, GraduationCap, Award } from 'lucide-react';
 
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     name: 'ORUGANTI BAGAVATH SAI',
     rollNo: 'AV.SC.U4AIE23132',
-    email: 'av.sc.u4aie23132@av.students.amrita.edu',
-    phone: '+91 81067 36469',
-    department: 'Artificial Intelligence and Data Science',
-    program: 'B.Tech 2023 AIE',
-    batch: '2023-2027'
+    email: 'av.sc.u4aie23132@amrita.edu',
+    phone: '+91 98765 43210',
+    dob: 'January 15, 2005',
+    address: 'Amritapuri, Kollam, Kerala, 690525',
+    program: 'B.Tech in Artificial Intelligence',
+    semester: '4th Semester',
+    cgpa: '9.25'
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
+  const handleSave = () => {
+    setIsEditing(false);
+    // In a real app, you'd send this to an API
   };
 
   return (
-    <div className="space-y-4">
-      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <h1 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>
-            Personal Information
+    <div className="space-y-6 animate-in fade-in duration-500">
+      {/* Profile Header Card */}
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h1 className="font-bold text-sm uppercase tracking-wide text-aums-teal">
+            Student Profile
           </h1>
         </div>
-
         <div className="p-6">
-          {/* Profile header */}
-          <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
-            <div
-              className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold"
-              style={{ backgroundColor: '#26a69a' }}
-            >
-              OB
-            </div>
-            <div>
-              <p className="text-base font-bold text-gray-800">{profile.name}</p>
-              <p className="text-sm text-gray-500">{profile.rollNo}</p>
-              <p className="text-xs mt-1" style={{ color: '#f57c00' }}>{profile.program}</p>
-            </div>
-            <div className="ml-auto">
-              {!isEditing ? (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#26a69a' }}
-                >
-                  Edit Profile
-                </button>
-              ) : (
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            {/* Avatar Section */}
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-32 h-32 rounded-full flex items-center justify-center text-white text-4xl font-bold bg-aums-teal">
+                {profile.name.charAt(0)}
+              </div>
+              <div className="text-center">
+                <h2 className="font-bold text-lg text-gray-800">{profile.name}</h2>
+                <p className="text-sm text-gray-500">{profile.rollNo}</p>
+                <p className="text-xs mt-1 text-aums-orange-dark">{profile.program}</p>
+              </div>
+              <button
+                onClick={() => isEditing ? handleSave() : setIsEditing(true)}
+                className="mt-2 flex items-center gap-2 px-4 py-1.5 rounded text-xs font-bold text-white transition-all hover:brightness-110 active:scale-95 bg-aums-teal"
+              >
+                {isEditing ? <><Save size={14} /> Save</> : <><Edit2 size={14} /> Edit Profile</>}
+              </button>
+              {isEditing && (
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#f57c00' }}
+                  className="flex items-center gap-2 px-4 py-1.5 rounded text-xs font-bold text-white transition-all hover:brightness-110 active:scale-95 bg-aums-orange-dark"
                 >
-                  Save Changes
+                  <X size={14} /> Cancel
                 </button>
               )}
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            {[
-              { label: 'Full Name', key: 'name', type: 'text' },
-              { label: 'Roll Number', key: 'rollNo', type: 'text' },
-              { label: 'University Email', key: 'email', type: 'email' },
-              { label: 'Phone Number', key: 'phone', type: 'tel' },
-              { label: 'Department', key: 'department', type: 'text' },
-              { label: 'Batch', key: 'batch', type: 'text' },
-            ].map(field => (
-              <div key={field.key}>
-                <label className="block text-xs font-semibold text-gray-500 mb-1">{field.label}</label>
-                <input
-                  type={field.type}
-                  name={field.key}
-                  value={profile[field.key as keyof typeof profile]}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 disabled:opacity-80 focus:outline-none"
-                  style={isEditing ? { borderColor: '#26a69a' } : {}}
-                />
-              </div>
-            ))}
+            {/* Info Grid */}
+            <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12 w-full">
+              {[
+                { icon: Mail, label: 'Email', key: 'email', value: profile.email },
+                { icon: Phone, label: 'Phone', key: 'phone', value: profile.phone },
+                { icon: Calendar, label: 'Date of Birth', key: 'dob', value: profile.dob },
+                { icon: MapPin, label: 'Address', key: 'address', value: profile.address },
+              ].map((item) => (
+                <div key={item.key} className="space-y-1">
+                  <div className="flex items-center gap-2 text-gray-500">
+                    <item.icon size={14} />
+                    <span className="text-[11px] font-bold uppercase tracking-wider">{item.label}</span>
+                  </div>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:border-aums-teal"
+                      value={item.value}
+                      onChange={(e) => setProfile({ ...profile, [item.key]: e.target.value })}
+                    />
+                  ) : (
+                    <p className="text-sm font-medium text-gray-800 ml-6">{item.value}</p>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Academic Summary */}
-      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <h2 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>Academic Summary</h2>
+      {/* Academic Info */}
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h2 className="font-bold text-sm uppercase tracking-wide text-aums-teal">Academic Summary</h2>
         </div>
         <div className="p-6">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
-              { label: 'Current CGPA', value: '9.41' },
-              { label: 'Credits Earned', value: '105' },
-              { label: 'Current Semester', value: '5' },
-              { label: 'Program', value: 'B.Tech AIE' },
-            ].map(item => (
-              <div key={item.label} className="text-center p-3 border border-gray-100 rounded bg-gray-50">
-                <p className="text-xl font-bold" style={{ color: '#26a69a' }}>{item.value}</p>
-                <p className="text-xs text-gray-500 mt-1">{item.label}</p>
+              { icon: GraduationCap, label: 'Program', value: profile.program },
+              { icon: BookOpen, label: 'Current Semester', value: profile.semester },
+              { icon: Award, label: 'Current CGPA', value: profile.cgpa },
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col items-center p-4 bg-gray-50 rounded-sm border border-gray-100 text-center">
+                <item.icon size={24} className="text-gray-400 mb-2" />
+                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">{item.label}</span>
+                <p className="text-xl font-bold text-aums-teal">{item.value}</p>
               </div>
             ))}
           </div>

@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
+import { HelpCircle, Lock, Save, AlertCircle } from 'lucide-react';
 
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const handleUpdate = () => {
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
     setError('');
+    setSuccess('');
 
-    const currentPassword = localStorage.getItem('userPassword') || 'niyathi@0125';
+    const currentStored = localStorage.getItem('userPassword') || 'niyathi@0125';
 
-    if (oldPassword !== currentPassword) {
-      setError('Incorrect old password');
+    if (oldPassword !== currentStored) {
+      setError('Current password is incorrect');
       return;
     }
 
@@ -22,117 +26,106 @@ export default function ChangePassword() {
     }
 
     if (newPassword.length < 6) {
-      setError('New password must be at least 6 characters');
+      setError('Password must be at least 6 characters');
       return;
     }
 
     localStorage.setItem('userPassword', newPassword);
+    setSuccess('Password changed successfully');
     setOldPassword('');
     setNewPassword('');
     setConfirmPassword('');
-    alert('Password updated successfully!');
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
-        <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            CHANGE PASSWORD
+    <div className="space-y-4 min-h-[calc(100vh-120px)] bg-aums-bg-alt">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-sm shadow-sm border-l-4 border-aums-teal">
+        <div>
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            Change Password
           </h1>
+          <p className="text-xs text-gray-500 mt-1">Update your account security credentials</p>
+        </div>
+      </div>
+
+      {/* Main Content Card */}
+      <div className="bg-white border border-gray-200 rounded-sm shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-aums-teal-light">
+          <span className="text-[13px] font-semibold text-aums-teal">Security Settings</span>
+          <div className="flex gap-1.5">
+            <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 bg-white rounded-sm text-[11px] font-bold text-gray-700 hover:bg-gray-50">
+              <HelpCircle size={12} strokeWidth={2.5} /> Help
+            </button>
+          </div>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-20">RollNo</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-24">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-40">Academic Program</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-
-            <div className="flex">
-              <span className="text-gray-700 w-20">Branch</span>
-              <span className="font-semibold text-gray-900">AIE</span>
-            </div>
-          </div>
-
+        <div className="p-6">
           {error && (
-            <div className="mb-4 p-3 bg-red-100 text-red-700 text-sm rounded border border-red-200 font-semibold">
-              {error}
+            <div className="mb-6 p-3 bg-red-50 border border-red-200 text-aums-red-error text-[13px] font-medium rounded-sm flex items-center gap-2">
+              <AlertCircle size={16} /> {error}
+            </div>
+          )}
+          {success && (
+            <div className="mb-6 p-3 bg-green-50 border border-green-200 text-green-700 text-[13px] font-medium rounded-sm">
+              {success}
             </div>
           )}
 
-          <div className="mb-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
-                  <div className="px-3 pt-1">
-                    <label className="text-xs text-gray-500">Old Password</label>
-                  </div>
+          <form onSubmit={handleSave} className="space-y-6 max-w-md">
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Current Password <span className="text-red-500">*</span></label>
+                <div className="relative">
                   <input
                     type="password"
                     value={oldPassword}
                     onChange={(e) => setOldPassword(e.target.value)}
-                    className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
-                    placeholder="Enter current password"
+                    className="w-full border border-gray-300 rounded pl-10 pr-3 py-2 text-sm focus:outline-none focus:border-aums-teal"
+                    required
                   />
+                  <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 </div>
               </div>
 
-              <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
-                  <div className="px-3 pt-1">
-                    <label className="text-xs text-gray-500">New Password</label>
-                  </div>
+              <div className="space-y-1">
+                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">New Password <span className="text-red-500">*</span></label>
+                <div className="relative">
                   <input
                     type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
-                    placeholder="Min. 6 characters"
+                    className="w-full border border-gray-300 rounded pl-10 pr-3 py-2 text-sm focus:outline-none focus:border-aums-teal"
+                    required
                   />
+                  <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 </div>
               </div>
 
-              <div>
-                <div className="border border-gray-300 rounded-sm bg-white">
-                  <div className="px-3 pt-1">
-                    <label className="text-xs text-gray-500">Confirm New Password</label>
-                  </div>
+              <div className="space-y-1">
+                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Confirm New Password <span className="text-red-500">*</span></label>
+                <div className="relative">
                   <input
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none"
-                    placeholder="Repeat new password"
+                    className="w-full border border-gray-300 rounded pl-10 pr-3 py-2 text-sm focus:outline-none focus:border-aums-teal"
+                    required
                   />
+                  <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 </div>
               </div>
             </div>
-          </div>
 
-          <div>
-            <button
-              onClick={handleUpdate}
-              className="px-6 py-2 text-white text-sm font-semibold rounded-sm hover:opacity-90 transition-opacity shadow-sm uppercase tracking-wide"
-              style={{ backgroundColor: '#ffa100' }}
-            >
-              Update Password
-            </button>
-          </div>
+            <div className="pt-4 border-t border-gray-100">
+              <button
+                type="submit"
+                className="flex items-center gap-2 px-8 py-2.5 text-white text-sm font-bold rounded shadow-sm hover:brightness-110 transition-all bg-aums-orange"
+              >
+                <Save size={16} /> CHANGE PASSWORD
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
