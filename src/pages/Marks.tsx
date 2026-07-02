@@ -1,111 +1,96 @@
 import React, { useState } from 'react';
+import { ChevronDown, BarChart2, Info, Download } from 'lucide-react';
 
-const semesters = [
-  { id: 5, name: '5' },
-  { id: 4, name: '4' },
-  { id: 3, name: '3' },
-  { id: 2, name: '2' },
-  { id: 1, name: '1' },
-];
+interface MarkRecord {
+  courseCode: string;
+  courseTitle: string;
+  internal: number;
+  external: number;
+  total: number;
+  maxMarks: number;
+}
 
-const mockMarks = [
-  { code: '22AIE301', name: 'Probabilistic Reasoning', internal: 48, external: 45, total: 93 },
-  { code: '22AIE302', name: 'Formal language and Automata', internal: 45, external: 42, total: 87 },
-  { code: '22AIE303', name: 'Database Management Systems', internal: 49, external: 47, total: 96 },
-  { code: '22AIE304', name: 'Deep Learning', internal: 47, external: 48, total: 95 },
-  { code: '22AIE305', name: 'Introduction to Cloud Computing', internal: 44, external: 43, total: 87 },
-  { code: '22AIE458', name: 'Mobile Application Development', internal: 46, external: 44, total: 90 },
-  { code: '23LSE301', name: 'Life Skills for Engineers III', internal: 50, external: 48, total: 98 },
+const marksData: MarkRecord[] = [
+  { courseCode: '23AIE211', courseTitle: 'Operating Systems', internal: 45, external: 42, total: 87, maxMarks: 100 },
+  { courseCode: '23AIE212', courseTitle: 'Database Management', internal: 48, external: 46, total: 94, maxMarks: 100 },
+  { courseCode: '23AIE213', courseTitle: 'Machine Learning', internal: 38, external: 40, total: 78, maxMarks: 100 },
+  { courseCode: '23AIE214', courseTitle: 'Computer Networks', internal: 42, external: 39, total: 81, maxMarks: 100 },
+  { courseCode: '23MAT211', courseTitle: 'Linear Algebra', internal: 49, external: 48, total: 97, maxMarks: 100 },
 ];
 
 export default function Marks() {
-  const [selectedSemester, setSelectedSemester] = useState<string>('Select');
-  const [showTable, setShowTable] = useState(false);
-
-  const handleSemesterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const val = e.target.value;
-    setSelectedSemester(val);
-    setShowTable(val !== 'Select');
-  };
+  const [semester, setSemester] = useState('Semester 3');
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#fff', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-200 rounded-sm">
-        <div className="px-4 py-3 border-b border-gray-100">
-          <h1 className="text-[15px] font-bold uppercase" style={{ color: '#26a69a' }}>
-            STUDENT MARK REPORT
+    <div className="space-y-4 min-h-[calc(100vh-120px)] bg-white">
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-4">
+        <div>
+          <h1 className="text-[15px] font-bold uppercase text-aums-teal">
+            Exam Marks
           </h1>
+          <p className="text-[11px] text-gray-500 font-medium">Internal and External marks breakdown</p>
         </div>
 
-        <div className="p-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 mb-6 text-[13px]">
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Roll No</span>
-              <span className="font-semibold text-gray-800">AV.SC.U4AIE23132</span>
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Name</span>
-              <span className="font-semibold text-gray-800 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Academic Program & Branch</span>
-              <span className="font-semibold text-gray-800 uppercase">B.Tech 2023 AIE</span>
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] font-medium text-aums-teal">Semester</label>
+            <select
+              value={semester}
+              onChange={(e) => setSemester(e.target.value)}
+              className="appearance-none pl-3 pr-9 py-2 border border-gray-200 rounded text-[13px] font-bold focus:outline-none focus:border-aums-teal bg-white min-w-[140px]"
+            >
+              <option>Semester 1</option>
+              <option>Semester 2</option>
+              <option>Semester 3</option>
+              <option>Semester 4</option>
+            </select>
+            <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
           </div>
 
-          <div className="mb-4">
-            <div className="relative inline-block border border-gray-300 rounded px-3 py-1.5 min-w-[300px]">
-              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-[#26a69a] font-medium">Semester</label>
-              <select
-                value={selectedSemester}
-                onChange={handleSemesterChange}
-                className="w-full text-[13px] text-gray-700 bg-transparent border-none outline-none cursor-pointer appearance-none"
-              >
-                <option value="Select">Select</option>
-                {semesters.map(s => (
-                  <option key={s.id} value={s.id}>{s.name}</option>
-                ))}
-              </select>
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                ▼
-              </div>
-            </div>
-          </div>
-
-          {showTable ? (
-            <div className="mt-6 overflow-x-auto border border-gray-300 rounded-sm">
-              <table className="min-w-full text-[12px] border-collapse">
-                <thead>
-                  <tr className="bg-white border-b border-gray-300">
-                    <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Course Code</th>
-                    <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Course Name</th>
-                    <th className="px-3 py-2 text-center font-bold border-r border-gray-300">Internal</th>
-                    <th className="px-3 py-2 text-center font-bold border-r border-gray-300">External</th>
-                    <th className="px-3 py-2 text-center font-bold">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {mockMarks.map((mark, i) => (
-                    <tr key={mark.code} className="border-b border-gray-300">
-                      <td className="px-3 py-2 border-r border-gray-300 font-medium">{mark.code}</td>
-                      <td className="px-3 py-2 border-r border-gray-300">{mark.name}</td>
-                      <td className="px-3 py-2 border-r border-gray-300 text-center">{mark.internal}</td>
-                      <td className="px-3 py-2 border-r border-gray-300 text-center">{mark.external}</td>
-                      <td className="px-3 py-2 text-center font-semibold">{mark.total}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className="p-3 bg-gray-50 border-t border-gray-300">
-                <p className="text-[11px] text-gray-600 font-semibold italic">NP: Not Published</p>
-              </div>
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <p className="text-sm text-gray-600 font-semibold">NP: Not Published</p>
-            </div>
-          )}
+          <button className="flex items-center gap-2 px-4 py-2 text-white text-[12px] font-bold rounded shadow-sm hover:brightness-110 transition-all bg-aums-teal">
+            <Download size={14} /> Download
+          </button>
         </div>
+      </div>
+
+      {/* Info Banner */}
+      <div className="flex items-center gap-3 p-3 bg-blue-50 border border-blue-100 rounded-sm">
+        <Info size={18} className="text-blue-500" />
+        <p className="text-xs text-blue-700 font-medium">Final marks are subject to university moderation and verification.</p>
+      </div>
+
+      {/* Marks Table */}
+      <div className="border border-gray-200 rounded-sm overflow-hidden">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="bg-gray-50 border-b border-gray-200">
+              <th className="px-4 py-3 text-[11px] font-bold text-gray-600 uppercase">Course</th>
+              <th className="px-4 py-3 text-[11px] font-bold text-gray-600 uppercase text-center">Internal (50)</th>
+              <th className="px-4 py-3 text-[11px] font-bold text-gray-600 uppercase text-center">External (50)</th>
+              <th className="px-4 py-3 text-[11px] font-bold text-gray-600 uppercase text-center">Total (100)</th>
+              <th className="px-4 py-3 text-[11px] font-bold text-gray-600 uppercase text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-100">
+            {marksData.map((row, i) => (
+              <tr key={i} className="hover:bg-gray-50/50">
+                <td className="px-4 py-3">
+                  <p className="text-sm font-bold text-gray-800">{row.courseCode}</p>
+                  <p className="text-xs text-gray-500">{row.courseTitle}</p>
+                </td>
+                <td className="px-4 py-3 text-sm text-center font-medium text-gray-700">{row.internal}</td>
+                <td className="px-4 py-3 text-sm text-center font-medium text-gray-700">{row.external}</td>
+                <td className="px-4 py-3 text-sm text-center font-bold text-aums-teal">{row.total}</td>
+                <td className="px-4 py-3 text-center">
+                  <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-[10px] font-bold uppercase">
+                    Pass
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
