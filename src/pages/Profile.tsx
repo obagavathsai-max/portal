@@ -1,107 +1,111 @@
 import React, { useState } from 'react';
+import { User, Mail, Phone, MapPin, Calendar, BookOpen, Edit2, Check, X } from 'lucide-react';
 
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     name: 'ORUGANTI BAGAVATH SAI',
     rollNo: 'AV.SC.U4AIE23132',
-    email: 'av.sc.u4aie23132@av.students.amrita.edu',
-    phone: '+91 81067 36469',
-    department: 'Artificial Intelligence and Data Science',
-    program: 'B.Tech 2023 AIE',
-    batch: '2023-2027'
+    email: 'av.sc.u4aie23132@amrita.edu',
+    phone: '+91 98765 43210',
+    program: 'B.Tech. Artificial Intelligence',
+    batch: '2023-2027',
+    semester: '6',
+    advisor: 'Dr. Ramesh P.',
+    cgpa: '8.75',
+    attendance: '91.5%',
+    credits: '124'
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
-  };
-
   return (
-    <div className="space-y-4">
-      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <h1 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>
-            Personal Information
-          </h1>
+    <div className="max-w-5xl mx-auto space-y-6">
+      {/* Profile Header Card */}
+      <div className="bg-white rounded shadow-md overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h1 className="font-bold text-sm uppercase tracking-wide text-aums-teal">Student Profile</h1>
         </div>
-
         <div className="p-6">
-          {/* Profile header */}
-          <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gray-100">
-            <div
-              className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold"
-              style={{ backgroundColor: '#26a69a' }}
-            >
-              OB
-            </div>
-            <div>
-              <p className="text-base font-bold text-gray-800">{profile.name}</p>
-              <p className="text-sm text-gray-500">{profile.rollNo}</p>
-              <p className="text-xs mt-1" style={{ color: '#f57c00' }}>{profile.program}</p>
-            </div>
-            <div className="ml-auto">
-              {!isEditing ? (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#26a69a' }}
-                >
-                  Edit Profile
-                </button>
-              ) : (
-                <button
-                  onClick={() => setIsEditing(false)}
-                  className="px-4 py-1.5 text-xs font-semibold text-white rounded"
-                  style={{ backgroundColor: '#f57c00' }}
-                >
-                  Save Changes
-                </button>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            {[
-              { label: 'Full Name', key: 'name', type: 'text' },
-              { label: 'Roll Number', key: 'rollNo', type: 'text' },
-              { label: 'University Email', key: 'email', type: 'email' },
-              { label: 'Phone Number', key: 'phone', type: 'tel' },
-              { label: 'Department', key: 'department', type: 'text' },
-              { label: 'Batch', key: 'batch', type: 'text' },
-            ].map(field => (
-              <div key={field.key}>
-                <label className="block text-xs font-semibold text-gray-500 mb-1">{field.label}</label>
-                <input
-                  type={field.type}
-                  name={field.key}
-                  value={profile[field.key as keyof typeof profile]}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm text-gray-700 bg-gray-50 disabled:opacity-80 focus:outline-none"
-                  style={isEditing ? { borderColor: '#26a69a' } : {}}
-                />
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            {/* Avatar */}
+            <div className="relative group">
+              <div className="w-32 h-32 rounded bg-gray-100 flex items-center justify-center border-4 border-white shadow-md overflow-hidden bg-aums-teal">
+                <User size={64} className="text-white/80" />
               </div>
-            ))}
+              <button className="absolute bottom-1 right-1 p-1.5 bg-white rounded-full shadow-lg text-gray-600 hover:text-aums-teal transition-colors">
+                <Edit2 size={14} />
+              </button>
+            </div>
+
+            {/* Info */}
+            <div className="flex-1 space-y-4">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-800">{profile.name}</h2>
+                  <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider">{profile.rollNo}</p>
+                  <p className="text-xs mt-1 text-aums-orange-dark">{profile.program}</p>
+                </div>
+                <button
+                  onClick={() => setIsEditing(!isEditing)}
+                  className={`px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wide transition-all shadow-sm flex items-center gap-2 ${
+                    isEditing ? 'bg-red-50 text-red-600 border border-red-200' : 'text-white bg-aums-teal'
+                  }`}
+                >
+                  {isEditing ? <><X size={14} /> Cancel</> : <><Edit2 size={14} /> Edit Profile</>}
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3">
+                <div className="flex items-center gap-3 text-sm text-gray-600">
+                  <Mail size={16} className="text-aums-teal" />
+                  <span className="font-medium">Email:</span>
+                  <input
+                    type="text"
+                    value={profile.email}
+                    disabled={!isEditing}
+                    className={`bg-transparent outline-none flex-1 py-0.5 border-b border-transparent ${isEditing ? 'border-aums-teal' : ''}`}
+                  />
+                </div>
+                <div className="flex items-center gap-3 text-sm text-gray-600">
+                  <Phone size={16} className="text-aums-teal" />
+                  <span className="font-medium">Phone:</span>
+                  <input
+                    type="text"
+                    value={profile.phone}
+                    disabled={!isEditing}
+                    className={`bg-transparent outline-none flex-1 py-0.5 border-b border-transparent ${isEditing ? 'border-aums-teal' : ''}`}
+                  />
+                </div>
+                <div className="flex items-center gap-3 text-sm text-gray-600">
+                  <BookOpen size={16} className="text-aums-orange-dark" />
+                  <span className="font-medium">Batch:</span>
+                  <span>{profile.batch}</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-gray-600">
+                  <Calendar size={16} className="text-aums-orange-dark" />
+                  <span className="font-medium">Semester:</span>
+                  <span>{profile.semester}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Academic Summary */}
-      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-200" style={{ backgroundColor: '#e0f2f1' }}>
-          <h2 className="font-bold text-sm uppercase tracking-wide" style={{ color: '#26a69a' }}>Academic Summary</h2>
+      {/* Academic Summary Grid */}
+      <div className="bg-white rounded shadow-md overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200 bg-aums-teal-light">
+          <h2 className="font-bold text-sm uppercase tracking-wide text-aums-teal">Academic Summary</h2>
         </div>
         <div className="p-6">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
-              { label: 'Current CGPA', value: '9.41' },
-              { label: 'Credits Earned', value: '105' },
-              { label: 'Current Semester', value: '5' },
-              { label: 'Program', value: 'B.Tech AIE' },
-            ].map(item => (
-              <div key={item.label} className="text-center p-3 border border-gray-100 rounded bg-gray-50">
-                <p className="text-xl font-bold" style={{ color: '#26a69a' }}>{item.value}</p>
-                <p className="text-xs text-gray-500 mt-1">{item.label}</p>
+              { label: 'Current CGPA', value: profile.cgpa, color: 'teal' },
+              { label: 'Attendance %', value: profile.attendance, color: 'teal' },
+              { label: 'Credits Earned', value: profile.credits, color: 'teal' },
+            ].map((item, idx) => (
+              <div key={idx} className="bg-gray-50 p-4 rounded border border-gray-100 flex flex-col items-center justify-center text-center">
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">{item.label}</p>
+                <p className="text-xl font-bold text-aums-teal">{item.value}</p>
               </div>
             ))}
           </div>
