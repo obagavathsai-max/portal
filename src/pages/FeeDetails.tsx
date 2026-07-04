@@ -1,78 +1,65 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+const feeData = [
+  { id: 1, type: 'Tuition Fee', period: '2023-24 Even', dueDate: '20-Jan-2024', amount: 150000, status: 'Paid', ref: 'AMR/2024/00123' },
+  { id: 2, type: 'Hostel Fee', period: '2023-24 Even', dueDate: '20-Jan-2024', amount: 45000, status: 'Paid', ref: 'AMR/2024/H0045' },
+  { id: 3, type: 'Mess Fee', period: '2023-24 Even', dueDate: '20-Jan-2024', amount: 35000, status: 'Paid', ref: 'AMR/2024/M0089' },
+  { id: 4, type: 'Tuition Fee', period: '2023-24 Odd', dueDate: '20-Jul-2023', amount: 150000, status: 'Paid', ref: 'AMR/2023/00987' },
+];
 
 export default function FeeDetails() {
-  const [selectedFeeTerm, setSelectedFeeTerm] = useState<string>('Select');
-
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#f0f0f0', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-300 rounded-sm shadow-sm">
-        <div className="px-5 py-3 border-b border-gray-200">
-          <h1 className="text-base font-bold uppercase" style={{ color: '#26a69a' }}>
-            STUDENTS FEE DETAILS
+    <div className="space-y-4 min-h-[calc(100vh-120px)] bg-aums-bg-alt">
+      <div className="bg-white rounded shadow-md overflow-hidden">
+        <div className="px-4 py-3 border-b border-gray-200">
+          <h1 className="text-base font-bold uppercase text-aums-teal">
+            Fee Payment History
           </h1>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4 mb-6 text-sm">
-            <div className="flex">
-              <span className="text-gray-700 w-32">Roll No</span>
-              <span className="font-semibold text-gray-900">AV.SC.U4AIE23132</span>
-            </div>
-            <div></div>
-            <div className="flex">
-              <span className="text-gray-700 w-32">Name</span>
-            </div>
-
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex">
-              <span className="text-gray-700 w-48">Academic Program & Branch</span>
-            </div>
-            <div className="flex">
-              <span className="font-semibold text-gray-900 uppercase">B.Tech 2023 AIE</span>
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <div className="inline-flex items-baseline border border-gray-300 rounded-sm" style={{ minWidth: '260px' }}>
-              <div className="px-3 pt-1">
-                <label className="text-xs text-gray-500">Fee Term</label>
-              </div>
-              <select
-                value={selectedFeeTerm}
-                onChange={(e) => setSelectedFeeTerm(e.target.value)}
-                className="w-full px-3 pb-2 text-sm text-gray-700 bg-transparent border-none outline-none cursor-pointer"
-              >
-                <option value="Select">Select</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto border border-gray-300 rounded-sm">
-            <table className="min-w-full text-sm">
+        <div className="p-4 bg-white">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-[12px]">
               <thead>
-                <tr style={{ backgroundColor: '#f5f5f5' }}>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Select</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">Fee Section</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-r border-gray-300">currency</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Assigned Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-r border-gray-300">Paid Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700">Amount To Pay</th>
+                <tr className="bg-aums-bg-main">
+                  <th className="border border-gray-200 p-2.5 text-left font-bold text-gray-600">Sl No</th>
+                  <th className="border border-gray-200 p-2.5 text-left font-bold text-gray-600">Fee Component</th>
+                  <th className="border border-gray-200 p-2.5 text-left font-bold text-gray-600">Period</th>
+                  <th className="border border-gray-200 p-2.5 text-center font-bold text-gray-600">Due Date</th>
+                  <th className="border border-gray-200 p-2.5 text-right font-bold text-gray-600">Amount (₹)</th>
+                  <th className="border border-gray-200 p-2.5 text-center font-bold text-gray-600">Status</th>
+                  <th className="border border-gray-200 p-2.5 text-left font-bold text-gray-600">Reference No</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500 text-sm">
-                    No data available in table
-                  </td>
-                </tr>
+                {feeData.map((row, idx) => (
+                  <tr key={row.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="border border-gray-100 p-2.5">{idx + 1}</td>
+                    <td className="border border-gray-100 p-2.5 font-medium">{row.type}</td>
+                    <td className="border border-gray-100 p-2.5 text-gray-500">{row.period}</td>
+                    <td className="border border-gray-100 p-2.5 text-center">{row.dueDate}</td>
+                    <td className="border border-gray-100 p-2.5 text-right font-semibold">
+                      {row.amount.toLocaleString('en-IN')}
+                    </td>
+                    <td className="border border-gray-100 p-2.5 text-center">
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-700 uppercase">
+                        {row.status}
+                      </span>
+                    </td>
+                    <td className="border border-gray-100 p-2.5 text-gray-400 font-mono text-[11px]">{row.ref}</td>
+                  </tr>
+                ))}
               </tbody>
+              <tfoot>
+                <tr className="bg-gray-50 font-bold">
+                  <td colSpan={4} className="border border-gray-200 p-2.5 text-right uppercase text-[10px] text-gray-500 tracking-wider">Total Paid</td>
+                  <td className="border border-gray-200 p-2.5 text-right text-aums-teal text-sm">
+                    ₹3,80,000
+                  </td>
+                  <td colSpan={2} className="border border-gray-200 p-2.5"></td>
+                </tr>
+              </tfoot>
             </table>
-          </div>
-
-          <div className="mt-3 text-xs text-gray-600">
-            Total rows: 0
           </div>
         </div>
       </div>
