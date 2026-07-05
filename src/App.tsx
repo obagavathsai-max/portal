@@ -1,9 +1,4 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -26,7 +21,7 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Layout />}>
+          <Route element={<Layout><Outlet /></Layout>}>
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="attendance" element={<Attendance />} />
@@ -36,7 +31,7 @@ export default function App() {
             <Route path="update-account" element={<UpdateAccount />} />
             <Route path="change-password" element={<ChangePassword />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="abcid-master" element={<ABCIDMaster />} />
+            <Route path="abc-id-master" element={<ABCIDMaster />} />
           </Route>
         </Route>
       </Routes>

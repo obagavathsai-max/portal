@@ -1,110 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import {
-  ChevronRight,
-  ChevronDown,
   Menu,
   X,
-  Mail,
-  Home as HomeIcon,
-  Bell,
-  Globe,
+  ChevronDown,
+  ChevronRight,
+  LayoutDashboard,
+  Calendar,
+  GraduationCap,
+  FileText,
   User,
   LogOut,
-  Lock,
-  Info,
-  Power,
-  Search,
-  Heart,
-  Calendar,
-  Library as LibraryIcon,
-  ClipboardList,
-  ShoppingCart,
-  Sprout,
-  Gem,
-  Briefcase,
-  Send
+  Bell,
+  Settings,
+  HelpCircle,
+  CreditCard,
+  Key,
+  Database
 } from 'lucide-react';
 
-interface MenuItem {
-  name: string;
+interface NavItem {
+  id: string;
+  label: string;
+  icon: React.ReactNode;
   path?: string;
-  icon: React.ElementType;
-  children?: { name: string; path: string }[];
+  subItems?: { id: string; label: string; path: string }[];
 }
 
-const menuItems: MenuItem[] = [
+const navItems: NavItem[] = [
+  { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} />, path: '/dashboard' },
+  { id: 'attendance', label: 'Attendance', icon: <Calendar size={18} />, path: '/attendance' },
   {
-    name: 'Registration',
-    icon: ClipboardList,
-    children: [
-      { name: 'Registered Courses', path: '/dashboard' },
+    id: 'exam-scores',
+    label: 'Exam Scores',
+    icon: <FileText size={18} />,
+    subItems: [
+      { id: 'grades', label: 'Grades', path: '/grades' },
+      { id: 'marks', label: 'Marks', path: '/marks' },
     ]
   },
+  { id: 'fees', label: 'Fee Details', icon: <CreditCard size={18} />, path: '/fee-details' },
+  { id: 'abc-id', label: 'ABC ID Master', icon: <Database size={18} />, path: '/abc-id-master' },
   {
-    name: 'Exam Scores',
-    icon: ShoppingCart,
-    children: [
-      { name: 'View Attendance', path: '/attendance' },
-      { name: 'View Marks', path: '/marks' },
-      { name: 'View Grades', path: '/grades' },
-    ]
-  },
-  {
-    name: 'Fee',
-    icon: Sprout,
-    children: [
-      { name: 'View Fee Details', path: '/fee-details' },
-    ]
-  },
-  {
-    name: 'Dues',
-    icon: Gem,
-    children: [
-      { name: 'Dues Details', path: '/dashboard' },
-    ]
-  },
-  {
-    name: 'Personal',
-    icon: Briefcase,
-    children: [
-      { name: 'Update Account', path: '/update-account' },
-      { name: 'Student Profile', path: '/profile' },
-      { name: 'ABCID Master', path: '/abcid-master' },
-    ]
-  },
-  {
-    name: 'Library',
-    icon: Send,
-    children: [
-      { name: 'Library Search', path: '/dashboard' },
-    ]
-  },
-  {
-    name: 'OPAC',
-    icon: Briefcase,
-    children: [
-      { name: 'OPAC Search', path: '/dashboard' },
+    id: 'settings',
+    label: 'Settings',
+    icon: <Settings size={18} />,
+    subItems: [
+      { id: 'update-account', label: 'Update Account', path: '/update-account' },
+      { id: 'change-password', label: 'Change Password', path: '/change-password' },
     ]
   },
 ];
 
-export default function Layout() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [expandedMenus, setExpandedMenus] = useState<string[]>(['Personal']);
-  const [currentTime, setCurrentTime] = useState(new Date());
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [expandedItems, setExpandedItems] = useState<string[]>(['exam-scores', 'settings']);
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const toggleMenu = (name: string) => {
-    setExpandedMenus(prev =>
-      prev.includes(name) ? prev.filter(m => m !== name) : [...prev, name]
+  const toggleExpand = (id: string) => {
+    setExpandedItems(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
     );
   };
 
@@ -113,205 +69,128 @@ export default function Layout() {
     navigate('/login');
   };
 
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' });
-  };
-
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-  };
-
-  const isChildActive = (item: MenuItem) => {
-    return item.children?.some(child => location.pathname === child.path);
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: '#f5f5f5' }}>
-      {/* TOP HEADER BAR */}
-      <header style={{ backgroundColor: '#26a69a' }} className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0">
-        {/* Left: Logo */}
-        <div className="flex items-center h-full py-2">
-          <img src="/custom-logo.png" alt="Logo" className="h-[40px] object-contain ml-2" />
+    <div className="min-h-screen flex flex-col font-sans bg-aums-bg-main">
+      {/* Top Header */}
+      <header className="h-14 flex items-center justify-between px-3 z-50 shadow-md shrink-0 bg-aums-teal">
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-1 hover:bg-white/10 rounded-md transition-colors text-white"
+          >
+            <Menu size={24} />
+          </button>
+          <div className="flex items-center gap-2">
+            <img src="/exact-logo.png" alt="Amrita" className="h-8 brightness-0 invert" />
+          </div>
         </div>
 
-        {/* Center/Right: welcome + datetime + icons */}
-        <div className="flex items-center gap-4">
-          <div className="hidden md:flex flex-col items-end text-white pr-3 border-r border-white/30">
-            <span className="text-[11px] font-semibold">Welcome ORUGANTI BAGAVATH SAI</span>
-            <span className="text-[10px] font-normal text-white/95">{formatDate(currentTime)} {formatTime(currentTime)}</span>
+        <div className="flex items-center gap-3">
+          <div className="hidden md:flex flex-col items-end mr-2">
+            <span className="text-white text-[13px] font-bold leading-tight">AV.SC.U4AIE23132</span>
+            <span className="text-white/80 text-[11px] leading-tight">NIYATHI S RAJESH</span>
           </div>
-
-          {/* Right: action icons */}
-          <div className="flex items-center gap-0">
-            {[Mail, HomeIcon, LibraryIcon, Calendar, Bell, Globe].map((Icon, i) => (
-              <button key={i} className="w-8 h-8 rounded flex items-center justify-center text-white hover:bg-white/10 transition-colors">
-                <Icon size={16} strokeWidth={2} />
-              </button>
-            ))}
-            <div className="relative ml-1">
-              <div
-                onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-1 text-white hover:bg-white/10 px-2 py-1 rounded cursor-pointer"
-              >
-                <User size={18} strokeWidth={2} />
-                <ChevronDown size={14} className={`text-white transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
-              </div>
-
-              {/* User Dropdown */}
-              {userMenuOpen && (
-                <>
-                  <div
-                    className="fixed inset-0 z-40"
-                    onClick={() => setUserMenuOpen(false)}
-                  />
-                  <div className="absolute right-0 mt-1 w-48 bg-white rounded shadow-xl z-50 py-1 overflow-hidden">
-                    <button
-                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      onClick={() => { navigate('/change-password'); setUserMenuOpen(false); }}
-                    >
-                      <Lock size={16} className="text-gray-500" />
-                      <span>Password</span>
-                    </button>
-                    <button
-                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      onClick={() => { setUserMenuOpen(false); }}
-                    >
-                      <Info size={16} className="text-gray-500" />
-                      <span>About Us</span>
-                    </button>
-                    <button
-                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      onClick={handleLogout}
-                    >
-                      <Power size={16} className="text-gray-500" />
-                      <span>Log Out</span>
-                    </button>
-                  </div>
-                </>
-              )}
+          <button className="p-2 text-white/90 hover:text-white transition-colors">
+            <Bell size={20} />
+          </button>
+          <Link to="/profile" className="p-1 hover:bg-white/10 rounded-full transition-colors">
+            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-sm">
+              N
             </div>
-          </div>
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="p-2 text-white/90 hover:text-white transition-colors"
+            title="Logout"
+          >
+            <LogOut size={20} />
+          </button>
         </div>
       </header>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* MOBILE OVERLAY */}
-        {sidebarOpen && (
-          <div
-            className="fixed inset-0 z-30 bg-black/40 lg:hidden"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
-
-        {/* SIDEBAR */}
+        {/* Sidebar */}
         <aside
-          className={`
-            fixed top-14 bottom-0 left-0 z-40 w-[180px] shadow-lg flex flex-col
-            transform transition-transform duration-200
-            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-            lg:translate-x-0 lg:static lg:top-0 lg:h-auto
-          `}
-          style={{ backgroundColor: '#ffa100' }}
+          className={`shrink-0 transition-all duration-300 ease-in-out z-40 flex flex-col bg-aums-orange ${sidebarOpen ? 'w-64' : 'w-0 overflow-hidden'
+            }`}
         >
-          <div className="flex items-center justify-end p-2 px-3">
-            <button className="bg-[#cca300] p-1 rounded-sm shadow-inner" onClick={() => setSidebarOpen(false)}>
-              <Menu size={16} className="text-white" />
+          {/* Sidebar Top Controls */}
+          <div className="p-2 flex justify-end">
+            <button className="bg-aums-orange-dark p-1 rounded-sm shadow-inner text-white" onClick={() => setSidebarOpen(false)}>
+              <ChevronDown size={14} className="rotate-90" />
             </button>
           </div>
 
-          {/* Main / LMS tabs */}
-          <div className="flex px-1 gap-1 shrink-0 mb-3">
-            <button className="flex-1 py-2 text-[11px] font-bold text-gray-800 flex items-center justify-center gap-2 bg-white rounded-sm shadow-sm">
-              <div className="grid grid-cols-2 gap-[2px]">
-                <div className="w-1 h-1 bg-gray-600"></div>
-                <div className="w-1 h-1 bg-gray-600"></div>
-                <div className="w-1 h-1 bg-gray-600"></div>
-                <div className="w-1 h-1 bg-gray-600"></div>
-              </div>
-              Main
-            </button>
-            <button className="flex-1 py-2 text-[11px] font-bold text-white flex items-center justify-center gap-2 hover:bg-white/10 rounded-sm">
-              <div className="grid grid-cols-2 gap-[2px]">
-                <div className="w-1 h-1 bg-white"></div>
-                <div className="w-1 h-1 bg-white"></div>
-                <div className="w-1 h-1 bg-white"></div>
-                <div className="w-1 h-1 bg-white"></div>
-              </div>
-              LMS
-            </button>
-          </div>
-
-          {/* MAIN MENU label */}
-          <div className="px-3 pb-1">
-            <p className="text-[10px] font-bold text-white uppercase tracking-wider opacity-90">MAIN MENU</p>
-          </div>
-
-          {/* Nav items */}
-          <nav className="flex-1 overflow-y-auto mt-2">
-            {menuItems.map((item) => {
-              const isExpanded = expandedMenus.includes(item.name);
-              const childActive = isChildActive(item);
-
-              return (
-                <div key={item.name} className="relative">
-                  <button
-                    onClick={() => toggleMenu(item.name)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 text-[13px] font-medium transition-colors text-white ${isExpanded ? 'bg-[#e91e63]' : 'hover:bg-[#d06900]'}`}
+          <nav className="flex-1 overflow-y-auto custom-scrollbar pt-2">
+            {navItems.map((item) => (
+              <div key={item.id}>
+                {item.subItems ? (
+                  <div>
+                    <button
+                      onClick={() => toggleExpand(item.id)}
+                      className={`w-full flex items-center justify-between px-3 py-2.5 text-[13px] font-medium transition-colors text-white ${expandedItems.includes(item.id) ? 'bg-aums-pink' : 'hover:bg-aums-orange-dark'}`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="opacity-80">{item.icon}</span>
+                        <span>{item.label}</span>
+                      </div>
+                      {expandedItems.includes(item.id) ? (
+                        <ChevronDown size={14} className="opacity-60" />
+                      ) : (
+                        <ChevronRight size={14} className="opacity-60" />
+                      )}
+                    </button>
+                    {expandedItems.includes(item.id) && (
+                      <div className="bg-aums-pink py-0.5">
+                        {item.subItems.map((sub) => (
+                          <Link
+                            key={sub.id}
+                            to={sub.path}
+                            className={`flex items-center gap-3 pl-11 pr-3 py-2 text-[12.5px] transition-colors ${isActive(sub.path)
+                                ? 'bg-white/20 text-white font-bold'
+                                : 'text-white/90 hover:bg-white/10'
+                              }`}
+                          >
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    to={item.path || '#'}
+                    className={`flex items-center gap-3 px-3 py-2.5 text-[13px] font-medium transition-colors ${isActive(item.path || '')
+                        ? 'bg-white/20 text-white font-bold'
+                        : 'text-white hover:bg-aums-orange-dark'
+                      }`}
                   >
-                    <span className="flex items-center gap-3">
-                      <item.icon size={15} className="text-white" />
-                      {item.name}
-                    </span>
-                    <span className={`text-[11px] transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}>
-                      &lt;
-                    </span>
-                  </button>
-
-                  {isExpanded && item.children && (
-                    <div className="bg-[#e91e63] py-0.5">
-                      {item.children.map((child) => (
-                        <NavLink
-                          key={child.name}
-                          to={child.path}
-                          className={({ isActive }) =>
-                            `flex items-center gap-3 pl-3 pr-3 py-2.5 text-[12px] font-medium transition-colors ${isActive ? 'text-white' : 'text-white hover:bg-black/10'
-                            }`
-                          }
-                          onClick={() => setSidebarOpen(false)}
-                        >
-                          <Heart size={14} className="fill-white text-white" />
-                          {child.name}
-                        </NavLink>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-
-            {/* FAVOURITES */}
-            <div className="px-3 pt-6 pb-1">
-              <p className="text-[10px] font-bold text-white uppercase tracking-wider opacity-90">FAVOURITES</p>
-            </div>
+                    <span className="opacity-80">{item.icon}</span>
+                    <span>{item.label}</span>
+                  </Link>
+                )}
+              </div>
+            ))}
           </nav>
 
-          {/* Search bar at bottom */}
-          <div className="p-4 bg-[#ffa100] mt-auto">
-            <div className="flex items-center gap-2 border-b border-white/50 pb-1">
-              <input
-                type="text"
-                placeholder="Ctrl + i to search..."
-                className="bg-transparent text-[12px] text-white placeholder-white/70 outline-none w-full"
-              />
-              <Search size={18} className="text-white shrink-0" strokeWidth={1.5} />
+          {/* Quick Support Sidebar Footer */}
+          <div className="p-4 bg-aums-orange mt-auto">
+            <h3 className="text-white text-[11px] font-bold uppercase tracking-wider mb-3 opacity-80">Quick Support</h3>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-white text-[11px]">
+                <HelpCircle size={14} className="opacity-70" />
+                <span>Help Desk</span>
+              </div>
             </div>
           </div>
         </aside>
 
-        {/* MAIN CONTENT */}
-        <main className="flex-1 overflow-y-auto bg-white">
-          <div className="p-4 sm:p-5 lg:p-6 min-h-full">
-            <Outlet />
+        {/* Main Content */}
+        <main className="flex-1 overflow-y-auto bg-aums-bg-main">
+          <div className="p-4 md:p-6 max-w-7xl mx-auto">
+            {children}
           </div>
         </main>
       </div>

@@ -1,112 +1,114 @@
 import React, { useState } from 'react';
+import { Search, Printer, Download } from 'lucide-react';
 
-const semesters = [
-  { id: 5, name: '5' },
-  { id: 4, name: '4' },
-  { id: 3, name: '3' },
-  { id: 2, name: '2' },
-  { id: 1, name: '1' },
-];
+const semesters = ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', 'Semester 5', 'Semester 6'];
 
-const mockMarks = [
-  { code: '22AIE301', name: 'Probabilistic Reasoning', internal: 48, external: 45, total: 93 },
-  { code: '22AIE302', name: 'Formal language and Automata', internal: 45, external: 42, total: 87 },
-  { code: '22AIE303', name: 'Database Management Systems', internal: 49, external: 47, total: 96 },
-  { code: '22AIE304', name: 'Deep Learning', internal: 47, external: 48, total: 95 },
-  { code: '22AIE305', name: 'Introduction to Cloud Computing', internal: 44, external: 43, total: 87 },
-  { code: '22AIE458', name: 'Mobile Application Development', internal: 46, external: 44, total: 90 },
-  { code: '23LSE301', name: 'Life Skills for Engineers III', internal: 50, external: 48, total: 98 },
-];
+const marksData: Record<string, any[]> = {
+  'Semester 6': [
+    { code: '23AIE311', course: 'Computer Vision', type: 'Continuous Assessment', marks: '45/50', weightage: '50%', status: 'Published' },
+    { code: '23AIE312', course: 'Deep Learning', type: 'Continuous Assessment', marks: '42/50', weightage: '50%', status: 'Published' },
+    { code: '23AIE313', course: 'Reinforcement Learning', type: 'Continuous Assessment', marks: '48/50', weightage: '50%', status: 'Published' },
+    { code: '23AIE314', course: 'Natural Language Processing', type: 'Continuous Assessment', marks: '38/50', weightage: '50%', status: 'Published' },
+    { code: '23MAT311', course: 'Optimization Techniques', type: 'Continuous Assessment', marks: '44/50', weightage: '50%', status: 'Published' },
+  ],
+};
 
 export default function Marks() {
-  const [selectedSemester, setSelectedSemester] = useState<string>('Select');
-  const [showTable, setShowTable] = useState(false);
+  const [semester, setSemester] = useState('');
+  const [data, setData] = useState<any[]>([]);
 
-  const handleSemesterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const val = e.target.value;
-    setSelectedSemester(val);
-    setShowTable(val !== 'Select');
+  const handleSearch = () => {
+    if (semester) {
+      setData(marksData[semester] || []);
+    }
   };
 
   return (
-    <div className="space-y-4" style={{ backgroundColor: '#fff', minHeight: 'calc(100vh - 120px)' }}>
-      <div className="bg-white border border-gray-200 rounded-sm">
-        <div className="px-4 py-3 border-b border-gray-100">
-          <h1 className="text-[15px] font-bold uppercase" style={{ color: '#26a69a' }}>
-            STUDENT MARK REPORT
+    <div className="space-y-4 bg-white min-h-[calc(100vh-120px)]">
+      {/* Search Header */}
+      <div className="bg-white p-4 rounded-sm shadow-sm border border-gray-200">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="grid grid-cols-2 gap-[2px]">
+            <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+            <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+            <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+            <div className="w-1.5 h-1.5 bg-aums-teal"></div>
+          </div>
+          <h1 className="text-[15px] font-bold uppercase text-aums-teal">
+            View Marks
           </h1>
         </div>
 
-        <div className="p-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 mb-6 text-[13px]">
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Roll No</span>
-              <span className="font-semibold text-gray-800">AV.SC.U4AIE23132</span>
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Name</span>
-              <span className="font-semibold text-gray-800 uppercase">ORUGANTI BAGAVATH SAI</span>
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-500">Academic Program & Branch</span>
-              <span className="font-semibold text-gray-800 uppercase">B.Tech 2023 AIE</span>
-            </div>
+        <div className="flex flex-wrap items-end gap-4">
+          <div className="w-full max-w-xs relative pt-2">
+            <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-aums-teal font-medium">Semester</label>
+            <select
+              value={semester}
+              onChange={(e) => setSemester(e.target.value)}
+              className="w-full border border-gray-300 rounded-sm px-3 py-1.5 text-sm focus:outline-none focus:border-aums-teal"
+            >
+              <option value="">-- Select --</option>
+              {semesters.map(s => <option key={s} value={s}>{s}</option>)}
+            </select>
           </div>
-
-          <div className="mb-4">
-            <div className="relative inline-block border border-gray-300 rounded px-3 py-1.5 min-w-[300px]">
-              <label className="absolute -top-2 left-2 bg-white px-1 text-[10px] text-[#26a69a] font-medium">Semester</label>
-              <select
-                value={selectedSemester}
-                onChange={handleSemesterChange}
-                className="w-full text-[13px] text-gray-700 bg-transparent border-none outline-none cursor-pointer appearance-none"
-              >
-                <option value="Select">Select</option>
-                {semesters.map(s => (
-                  <option key={s.id} value={s.id}>{s.name}</option>
-                ))}
-              </select>
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                ▼
-              </div>
-            </div>
+          <button
+            onClick={handleSearch}
+            className="flex items-center gap-2 text-white px-6 py-1.5 rounded-sm text-sm font-bold shadow-sm transition-opacity hover:opacity-90 bg-aums-teal"
+          >
+            <Search size={16} /> SEARCH
+          </button>
+          <div className="flex gap-2 ml-auto">
+            <button className="p-2 border border-gray-300 rounded-sm text-gray-600 hover:bg-gray-50 shadow-sm">
+              <Printer size={18} />
+            </button>
+            <button className="p-2 border border-gray-300 rounded-sm text-gray-600 hover:bg-gray-50 shadow-sm">
+              <Download size={18} />
+            </button>
           </div>
-
-          {showTable ? (
-            <div className="mt-6 overflow-x-auto border border-gray-300 rounded-sm">
-              <table className="min-w-full text-[12px] border-collapse">
-                <thead>
-                  <tr className="bg-white border-b border-gray-300">
-                    <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Course Code</th>
-                    <th className="px-3 py-2 text-left font-bold border-r border-gray-300">Course Name</th>
-                    <th className="px-3 py-2 text-center font-bold border-r border-gray-300">Internal</th>
-                    <th className="px-3 py-2 text-center font-bold border-r border-gray-300">External</th>
-                    <th className="px-3 py-2 text-center font-bold">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {mockMarks.map((mark, i) => (
-                    <tr key={mark.code} className="border-b border-gray-300">
-                      <td className="px-3 py-2 border-r border-gray-300 font-medium">{mark.code}</td>
-                      <td className="px-3 py-2 border-r border-gray-300">{mark.name}</td>
-                      <td className="px-3 py-2 border-r border-gray-300 text-center">{mark.internal}</td>
-                      <td className="px-3 py-2 border-r border-gray-300 text-center">{mark.external}</td>
-                      <td className="px-3 py-2 text-center font-semibold">{mark.total}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className="p-3 bg-gray-50 border-t border-gray-300">
-                <p className="text-[11px] text-gray-600 font-semibold italic">NP: Not Published</p>
-              </div>
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <p className="text-sm text-gray-600 font-semibold">NP: Not Published</p>
-            </div>
-          )}
         </div>
       </div>
+
+      {/* Results Table */}
+      {data.length > 0 && (
+        <div className="bg-white rounded-sm shadow-sm border border-gray-200 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-[13px]">
+              <thead>
+                <tr className="bg-gray-100 text-gray-700 border-b border-gray-200">
+                  <th className="px-4 py-3 font-bold">Course Code</th>
+                  <th className="px-4 py-3 font-bold">Course Name</th>
+                  <th className="px-4 py-3 font-bold">Assessment Type</th>
+                  <th className="px-4 py-3 font-bold">Marks</th>
+                  <th className="px-4 py-3 font-bold">Weightage</th>
+                  <th className="px-4 py-3 font-bold">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {data.map((row, i) => (
+                  <tr key={i} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-4 py-3 font-medium text-gray-900">{row.code}</td>
+                    <td className="px-4 py-3">{row.course}</td>
+                    <td className="px-4 py-3 text-gray-600">{row.type}</td>
+                    <td className="px-4 py-3 font-bold text-aums-teal">{row.marks}</td>
+                    <td className="px-4 py-3 text-gray-600">{row.weightage}</td>
+                    <td className="px-4 py-3">
+                      <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded-full text-[11px] font-bold">
+                        {row.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {data.length === 0 && semester && (
+        <div className="bg-gray-50 p-10 text-center rounded-sm border border-dashed border-gray-300">
+          <p className="text-gray-500 font-medium">No marks published for the selected semester yet.</p>
+        </div>
+      )}
     </div>
   );
 }
