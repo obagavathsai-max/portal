@@ -4,15 +4,23 @@ test.describe('Portal Branding and Data Verification', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate and Login
     await page.goto('http://localhost:3000/login');
-    await page.fill('input[type="text"]', 'av.sc.u4aie23132');
-    await page.fill('input[type="password"]', 'niyathi@0125');
-    await page.click('button:has-text("Login")');
+    // In our refactored Login.tsx, the button text is uppercase "LOGIN"
+    await page.fill('#username', 'av.sc.u4aie23132');
+    await page.fill('#password', 'niyathi@0125');
+    await page.click('button:has-text("LOGIN")');
     await expect(page).toHaveURL('http://localhost:3000/dashboard');
   });
 
   test('Check Attendance Branding and Data', async ({ page }) => {
+    // NavLinks in Layout.tsx are not just <a> tags anymore if they are inside expanded menus
+    // 'Exam Scores' needs to be expanded
+    await page.click('button:has-text("Exam Scores")');
     await page.click('a[href="/attendance"]');
     await expect(page).toHaveURL('http://localhost:3000/attendance');
+
+    // Select Semester 6 and click Attendance Summary to show table
+    await page.selectOption('select', '6');
+    await page.click('button:has-text("Attendance Summary")');
 
     // Check Teal header color (#26a69a)
     const header = page.locator('thead tr').first();
@@ -21,16 +29,18 @@ test.describe('Portal Branding and Data Verification', () => {
     expect(bgColor).toBe('rgb(38, 166, 154)');
 
     // Check Attendance Percentage color (#f05050)
-    const percentageCell = page.locator('table tbody tr').first().locator('td').nth(5);
+    // In Attendance.tsx, percentage is the 9th column (index 8)
+    const percentageCell = page.locator('table tbody tr').first().locator('td').nth(8);
     const cellBgColor = await percentageCell.evaluate((el) => window.getComputedStyle(el).backgroundColor);
     // rgb(240, 80, 80) is #f05050
     expect(cellBgColor).toBe('rgb(240, 80, 80)');
 
-    // Check course from image
-    await expect(page.locator('text=Principles of Economics')).toBeVisible();
+    // Check course from our mock data
+    await expect(page.locator('text=Software Engineering')).toBeVisible();
   });
 
   test('Check Grades for A grades', async ({ page }) => {
+    await page.click('button:has-text("Exam Scores")');
     await page.click('a[href="/grades"]');
     await expect(page).toHaveURL('http://localhost:3000/grades');
 
